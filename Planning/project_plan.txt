@@ -1,0 +1,67 @@
+Pages:
+
+Registration
+	- Provide SSn Number
+	- Verify and further create account
+		- Register via google
+		- register via email
+	- Congrats page
+
+Survey:
+	- 13 QUestions
+	- Keep track of completed questions	
+	- calculate score
+	- Fetch Risk and load image
+	- Submit final score 
+
+
+Dashboard:
+	- Credit Cards:
+		- Fetch all cards for a user
+		- Add / Remove cards
+		- Fetch outstanding bill
+		- Pay bill
+
+	- Add Credit card
+		- Add card
+
+	- Credit Card Payment
+		- Full/ min amount payment
+		- Update transaction history
+		- Update points earned
+		- Update balance bill amount
+
+	- Transaction History 
+		- Fetch transaction history list
+
+
+
+
+
+DB 
+	User
+	user_id, Username, email, ssn, password, provider, mobile_number, log_in_status
+
+	User_risk_score
+	user_id, final_score, risk_profile
+
+	Credit_Cards
+	user_id, card_id, card_number, cvv, due_date
+
+	transactions
+	user_id, card_id, amount_paid, payment_date, transaction_type, rewards_earned
+
+	reward_summary
+	user_id, total_points, points_invested, 
+
+	portfolio_funds
+	fund_id, fund_name, 
+
+	investment_history
+	user_id, fund_id, monery_invested, units_purchased
+
+
+
+
+
+
