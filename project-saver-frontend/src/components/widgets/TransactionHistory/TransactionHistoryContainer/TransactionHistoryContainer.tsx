@@ -27,19 +27,19 @@ const TransactionHistoryContainer: React.FC<TransactionHistoryContainerProps> = 
     }
 
     return (
-        <div className="card-dashboard-transaction-history-container-main">
-            <div className="card-dashboard-transaction-history-container-heading">
-                <img className="card-dashboard-transaction-history-container-heading-icon" src={TransactionHistoryIcon} />
-                <label className="card-dashboard-transaction-history-container-title">Transaction History</label>
+        <div className="transaction-history-container-main">
+            <div className="transaction-history-container-heading">
+                <img className="transaction-history-container-heading-icon" src={TransactionHistoryIcon} />
+                <label className="transaction-history-container-title">Transaction History</label>
             </div>
 
-            <div className="card-dashboard-transaction-history-container-content">
+            <div className="transaction-history-container-content">
                 <TransactionHistoryRow transactionHistoryRowModel={transactionHistoryRowModel} />
                 <TransactionHistoryRow transactionHistoryRowModel={transactionHistoryRowModel} />
                 <TransactionHistoryRow transactionHistoryRowModel={transactionHistoryRowModel} />
             </div>
 
-            <div className="card-dashboard-transaction-history-container-footer">
+            <div className="transaction-history-container-footer">
                 <RoundButton roundButtonModel={viewMoreButton}></RoundButton>
             </div>
 
