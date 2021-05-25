@@ -1,0 +1,40 @@
+.card-dashboard-transaction-history-container-main {
+    display: block;
+    padding: 10px;
+    width: fit-content;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+}
+
+.card-dashboard-transaction-history-container-heading {
+    display: flex;
+    flex-direction: row;
+    margin-left: 5px;
+    align-items: center;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.card-dashboard-transaction-history-container-heading-icon {
+    display: block;
+    height: 20px;
+    width: auto;
+    margin-right: 8px;
+}
+
+.card-dashboard-transaction-history-container-title {
+    font-size: 17px;
+    font-weight: 600;
+}
+
+.card-dashboard-transaction-history-container-content {
+    padding-left: 20px;
+    margin-bottom: 30px;
+}
+
+.card-dashboard-transaction-history-container-footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-bottom: 8px;
+}

@@ -13,7 +13,7 @@ const InfoPair = ({ value1, value2, textColor1, textColor2, fontWeight1, fontWei
 InfoPair.defaultProps = {
     textColor1: COLORS.backgroundPage,
     textColor2: COLORS.text,
-    fontWeight1: 600,
+    fontWeight1: 500,
     fontWeight2: 600
 }
 

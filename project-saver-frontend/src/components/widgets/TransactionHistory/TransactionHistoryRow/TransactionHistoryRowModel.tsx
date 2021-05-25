@@ -1,4 +1,4 @@
-export interface TransactionHistoryModel {
+export interface TransactionHistoryRowModel {
     cardCompany: String;
     cardNumber: String;
     amountPaid: String;
@@ -7,6 +7,6 @@ export interface TransactionHistoryModel {
     pointsEarned: String;
 }
 
-export interface TransactionHistoryProps {
-    transactionHistoryModel: TransactionHistoryModel
+export interface TransactionHistoryRowProps {
+    transactionHistoryRowModel: TransactionHistoryRowModel
 }
