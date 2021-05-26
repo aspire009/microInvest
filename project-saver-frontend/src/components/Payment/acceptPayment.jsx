@@ -1,8 +1,11 @@
 import axios from "axios";
 import logo from "../../logo.svg";
-function AcceptPayment() {
+import Button from '@material-ui/core/Button'
+import PaymentIcon from '@material-ui/icons/Payment';
 
-    function loadScript(src) {
+const AcceptPayment = () => {
+
+    const loadScript = (src) => {
         console.log('calling loadscript method')
         return new Promise((resolve) => {
           const script = document.createElement("script");
@@ -30,7 +33,7 @@ function AcceptPayment() {
         console.log('After loadScript method')
     
         // creating a new order in backend save order id is pending
-        const result = await axios.post("http://localhost:8082/order");
+        const result = await axios.post("http://localhost:8080/order");
         console.log('After api call method')
         if (!result) {
           alert("Server error. Are you online?");
@@ -84,12 +87,10 @@ function AcceptPayment() {
         const paymentObject = new window.Razorpay(options);
         paymentObject.open();
       }
+
     return(
-        <div className = "container">
-             <p>Buy React now!</p>
-            <button className="App-link" onClick={displayRazorpay}>
-                Pay ₹500
-            </button>
+        <div>
+            <Button onClick = {displayRazorpay} startIcon = {<PaymentIcon/>} variant="outlined" color="primary">Pay now</Button>
         </div>
     )
 }

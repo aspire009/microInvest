@@ -42,6 +42,7 @@ export const useStyles = makeStyles((theme) => ({
 
 
 export const rewardPointsContainerModel: RewardPointsContainerModel = {
+    displayName:'vaibhav',
     pointsEarned: '45',
     pointsInvested: '30',
     upcomingMilestone: '60',

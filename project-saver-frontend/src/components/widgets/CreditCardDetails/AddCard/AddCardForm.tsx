@@ -1,7 +1,6 @@
 
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button'
 import './addCard.css';
 import Backdrop from '../DeletePopup/BackDrop'
 
@@ -24,10 +23,10 @@ const AddCardForm = (props: { addCardPopup: boolean, closePopup: () => void }) =
                     <TextField id="outlined-basic" label="card-number" variant="outlined" />
                     <TextField id="outlined-basic" label="bank-name" variant="outlined" />
                     <TextField id="outlined-basic" label="cvv" variant="outlined" />
-                   
+
                     <button className='btn --alt' onClick={() => { }}>Add</button>
                     <button className='btn' onClick={props.closePopup}>Cancel</button>
-                    
+
                 </form>
             </div>
         </div>
