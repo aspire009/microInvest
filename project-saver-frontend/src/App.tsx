@@ -7,6 +7,7 @@ import TransactionHistoryContainer from './components/widgets/TransactionHistory
 import { TransactionHistoryContainerModel } from './components/widgets/TransactionHistory/TransactionHistoryContainer/TransactionHistoryContainerModel';
 import CreditCardsContainer from './components/widgets/CreditCardDetails/CreditCardsContainer';
 import Drawer from './components/widgets/DashBoard/DashBoard'
+import { Dashboard } from '@material-ui/icons';
 
 function App() {
 
@@ -16,8 +17,8 @@ function App() {
 
   return (
     <div className="App">
-      <TransactionHistoryContainer transactionHistoryContainerModel={transactionHistoryContainerModel}></TransactionHistoryContainer>
-      
+      {/* <TransactionHistoryContainer transactionHistoryContainerModel={transactionHistoryContainerModel}></TransactionHistoryContainer> */}
+      <Drawer/>
     </div>
   );
 }
