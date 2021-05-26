@@ -3,6 +3,7 @@ export interface RewardPointsContainerModel {
     pointsInvested: String;
     upcomingMilestone: String;
     amountLeft: String;
+    displayName: String;
 }
 
 export interface RewardPointsContainerProps {

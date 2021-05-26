@@ -16,11 +16,11 @@ const TransactionHistoryContainer: React.FC<TransactionHistoryContainerProps> = 
         pointsEarned: '1000',
         transactionType: 'Full Amount'
     }
-    
+
 
     const viewMoreButton: RoundButtonModel = {
         backgroundColor: '#FFF',
-        border: '3px solid ' + COLORS.blueMedium,
+        border: '2.5px solid ' + COLORS.blueMedium,
         text: 'View More',
         textColor: COLORS.blueMedium,
         onClickFunction: undefined
