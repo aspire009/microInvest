@@ -12,8 +12,10 @@ const CreditCardsContainer = () => {
     const creditCards = CARDS;
     return (
         <Card>
+            <div className="credit-card-header">
             <img className="credit-card-icon" src={CreditCardIcon} />
             <label className="credit-card-title">Credit Cards</label>
+            </div>
             <List>
                 {creditCards.map((card) => {
                     return (<CardContent className="cards">

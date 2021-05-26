@@ -6,6 +6,7 @@ import TransactionHistoryRow from './components/widgets/TransactionHistory/Trans
 import TransactionHistoryContainer from './components/widgets/TransactionHistory/TransactionHistoryContainer/TransactionHistoryContainer';
 import { TransactionHistoryContainerModel } from './components/widgets/TransactionHistory/TransactionHistoryContainer/TransactionHistoryContainerModel';
 import CreditCardsContainer from './components/widgets/CreditCardDetails/CreditCardsContainer';
+import Drawer from './components/widgets/DashBoard/DashBoard'
 
 function App() {
 
@@ -16,6 +17,7 @@ function App() {
   return (
     <div className="App">
       <TransactionHistoryContainer transactionHistoryContainerModel={transactionHistoryContainerModel}></TransactionHistoryContainer>
+      
     </div>
   );
 }
