@@ -6,7 +6,7 @@ import Carddetail from './CardDetail';
 import './creditCardStyles.css';
 import Card from '@material-ui/core/Card';
 import CreditCardIcon from '../../../assets/images/credit-card.svg';
-import { CARDS } from '../../../constants/CreditCardData';
+import { CARDS, CITI } from '../../../constants/CreditCardData';
 import Button from '@material-ui/core/Button';
 import PlaylistAddIcon from '@material-ui/icons/PlaylistAdd';
 import AddCardForm from './AddCard/AddCardForm';
@@ -30,6 +30,10 @@ const CreditCardsContainer = () => {
 
     const addCardHandler = (card:CardModel) => {
         //call api on backedn
+        card.id = Math.floor(Math.random() * 10000);
+        card.bank= CITI;
+        card.dueAmount=1000;
+        card.dueDate= "24-06-2021"
         const updatedCards = cards;
         updatedCards.push(card);
         setCards(updatedCards);
@@ -41,12 +45,12 @@ const CreditCardsContainer = () => {
                 <img className="credit-card-icon" src={CreditCardIcon} />
                 <label className="credit-card-title">Credit Cards</label>
                 <Button onClick={showAddCardPopupHandler} startIcon={<PlaylistAddIcon />}>Add Card</Button>
-                {addCardPopup && <AddCardForm addCardPopup={addCardPopup} closePopup={closeAddCardPopupHandler} />}
+                {addCardPopup && <AddCardForm addCardPopup={addCardPopup} closePopup={closeAddCardPopupHandler} saveCardHandler={addCardHandler}/>}
             </div>
             <List>
                 {cards.map((card) => {
                     return (<CardContent className="cards">
-                        <Carddetail card={card} />
+                        <Carddetail deleteCard ={deleteCardHandler} card={card} />
                     </CardContent>)
                 })}
             </List>
