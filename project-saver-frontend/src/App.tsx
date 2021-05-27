@@ -8,19 +8,48 @@ import { TransactionHistoryContainerModel } from './components/widgets/Transacti
 import CreditCardsContainer from './components/widgets/CreditCardDetails/CreditCardsContainer';
 import Drawer from './components/widgets/DashBoard/DashBoard'
 import { Dashboard } from '@material-ui/icons';
-import AcceptPayment from './components/Payment/acceptPayment'
+import AcceptPayment from './components/Payment/acceptPayment';
+import Login from './components/base/Login';
+import SignUp from './components/base/SignUp';
+import Home from './components/base/Home';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import LandingPage from './components/base/LandingPage';
 function App() {
 
-  const transactionHistoryContainerModel: TransactionHistoryContainerModel = {
-    username: 'helllo'
-  }
+  // const transactionHistoryContainerModel: TransactionHistoryContainerModel = {
+  //   username: 'helllo'
+  // }
 
+  // return (
+  //   <div className="App">
+  //     {/* <TransactionHistoryContainer transactionHistoryContainerModel={transactionHistoryContainerModel}></TransactionHistoryContainer> */}
+  //      <Drawer/> 
+
+  //   </div>
+  // );
   return (
-    <div className="App">
-      {/* <TransactionHistoryContainer transactionHistoryContainerModel={transactionHistoryContainerModel}></TransactionHistoryContainer> */}
-       <Drawer/> 
-    
-    </div>
+    <Router>
+      <Switch>
+        <Route path="/home">
+          <Home />
+        </Route>
+        <Route path="/login">
+          <Login />
+        </Route>
+
+        <Route path="/signup">
+          <SignUp />
+        </Route>
+
+        <Route path="/welcome">
+          <LandingPage />
+        </Route>
+
+        <Route path="/">
+          <Home />
+        </Route>
+      </Switch>
+    </Router>
   );
 }
 
