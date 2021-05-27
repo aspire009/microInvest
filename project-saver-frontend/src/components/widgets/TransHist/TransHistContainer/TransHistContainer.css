@@ -1,0 +1,31 @@
+.trans-hist-container-main{
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+}
+
+.trans-hist-container-heading{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+.trans-hist-container-title {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.trans-hist-container-content {
+    margin-left: 0px;
+}
+
+.trans-hist-container-sub-heading {
+    font-size: 14px;
+    font-weight: 700;
+    padding-left: 15px;
+    margin-bottom: 10px;
+
+}

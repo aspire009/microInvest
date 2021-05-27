@@ -1,8 +1,13 @@
 @font-face {
-  font-family: 'Poppins';
-  src: local('Poppins'), url(./assets/fonts/Poppins/Poppins-Regular.ttf) format('truetype');
+  font-family: 'ProductSans';
+  src: local('ProductSans'), url(./assets/fonts/product-sans/Product\ Sans\ Regular.ttf) format('truetype');
 }
 
 *{
-  font-family: 'Poppins';
+  font-family: 'ProductSans';
+}
+
+.App {
+  width: 100vw;
+  height: 100vh;
 }
