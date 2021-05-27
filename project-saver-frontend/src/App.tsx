@@ -50,7 +50,7 @@ function App() {
           <LandingPage />
         </Route> */}
 
-        <Route path="/">
+        <Route exact path="/questionnaire">
         <Questionare/>
         </Route>
         <Route exact path="/performance/:totalScore" component={ProfilePerformance}>
