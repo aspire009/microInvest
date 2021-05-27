@@ -9,28 +9,33 @@ import CreditCardsContainer from './components/widgets/CreditCardDetails/CreditC
 import Drawer from './components/widgets/DashBoard/DashBoard'
 import { Dashboard } from '@material-ui/icons';
 import AcceptPayment from './components/Payment/acceptPayment';
-import Login from './components/base/Login';
-import SignUp from './components/base/SignUp';
-import Home from './components/base/Home';
+import Questionare from './components/Questionaire/Questionare';
+import ProfileMeter from './components/ProfileScore/ProfileScore';
+import ProfilePerformance from './components/ProfileScore/ProfilePerformance';
+// import Login from './components/base/Login';
+// import SignUp from './components/base/SignUp';
+// import Home from './components/base/Home';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import LandingPage from './components/base/LandingPage';
+// import LandingPage from './components/base/LandingPage';
 function App() {
 
-  // const transactionHistoryContainerModel: TransactionHistoryContainerModel = {
-  //   username: 'helllo'
-  // }
+  const transactionHistoryContainerModel: TransactionHistoryContainerModel = {
+    username: 'helllo'
+  }
 
   // return (
   //   <div className="App">
   //     {/* <TransactionHistoryContainer transactionHistoryContainerModel={transactionHistoryContainerModel}></TransactionHistoryContainer> */}
-  //      <Drawer/> 
+  //      {/* <Drawer/>  */}
+  //      <Questionare/>
+  //      {/* <ProfilePerformance/> */}
 
   //   </div>
   // );
   return (
     <Router>
       <Switch>
-        <Route path="/home">
+        {/* <Route path="/home">
           <Home />
         </Route>
         <Route path="/login">
@@ -43,10 +48,13 @@ function App() {
 
         <Route path="/welcome">
           <LandingPage />
-        </Route>
+        </Route> */}
 
         <Route path="/">
-          <Home />
+        <Questionare/>
+        </Route>
+        <Route exact path="/performance/:totalScore" component={ProfilePerformance}>
+          <ProfilePerformance/>
         </Route>
       </Switch>
     </Router>

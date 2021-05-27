@@ -76,31 +76,9 @@ const ResponsiveDrawer = () => {
       </AppBar>
       <nav className={classes.drawer} aria-label="mailbox folders">
         { }
-        <Hidden smUp implementation="css">
-          <Drawer
-            // container={container}
-            variant="temporary"
-            anchor={theme.direction === 'rtl' ? 'right' : 'left'}
-            open={mobileOpen}
-            onClose={handleDrawerToggle}
-            classes={{
-              paper: classes.drawerPaper,
-            }}
-            ModalProps={{
-              keepMounted: true,
-            }}
-          >
-            {drawer}
-          </Drawer>
-        </Hidden>
+        
         <Hidden xsDown implementation="css">
-          <Drawer
-            classes={{
-              paper: classes.drawerPaper,
-            }}
-            variant="permanent"
-            open
-          >
+          <Drawer classes={{paper: classes.drawerPaper,}}variant="permanent" open>
             {drawer}
           </Drawer>
         </Hidden>

@@ -13,9 +13,9 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { homedir } from 'os';
-import { login } from '../../util/AppUtil';
+// import { login } from '../../util/AppUtil';
 import { Redirect, useHistory } from 'react-router-dom';
-import { ACCESS_TOKEN, GOOGLE_AUTH_URL, REACT_APP_GOOGLE_AUTH_CLIENT_ID } from '../../constants/app-config';
+// import { ACCESS_TOKEN, GOOGLE_AUTH_URL, REACT_APP_GOOGLE_AUTH_CLIENT_ID } from '../../constants/app-config';
 import { GoogleLogin, GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
 
 
@@ -77,14 +77,14 @@ const Login = () => {
 
         if (userEmail !== '' && password !== '') {
 
-            login(loginRequest)
-                .then(response => {
-                    localStorage.setItem(ACCESS_TOKEN, response.accessToken);
-                    history.push("/welcome");
-                }).catch(error => {
-                    window.alert((error && error.message) || 'Oops! Something went wrong. Please try again!');
-                });
-        }
+        //     login(loginRequest)
+        //         .then(response => {
+        //             localStorage.setItem(ACCESS_TOKEN, response.accessToken);
+        //             history.push("/welcome");
+        //         }).catch(error => {
+        //             window.alert((error && error.message) || 'Oops! Something went wrong. Please try again!');
+        //         });
+        // }
     }
 
     return (
@@ -146,8 +146,8 @@ const Login = () => {
                     >
                         Sign In With Google
           </Button> */}
-                    <GoogleLogin
-                        clientId={REACT_APP_GOOGLE_AUTH_CLIENT_ID}
+                    {/* <GoogleLogin
+                        // clientId={REACT_APP_GOOGLE_AUTH_CLIENT_ID}
                         buttonText='Sign in with Google'
                         onSuccess={loginSuccess}
                         onFailure={(response: any) => {
@@ -156,7 +156,7 @@ const Login = () => {
                         }}
                         cookiePolicy={'single_host_origin'}
                         responseType='code,token'
-                    />
+                    /> */}
                     <Grid container>
                         <Grid item xs>
                             <Link href="#" variant="body2">
@@ -173,6 +173,6 @@ const Login = () => {
             </div>
         </Container>
     );
-}
+}}
 
 export default Login;

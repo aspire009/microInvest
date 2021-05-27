@@ -10,16 +10,29 @@ import { CARDS } from '../../../constants/CreditCardData';
 import Button from '@material-ui/core/Button';
 import PlaylistAddIcon from '@material-ui/icons/PlaylistAdd';
 import AddCardForm from './AddCard/AddCardForm';
-
+import { CardModel} from '../models/CardModel'
 const CreditCardsContainer = () => {
     const [addCardPopup, setAddCardPopup] = React.useState(false);
+    const [cards, setCards] = React.useState<CardModel[]>(CARDS)
 
-    function showAddCardPopupHandler() {
+    const showAddCardPopupHandler = () => {
         setAddCardPopup(true);
     }
 
-    function closeAddCardPopupHandler() {
+    const closeAddCardPopupHandler = () => {
         setAddCardPopup(false);
+    }
+
+    const deleteCardHandler = (id:number) => {
+        const updatedCards = cards.filter(card => card.id !== id);
+        setCards(updatedCards);
+    }
+
+    const addCardHandler = (card:CardModel) => {
+        //call api on backedn
+        const updatedCards = cards;
+        updatedCards.push(card);
+        setCards(updatedCards);
     }
 
     return (
@@ -31,7 +44,7 @@ const CreditCardsContainer = () => {
                 {addCardPopup && <AddCardForm addCardPopup={addCardPopup} closePopup={closeAddCardPopupHandler} />}
             </div>
             <List>
-                {CARDS.map((card) => {
+                {cards.map((card) => {
                     return (<CardContent className="cards">
                         <Carddetail card={card} />
                     </CardContent>)

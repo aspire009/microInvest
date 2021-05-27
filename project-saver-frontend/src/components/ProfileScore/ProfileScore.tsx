@@ -1,19 +1,27 @@
 import ReactSpeedometer from "react-d3-speedometer";
 import React, { useState, useEffect, useRef } from "react";
 import Button from "@material-ui/core/Button";
+import axios from "axios";
 
-const ProfileMeter = () => {
+const ProfileMeter = (props:{score:number}) => {
   const [value, setValue] = useState(100);
+  const url = `http://localhost:8080/userScore/`;
+  const [userName, setUserName] = useState(null);
+  const [riskProfile, setRiskProfile] = useState(null);
+  const [overallScore, setOverallScore] = useState(null);
 
   const interval = useRef(null);
   const generateRandom = () => setValue(Math.floor(Math.random() * 201 + 1));
 
-  //   useEffect(() => {
-  //     interval.current = setInterval(function () {
-  //       generateRandom();
-  //     }, 500);
-  //     return () => clearInterval(interval.current);
-  //   }, []);
+  async function saveScore() {
+    const data = {
+      userName: "abcd",
+      riskProfile: "low",
+      overallScore: 22,
+    };
+
+    const result = await axios.post(url, data);
+  }
 
   return (
     <div className="profileMeter">
@@ -27,7 +35,7 @@ const ProfileMeter = () => {
           needleHeightRatio={0.8}
           ringWidth={25}
           segments={5}
-          value={value}
+          value={props.score}
           segmentColors={[
             "#b81414",
             "#ec5555",
@@ -39,7 +47,7 @@ const ProfileMeter = () => {
         />
       </div>
       <p>Based on your responses your financial exposure is MODERATE.</p>
-      <Button variant="contained" color="secondary">
+      <Button variant="contained" color="secondary" onClick={saveScore}>
         CONTINUE
       </Button>
       <br />

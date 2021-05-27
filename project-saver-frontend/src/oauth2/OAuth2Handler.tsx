@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ACCESS_TOKEN } from '../constants/app-config';
+// import { ACCESS_TOKEN } from '../constants/app-config';
 import { Redirect } from 'react-router-dom'
 
 const OAuth2RedirectHandler = (props: any) => {
@@ -15,21 +15,21 @@ const OAuth2RedirectHandler = (props: any) => {
         const token = getUrlParameter('token');
         const error = getUrlParameter('error');
 
-        if (token) {
-            localStorage.setItem(ACCESS_TOKEN, token);
-            return <Redirect to={{
-                pathname: "/profile",
-                state: { from: props.location }
-            }} />;
-        } else {
-            return <Redirect to={{
-                pathname: "/login",
-                state: {
-                    from: props.location,
-                    error: error
-                }
-            }} />;
-        }
+        // if (token) {
+        //     localStorage.setItem(ACCESS_TOKEN, token);
+        //     return <Redirect to={{
+        //         pathname: "/profile",
+        //         state: { from: props.location }
+        //     }} />;
+        // } else {
+        //     return <Redirect to={{
+        //         pathname: "/login",
+        //         state: {
+        //             from: props.location,
+        //             error: error
+        //         }
+        //     }} />;
+        // }
     }
 }
 

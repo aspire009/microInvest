@@ -1,6 +1,7 @@
 import {
   qaTemplate,
   intialSelection,
+  SCORES
 } from "../../../model-chakresh/Questionare-static-content";
 import "./Question.css";
 import Radio from "@material-ui/core/Radio";
@@ -25,10 +26,11 @@ const QuestionRadio = (props: {
   question: qaTemplate;
   index: number;
   setCountHandler: () => void;
-  setScoreHandler: (questionNumber: number, updatedScore: number) => void;
-}) => {
+  setScoreHandler: (questionNumber: number, optionScore:number)=> void;
+  }) => {
   const [state, setState] = useState<boolean[]>(intialSelection);
   const [value, setValue] = React.useState("");
+  const[currentQuestion, setCurrentQuestion] = React.useState(props.question);
 
   const handleChange = (event: any) => {
     //setState({ ...state, [event.target.name]: event.target.checked });
@@ -43,30 +45,36 @@ const QuestionRadio = (props: {
   };
 
   const updateSelection = (optionName: string) => {
-    let optionNameInt = parseInt(optionName) - 1;
+    let optionIndex = parseInt(optionName) - 1;
     const updatedState = [...intialSelection];
     console.log("intialSelection", intialSelection);
     console.log("updatedState", updatedState);
 
-    updatedState[optionNameInt] = true;
+    updatedState[optionIndex] = true;
     console.log("new updatedState", updatedState);
     // console.log("state", state);
     setState(updatedState);
+    updateCount(optionIndex);
   };
 
-  const updateCount = (questionNumber: number) => {
+  const checkUndefined = (options:number[]) => {
+    return options === null || options === undefined || options.length === 0 ;
+  }
+
+  const updateCount = (optionIndex:number) => {
+    const questionNumber = currentQuestion.sl_no;
+    props.setScoreHandler(questionNumber, SCORES[questionNumber -1].options[optionIndex]);
     if (!(state.filter((s) => s == true).length == 0)) {
       return;
     }
-    {
       props.setCountHandler();
-    }
+      
   };
   return (
     <div className="container">
       <div className="question">
-        <FormControl component="fieldset">
-          <FormLabel component="legend">
+        <FormControl>
+          <FormLabel>
             <h1 className="questionheading">
               {props.question.sl_no}. {props.question.question}
             </h1>
@@ -80,38 +88,127 @@ const QuestionRadio = (props: {
             <FormControlLabel
               value="1"
               control={<Radio />}
-              label={props.question.options.a}
+              label={
+                props.question.descriptions ? (
+                  <div className="optionwithdescription">
+                    <h4 className="optionofdescription">
+                      {props.question.options.a}
+                    </h4>
+                    <p className="description">
+                      {props.question.descriptions?.a}
+                    </p>
+                  </div>
+                ) : (
+                  <div className="optionwithoutdescription">
+                    {props.question.options.a}
+                  </div>
+                )
+              }
             />
             <FormControlLabel
               value="2"
               control={<Radio />}
-              label={props.question.options.b}
+              label={
+                props.question.descriptions ? (
+                  <div className="optionwithdescription">
+                    <h4 className="optionofdescription">
+                      {props.question.options.b}
+                    </h4>
+                    <p className="description">
+                      {props.question.descriptions?.b}
+                    </p>
+                  </div>
+                ) : (
+                  <div className="optionwithoutdescription">
+                    {props.question.options.b}
+                  </div>
+                )
+              }
             />
             <FormControlLabel
               value="3"
               control={<Radio />}
-              label={props.question.options.c}
+              label={
+                props.question.descriptions ? (
+                  <div className="optionwithdescription">
+                    <h4 className="optionofdescription">
+                      {props.question.options.c}
+                    </h4>
+                    <p className="description">
+                      {props.question.descriptions?.c}
+                    </p>
+                  </div>
+                ) : (
+                  <div className="optionwithoutdescription">
+                    {props.question.options.c}
+                  </div>
+                )
+              }
             />
             <FormControlLabel
               value="4"
               control={<Radio />}
-              label={props.question.options.d}
+              label={
+                props.question.descriptions ? (
+                  <div className="optionwithdescription">
+                    <h4 className="optionofdescription">
+                      {props.question.options.d}
+                    </h4>
+                    <p className="description">
+                      {props.question.descriptions?.d}
+                    </p>
+                  </div>
+                ) : (
+                  <div className="optionwithoutdescription">
+                    {props.question.options.d}
+                  </div>
+                )
+              }
             />
-            <FormControlLabel
+            { props.question.options.e && <FormControlLabel
               value="5"
               control={<Radio />}
-              label={props.question.options.e}
-            />
-            <FormControlLabel
+              label={
+                props.question.descriptions ? (
+                  <div className="optionwithdescription">
+                    <h4 className="optionofdescription">
+                      {props.question.options.e}
+                    </h4>
+                    <p className="description">
+                      {props.question.descriptions?.e}
+                    </p>
+                  </div>
+                ) : (
+                  <div className="optionwithoutdescription">
+                    {props.question.options.e}
+                  </div>
+                )
+              }
+            />}
+            { props.question.options.f &&<FormControlLabel
               value="6"
               control={<Radio />}
-              label={props.question.options.f}
-            />
+              label={
+                props.question.descriptions ? (
+                  <div className="optionwithdescription">
+                    <h4 className="optionofdescription">
+                      {props.question.options.f}
+                    </h4>
+                    <p className="description">
+                      {props.question.descriptions?.f}
+                    </p>
+                  </div>
+                ) : (
+                  <div className="optionwithoutdescription">
+                    {props.question.options.f}
+                  </div>
+                )
+              }
+            />}
           </RadioGroup>
         </FormControl>
       </div>
     </div>
   );
-};
-
+            }
 export default QuestionRadio;

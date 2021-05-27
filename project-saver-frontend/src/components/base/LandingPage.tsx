@@ -12,7 +12,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { signup } from '../../util/AppUtil';
+// import { signup } from '../../util/AppUtil';
 import { Redirect, useHistory } from 'react-router';
 import finImg from '../images/finImage.png'
 import { blue } from '@material-ui/core/colors';

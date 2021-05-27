@@ -21,7 +21,8 @@ const AddCardForm = (props: { addCardPopup: boolean, closePopup: () => void }) =
             <div className='modal'>
                 <form className={classes.root} noValidate autoComplete="off">
                     <TextField id="outlined-basic" label="card-number" variant="outlined" />
-                    <TextField id="outlined-basic" label="bank-name" variant="outlined" />
+                    <TextField id="outlined-basic" label="card-holder-name" variant="outlined" />
+                    <TextField id="outlined-basic" label="expiry" variant="outlined" />
                     <TextField id="outlined-basic" label="cvv" variant="outlined" />
 
                     <button className='btn --alt' onClick={() => { }}>Add</button>
