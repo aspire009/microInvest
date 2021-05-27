@@ -4,7 +4,7 @@
     padding: 22px;
     padding-top: 0px;
     width: 265px;
-    height: 160px;
+    height: 158px;
     padding-bottom: 16px;
     border-radius: 14px;
     color: white;
@@ -39,7 +39,7 @@
 .card-pallette-amount-due {
     font-size: 26px;
     font-weight: 600;
-    margin-bottom: 28px;
+    margin-bottom: 25px;
 }
 
 .card-pallette-card-numer {

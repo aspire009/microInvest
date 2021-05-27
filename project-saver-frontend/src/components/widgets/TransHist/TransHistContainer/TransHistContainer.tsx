@@ -10,7 +10,7 @@ const TransHistContainer: React.FC<TransHistContainerProps> = ({ transHistContai
     const transHistRowModel: TransHistRowModel = {
         cardCompany: 'Citi Bank',
         amountPaid: '5000',
-        cardNumber: '1234 XXXX XXXX 6789',
+        cardNumber: '1234 **** **** 6789',
         paidDate: 'May 24, 2021',
         pointsEarned: '1000',
         transactionType: 'Full Amount'

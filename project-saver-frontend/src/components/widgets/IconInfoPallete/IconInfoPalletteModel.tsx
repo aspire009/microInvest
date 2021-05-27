@@ -3,7 +3,8 @@ export interface IconInfoPalletteModel {
     subText: string,
     iconImage: string,
     iconPosition: string,
-    backgroundColor: string
+    backgroundColor: string,
+    mainTextColor: string
 }
 
 export interface IconInfoPalletteProps {

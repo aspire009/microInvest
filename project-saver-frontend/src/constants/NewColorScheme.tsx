@@ -2,6 +2,7 @@ export const COLORS = {
     textPrimary: '#0D1367',
     textSecondary: '#00000090',
     textPrimaryLight: '#515B9E',
+    textPrimaryVeryLight: '#dbddfa',
     textSuccess: '#008000',
     textWarn: '#FF7F50',
 

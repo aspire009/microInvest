@@ -1,7 +1,6 @@
 .card-details-container-main {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     padding: 10px;
 }
 

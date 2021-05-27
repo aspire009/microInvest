@@ -1,6 +1,6 @@
 import { RewardPointsContainerProps } from "./RewardPointsContainerModel";
 import RewardIcon from '../../../assets/icons/reward.png'
-import ProfilePerson from '../../../assets/images/user.png'
+import ProfilePerson from '../../../assets/images/mainDashboard/user.png'
 import RoundButton from "../RoundButton/RoundButton";
 import { RoundButtonModel } from "../RoundButton/RoundButtonModel";
 import { COLORS } from "../../../constants/ColorScheme";

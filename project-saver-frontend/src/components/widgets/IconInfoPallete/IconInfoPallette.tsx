@@ -8,8 +8,8 @@ const IconInfoPallette: React.FC<IconInfoPalletteProps> = ({ iconInfoPalletteMod
 
             <div className="icon-info-pallette-content" style={{ backgroundColor: iconInfoPalletteModel.backgroundColor }}>
                 <div className="icon-info-pallette-main-text-line">
-                    <label className="icon-info-pallette-main-text">{iconInfoPalletteModel.mainText}</label>
-                    <label className="icon-info-pallette-main-small-text">pts</label>
+                    <label className="icon-info-pallette-main-text" style={{ color: iconInfoPalletteModel.mainTextColor }}>{iconInfoPalletteModel.mainText}</label>
+                    <label className="icon-info-pallette-main-small-text" style={{ color: iconInfoPalletteModel.mainTextColor }}>pts</label>
                 </div>
                 <label className="icon-info-pallette-sub-text">{iconInfoPalletteModel.subText}</label>
             </div>
