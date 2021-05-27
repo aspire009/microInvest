@@ -11,7 +11,7 @@ import DeletePopup from './DeletePopup/DeletePopup'
 import AcceptPayment from '../../Payment/acceptPayment';
 
 
-const Carddetail = (props: { card: CardModel }) => {
+const Carddetail = (props: { card: CardModel, deleteCard: (id:number) => void }) => {
     const [deletePopup, setDeletePopup] = React.useState(false);
 
     function showDeletePopupHandler() {
@@ -22,6 +22,10 @@ const Carddetail = (props: { card: CardModel }) => {
         setDeletePopup(false);
     }
 
+    const deleteCurrentCard = () => {
+        props.deleteCard(props.card.id);
+    }
+
     return (
         <div className="card-detail">
             <BankLogo bank={props.card.bank} />
@@ -30,7 +34,7 @@ const Carddetail = (props: { card: CardModel }) => {
             <InfoPair value1={DUE_AMOUNT} value2={props.card.dueAmount} />
             <AcceptPayment />
             <Button onClick={showDeletePopupHandler} startIcon={<DeleteIcon />}></Button>
-            {deletePopup && <DeletePopup deletePopup={deletePopup} closeDeletePopup={closeDeletePopupHandler} />}
+            {deletePopup && <DeletePopup deleteCard = {deleteCurrentCard} deletePopup={deletePopup} closeDeletePopup={closeDeletePopupHandler} />}
         </div>
     )
 }

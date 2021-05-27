@@ -12,6 +12,7 @@ import AcceptPayment from './components/Payment/acceptPayment';
 import Questionare from './components/Questionaire/Questionare';
 import ProfileMeter from './components/ProfileScore/ProfileScore';
 import ProfilePerformance from './components/ProfileScore/ProfilePerformance';
+import CardDetailsContainer from './components/widgets/CreditCardDetails/CreditCardsContainer'
 // import Login from './components/base/Login';
 // import SignUp from './components/base/SignUp';
 // import Home from './components/base/Home';
@@ -49,7 +50,9 @@ function App() {
         <Route path="/welcome">
           <LandingPage />
         </Route> */}
-
+      <Route exact path="/">
+        <CardDetailsContainer/>
+        </Route>
         <Route exact path="/questionnaire">
         <Questionare/>
         </Route>

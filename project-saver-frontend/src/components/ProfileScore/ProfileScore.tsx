@@ -2,10 +2,9 @@ import { useState, useEffect, useRef } from "react";
 import Button from "@material-ui/core/Button";
 import axios from "axios";
 import PerformanceMeter from "./PerformanceMeter";
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 const ProfileMeter = (props: { score: number }) => {
-  const [value, setValue] = useState(100);
   const url = `http://localhost:8080/userScore/`;
   const [userName, setUserName] = useState("");
   const [riskProfile, setRiskProfile] = useState("");
@@ -16,7 +15,6 @@ const ProfileMeter = (props: { score: number }) => {
   useEffect(() => {
     setRiskProfileValue();
     setOverallScore(props.score);
-    console.log(`overAllScore: ${overallScore}  RiskProfile: ${riskProfile}`);
   })
 
   const goToquestionnaire = () => {
@@ -35,11 +33,10 @@ const ProfileMeter = (props: { score: number }) => {
 
   async function saveScore() {
     const data = {
-      userName: "abcd",
-      riskProfile: "low",
-      overallScore: 22,
+      userName: {userName},
+      riskProfile: {riskProfile},
+      overallScore: {overallScore},
     };
-
     await axios.post(url, data);
   }
 

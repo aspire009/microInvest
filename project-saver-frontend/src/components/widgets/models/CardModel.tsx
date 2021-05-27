@@ -2,9 +2,12 @@
 export interface CardModel {
     "id": number,
     "bank": string,
-    "cardNumber":String,
-    "dueDate":String,
-    "dueAmount":number
+    "cardNumber":string,
+    "dueDate":string,
+    "dueAmount":number,
+    "cardHolder":string,
+    "expiry":string,
+    "cvv":number
 }
 
 export interface CardDataModel {
@@ -14,6 +17,8 @@ export interface CardDataModel {
     "bank":String,
     "cvv":number,
     "dueDate":String
+    "cardHolder":String,
+    "expiry":String
 }
 
 export interface scoreTemplate {

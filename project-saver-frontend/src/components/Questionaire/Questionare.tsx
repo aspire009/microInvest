@@ -53,7 +53,6 @@ const Questionare = () => {
             <h1 className="count">{selectedQuestionCount}/13</h1>
             <h3>Question Answered</h3>
           </div>
-          <div>{score}</div>
         </div>
 
         <div className="questions">
