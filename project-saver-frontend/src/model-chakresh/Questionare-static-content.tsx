@@ -20,6 +20,15 @@ export interface allQuestions {
   questions: qaTemplate[];
 }
 
+export interface allScores {
+  questionNumber: number;
+  options: options;
+}
+
+export const intialScore = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
+export const intialSelection = [false, false, false, false, false, false];
+
 export const QUESTIONS: allQuestions = {
   questions: [
     {
@@ -211,3 +220,132 @@ export const QUESTIONS: allQuestions = {
     },
   ],
 };
+
+export const SCORES = [
+  {
+    questionNumber: 1,
+    options: {
+      a: 5,
+      b: 3,
+      c: 1,
+      d: 5,
+      e: 3,
+      f: 2,
+    },
+  },
+  {
+    questionNumber: 2,
+    options: {
+      a: 1,
+      b: 3,
+      c: 5,
+      d: 7,
+    },
+  },
+  {
+    questionNumber: 3,
+    options: {
+      a: 1,
+      b: 3,
+      c: 5,
+      d: 7,
+      e: 9,
+    },
+  },
+  {
+    questionNumber: 4,
+    options: {
+      a: 1,
+      b: 3,
+      c: 5,
+      d: 7,
+      e: 9,
+    },
+  },
+  {
+    questionNumber: 5,
+    options: {
+      a: 7,
+      b: 5,
+      c: 3,
+      d: 1,
+      e: 1,
+    },
+  },
+  {
+    questionNumber: 6,
+    options: {
+      a: 1,
+      b: 2,
+      c: 3,
+      d: 5,
+      e: 7,
+    },
+  },
+  {
+    questionNumber: 7,
+    options: {
+      a: 1,
+      b: 3,
+      c: 5,
+      d: 7,
+    },
+  },
+  {
+    questionNumber: 8,
+    options: {
+      a: 1,
+      b: 3,
+      c: 5,
+      d: 7,
+      e: 9,
+    },
+  },
+  {
+    questionNumber: 9,
+    options: {
+      a: 1,
+      b: 3,
+      c: 5,
+      d: 7,
+    },
+  },
+  {
+    questionNumber: 10,
+    options: {
+      a: 1,
+      b: 3,
+      c: 5,
+      d: 7,
+    },
+  },
+  {
+    questionNumber: 11,
+    options: {
+      a: 1,
+      b: 3,
+      c: 5,
+      d: 7,
+    },
+  },
+  {
+    questionNumber: 12,
+    options: {
+      a: 1,
+      b: 3,
+      c: 5,
+      d: 7,
+      e: 9,
+    },
+  },
+  {
+    questionNumber: 13,
+    options: {
+      a: 1,
+      b: 3,
+      c: 5,
+      d: 7,
+      e: 9,
+    },
+  },
+];

@@ -1,0 +1,15 @@
+.questionheading {
+  font-size: 15px;
+  font-family: sans-serif;
+}
+
+.optionwithoutdescription {
+  font-size: 12px;
+}
+.optionofdescription {
+  font-size: 10px;
+}
+
+.description {
+  font-size: 8px;
+}
