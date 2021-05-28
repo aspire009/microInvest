@@ -19,6 +19,7 @@ import NumberInfoPallette from "./NumberInfoPallette/NumberInfoPallette";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart } from '@fortawesome/free-solid-svg-icons'
 
+
 const MainDashboard: React.FC<MainDashboardProps> = ({ mainDashboardModel }: MainDashboardProps) => {
 
     const cardDetailsContainerModel: CardDetailsContainerModel = {
@@ -57,7 +58,7 @@ const MainDashboard: React.FC<MainDashboardProps> = ({ mainDashboardModel }: Mai
             <div className="side-bar"></div>
 
             <div className="main-dashboard-col-1">
-                <CardDetailsContainer cardDetailContainerModel={cardDetailsContainerModel} />
+                <CardDetailsContainer />
                 <div className="main-dashboard-credits">
                     <label>Made with <FontAwesomeIcon className="trans-hist-container-expand" icon={faHeart} style={{ color: '#C51104' }} /> at HashedIn</label>
                 </div>

@@ -9,18 +9,7 @@ import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
-
-import Checkbox from "@material-ui/core/Checkbox";
 import React, { useState } from "react";
-
-interface CheckboState {
-  1: boolean;
-  2: boolean;
-  3: boolean;
-  4: boolean;
-  5: boolean;
-  6: boolean;
-}
 
 const QuestionRadio = (props: {
   question: qaTemplate;
@@ -33,38 +22,23 @@ const QuestionRadio = (props: {
   const[currentQuestion, setCurrentQuestion] = React.useState(props.question);
 
   const handleChange = (event: any) => {
-    //setState({ ...state, [event.target.name]: event.target.checked });
-    let value = event.target.checked;
     let checkBoxName = event.target.value;
     updateSelection(checkBoxName);
     setValue(event.target.value);
-
-    // console.log(state, "state");
-    // console.log("name", checkBoxName);
-    // console.log("target", event.target);
   };
 
   const updateSelection = (optionName: string) => {
     let optionIndex = parseInt(optionName) - 1;
     const updatedState = [...intialSelection];
-    console.log("intialSelection", intialSelection);
-    console.log("updatedState", updatedState);
-
     updatedState[optionIndex] = true;
-    console.log("new updatedState", updatedState);
-    // console.log("state", state);
     setState(updatedState);
     updateCount(optionIndex);
   };
 
-  const checkUndefined = (options:number[]) => {
-    return options === null || options === undefined || options.length === 0 ;
-  }
-
   const updateCount = (optionIndex:number) => {
     const questionNumber = currentQuestion.sl_no;
     props.setScoreHandler(questionNumber, SCORES[questionNumber -1].options[optionIndex]);
-    if (!(state.filter((s) => s == true).length == 0)) {
+    if (!(state.filter((s) => s === true).length === 0)) {
       return;
     }
       props.setCountHandler();

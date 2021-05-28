@@ -7,16 +7,44 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons'
 import { COLORS } from "../../../../constants/NewColorScheme";
 import './CardDetailsContainer.css'
+import PayButton from '../../CreditCardDetails/PayButton'
+import AcceptPayment from "../../../Payment/acceptPayment";
+import {cardList, CITI, BOA, CB} from '../../../../constants/CreditCardData'
+import AddCardPopup from "../AddCardPopup";
+import Button from '@material-ui/core/Button'
+import PlaylistAddIcon from '@material-ui/icons/PlaylistAdd';
 
-const CardDetailsContainer: React.FC<CardDetailsContainerProps> = ({ cardDetailContainerModel }: CardDetailsContainerProps) => {
-    //const [cardList, setCardList] = useState<CardDetailsRowModel[]>([]);
+const CardDetailsContainer = () => {
+   const [cards, setCards] = useState<CardDetailsRowModel[]>(cardList);
     const [cardIndex, setCardIndex] = useState(0);
+    const [addCardPopup, setAddCardPopup] = useState(false);
+    
 
-    const cardList: CardDetailsRowModel[] = [
-        { bankName: 'Citi Bank', cardNumber: '1234 **** **** 6789', dueAmount: '3,200.98', dueDate: '30 May 2021' },
-        { bankName: 'Bank of America', cardNumber: '3456 **** **** 0987', dueAmount: '1,220.08', dueDate: '27 May 2021' },
-        { bankName: 'Chase Bank', cardNumber: '8821 **** **** 3429', dueAmount: '2,510.21', dueDate: '31 May 2021' }
-    ];
+    const showAddCardPopupHandler = () => {
+        setAddCardPopup(true);
+    }
+
+    const closeAddCardPopupHandler = () => {
+        setAddCardPopup(false);
+    }
+
+    const deleteCardHandler = (id: number) => {
+        const updatedCards = cards.filter(card => card.id !== id);
+        setCards(updatedCards);
+    }
+
+    const addCardHandler = (card: CardDetailsRowModel) => {
+        //call api on backedn
+        card.id = Math.floor(Math.random() * 10000);
+        card.bankName= CITI;
+        card.dueAmount = "1000";
+        card.dueDate = "27 June 2021"
+        const updatedCards = cards;
+        updatedCards.push(card);
+        setCards(updatedCards);
+    }
+
+    
 
     return (
         <div className="card-details-container-main">
@@ -24,14 +52,14 @@ const CardDetailsContainer: React.FC<CardDetailsContainerProps> = ({ cardDetailC
 
             <div className="card-details-container-content">
                 <div className="card-details-container-card">
-                    <CardPallette cardDetailsRowModel={cardList[cardIndex]} />
+                    {cardIndex <= cards.length &&<CardPallette cardDetailsRowModel={cards[cardIndex]} />}
                 </div>
                 <div className="card-details-container-list">
                     {
-                        cardList.map((cardModel, index) => {
+                        cards.map((cardModel, index) => {
                             return (
                                 <div onClick={() => setCardIndex(index)}>
-                                    <CardDetailsRow cardDetailsRowModel={cardModel} />
+                                    <CardDetailsRow deleteCard={deleteCardHandler} cardDetailsRowModel={cardModel} />
                                 </div>
                             )
                         })
@@ -39,10 +67,13 @@ const CardDetailsContainer: React.FC<CardDetailsContainerProps> = ({ cardDetailC
                 </div>
 
                 <div className="card-details-container-add-card">
-                    <FontAwesomeIcon className="card-details-container-add-card-icon" icon={faPlusCircle} style={{ color: COLORS.textSecondary }} />
-                    <label className="card-details-container-add-card-text" style={{ color: COLORS.textSecondary }}>Add Card</label>
+                    {/* <FontAwesomeIcon className="card-details-container-add-card-icon" icon={faPlusCircle} style={{ color: COLORS.textSecondary }} /> */}
+                    {/* <label className="card-details-container-add-card-text" style={{ color: COLORS.textSecondary }}>Add Card</label> */}
+                    <AcceptPayment/>
+                    {addCardPopup && <AddCardPopup addCardPopup={addCardPopup} closePopup={closeAddCardPopupHandler} saveCardHandler={addCardHandler} />}
                 </div>
-
+                <div className="card-details-container-add-card"><Button onClick={showAddCardPopupHandler} startIcon={<PlaylistAddIcon />}>Add Card</Button></div>
+                
             </div>
         </div>
     )
