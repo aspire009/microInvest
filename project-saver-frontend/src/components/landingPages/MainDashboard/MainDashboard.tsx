@@ -58,7 +58,7 @@ const MainDashboard: React.FC<MainDashboardProps> = ({ mainDashboardModel }: Mai
             <div className="side-bar"></div>
 
             <div className="main-dashboard-col-1">
-                <CardDetailsContainer />
+                <CardDetailsContainer username="vaibhav" />
                 <div className="main-dashboard-credits">
                     <label>Made with <FontAwesomeIcon className="trans-hist-container-expand" icon={faHeart} style={{ color: '#C51104' }} /> at HashedIn</label>
                 </div>

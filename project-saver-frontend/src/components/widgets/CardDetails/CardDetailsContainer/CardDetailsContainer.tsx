@@ -14,12 +14,12 @@ import AddCardPopup from "../AddCardPopup";
 import Button from '@material-ui/core/Button'
 import PlaylistAddIcon from '@material-ui/icons/PlaylistAdd';
 
-const CardDetailsContainer = () => {
+const CardDetailsContainer = (props:{username:string}) => {
    const [cards, setCards] = useState<CardDetailsRowModel[]>(cardList);
     const [cardIndex, setCardIndex] = useState(0);
     const [addCardPopup, setAddCardPopup] = useState(false);
     
-
+    
     const showAddCardPopupHandler = () => {
         setAddCardPopup(true);
     }
