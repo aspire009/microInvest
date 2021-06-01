@@ -1,0 +1,32 @@
+.graph-card {
+    position: relative;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    align-items: center;
+    width: 550px;
+}
+
+.portfolio-history-container {
+    align-items: center;
+}
+
+.outset{
+    border-style: outset;
+}
+
+.graph {
+    margin-top: 30px;
+    margin-left:25px;
+    margin-bottom: 30px;
+    margin-right: 30px;
+}
+
+.portfolio-performance-header{
+    display: flex;
+    flex-direction: row;
+   }
+
+.graph-icon{
+    margin-right: 10;
+    margin-top: 12
+   }
