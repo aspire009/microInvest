@@ -5,10 +5,10 @@ import { faMinusCircle } from '@fortawesome/free-solid-svg-icons'
 import { COLORS } from "../../../../constants/NewColorScheme";
 import './CardDetailsRow.css'
 import { getBankLogo, getCardLines, getCardBackground } from '../../../../utilities/BankUtilities'
-import DeletePopup from '../../CreditCardDetails/DeletePopup/DeletePopup'
+import DeletePopup from '../../CardDetails/DeletePopup/DeletePopup'
 
-const CardDetailsRow = (props:{ cardDetailsRowModel:CardDetailsRowModel, deleteCard:(id:number) => void}) => {
-    const[deletePopup,setDeletePopup] = React.useState(false);
+const CardDetailsRow = (props: { cardDetailsRowModel: CardDetailsRowModel, deleteCard: (id: number) => void }) => {
+    const [deletePopup, setDeletePopup] = React.useState(false);
     function showDeletePopupHandler() {
         setDeletePopup(true);
     }
@@ -21,7 +21,7 @@ const CardDetailsRow = (props:{ cardDetailsRowModel:CardDetailsRowModel, deleteC
         props.deleteCard(props.cardDetailsRowModel.id);
     }
 
-    
+
     return (
         <div className="card-details-row-main">
             <img className="card-details-row-bank-image" src={getBankLogo(props.cardDetailsRowModel.bankName)} />
@@ -35,7 +35,7 @@ const CardDetailsRow = (props:{ cardDetailsRowModel:CardDetailsRowModel, deleteC
             </div>
             <div className="card-details-row-remove">
                 <FontAwesomeIcon onClick={showDeletePopupHandler} icon={faMinusCircle} style={{ color: COLORS.textSecondary }} />
-                {deletePopup && <DeletePopup deleteCard = {deleteCurrentCard} deletePopup={deletePopup} closeDeletePopup={closeDeletePopupHandler} />}
+                {deletePopup && <DeletePopup deleteCard={deleteCurrentCard} deletePopup={deletePopup} closeDeletePopup={closeDeletePopupHandler} />}
             </div>
         </div>
     )

@@ -1,0 +1,132 @@
+.add-card-form-modal {
+  display: flex;
+  flex-direction: column;
+  padding: 25px;
+  padding-left: 35px;
+  padding-right: 35px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+  border-radius: 14px;
+  background-color: white;
+  text-align: center;
+  width: fit-content;
+  z-index: 10;
+  
+  position: fixed;
+  top: 15vh;
+  left: calc(50% - 15rem);
+}
+
+.add-card-form-heading {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 40px;
+}
+
+.add-card-form-heading-title {
+  font-size: 27px;
+  font-weight: 800;
+  padding-bottom: 2px;
+}
+
+.add-card-form-heading-sub-title {
+  font-size: 14.5px;
+  font-weight: 600;
+  color: #00000085;
+}
+
+.add-card-form-content {
+  display: flex;
+  flex-direction: row;
+}
+
+.add-card-form-date-cvv-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.add-card-form-card-data-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 18px;
+}
+
+.add-card-form-field-heading{
+  font-weight: 600;
+  font-size: 11px;
+  color: #00000085;
+}
+
+.add-card-form-field-input {
+  border: 0px;
+  font-size: 24px;
+  color: #000;
+  font-weight: 500;
+}
+
+.add-card-form-field-input:focus, input:focus{
+  outline: none;
+}
+
+/* 
+.btn {
+    font: inherit;
+    cursor: pointer;
+    border-radius: 14px;
+    background-color: #1E3472;
+    color: white;
+    border: 1px solid #1C2542;
+    margin: auto;
+  justify-content: center;
+    text-align: center;
+  }
+  
+  .btn:hover {
+    background-color: #9c1458;
+    border-color: #9c1458;
+  }
+  
+  .btn--alt {
+    background-color: transparent;
+    color: #800040;
+  }
+  
+  .btn--alt:hover {
+    background-color: #f8dae9;
+  }
+  
+  .card {
+    background-color: white;
+    border-radius: 14px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+    padding: 1rem;
+    width: 20rem;
+  }
+  
+  .actions {
+    text-align: right;
+  }
+  
+  .modal {
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+    border-radius: 14px;
+    background-color: white;
+    padding: 1rem;
+    text-align: center;
+    width: 40rem;
+    z-index: 10;
+    position: fixed;
+    top: 20vh;
+    left: calc(50% - 15rem);
+  }
+  
+  .backdrop {
+    position: fixed;
+    z-index: 10;
+    background-color: rgba(0, 0, 0, 0.75);
+    width: 100%;
+    height: 100vh;
+    top: 0;
+    left: 0;
+  } */
