@@ -10,9 +10,16 @@
     width: 55%;
     height: 100vh;
     background-color: #380E6F;
-    /* background-color: aqua; */
 }
 
 .signin-signup-left-image {
     width: 100%;
+}
+
+.signin-signup-right {
+    display: flex;
+    flex-direction: column;
+    width: 45vw;
+    align-items: center;
+    padding-right: 30px;
 }
