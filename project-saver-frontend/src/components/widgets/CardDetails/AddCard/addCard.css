@@ -1,9 +1,10 @@
 .add-card-form-modal {
   display: flex;
   flex-direction: column;
-  padding: 25px;
-  padding-left: 35px;
-  padding-right: 35px;
+  padding-top: 25px;
+  padding-left: 40px;
+  padding-right: 85px;
+  padding-bottom: 8px;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
   border-radius: 14px;
   background-color: white;
@@ -12,8 +13,27 @@
   z-index: 10;
   
   position: fixed;
-  top: 15vh;
+  top: 20vh;
   left: calc(50% - 15rem);
+}
+
+.add-card-form-heading-wrapper {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  align-items: center;
+}
+
+.add-card-form-close {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  margin-right: -50px;
+  margin-top: -50px;
+  font-size: 22px;
+
+
 }
 
 .add-card-form-heading {
@@ -40,16 +60,23 @@
   flex-direction: row;
 }
 
+.add-card-form-number-logo-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
 .add-card-form-date-cvv-row {
   display: flex;
   flex-direction: row;
+  align-items: center;
 }
 
 .add-card-form-card-data-wrapper {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-bottom: 18px;
+  margin-bottom: 22px;
 }
 
 .add-card-form-field-heading{
@@ -67,6 +94,36 @@
 
 .add-card-form-field-input:focus, input:focus{
   outline: none;
+}
+
+.add-card-form-date {
+  width: 170px;
+}
+
+.add-card-date-input {
+  width: 90px;
+}
+
+
+.add-card-form-cvv-input{
+  width: 50px;
+}
+
+.add-card-form-bank-logo {
+  width: 60px;
+  margin-left: 25px;
+  margin-top: -13px;
+}
+
+.add-card-form-card-icon {
+  margin-top: -10px;
+}
+
+.add-card-form-submit {
+  flex: 1;
+  font-size: 44px;
+  margin-right: -210px;
+  margin-top: -10px;
 }
 
 /* 

@@ -24,17 +24,20 @@ const CardDetailsContainer: React.FC<CardDetailsContainerProps> = ({ cardDetailC
     const [addCardPopup, setAddCardPopup] = React.useState(false);
 
     const showAddCardPopupHandler = () => {
+        console.log('before open popup flag:', addCardPopup)
         setAddCardPopup(true);
+        console.log('after open popup flag:', addCardPopup)
     }
 
     const closeAddCardPopupHandler = () => {
+        console.log('before close popup flag:', addCardPopup)
         setAddCardPopup(false);
-        console.log('reached here', addCardPopup)
+        console.log('after close popup flag:', addCardPopup)
     }
 
-    console.log('reached here', addCardPopup)
     const addCardHandler = (addedCard: CardModel) => {
         //call api on backedn
+        console.log('cardValue received: ', addedCard)
 
         const cardDisplay: CardDetailsRowModel = {
             id: 1,
@@ -46,9 +49,10 @@ const CardDetailsContainer: React.FC<CardDetailsContainerProps> = ({ cardDetailC
 
         const updatedCardList = cardList;
         updatedCardList.push(cardDisplay);
-        debugger;
-        console.log(updatedCardList)
+
         setCardList(updatedCardList);
+
+        console.log(cardList)
         // setCardList([
         //     { bankName: 'Chase Bank', cardNumber: '8821 **** **** 3429', dueAmount: '2,510.21', dueDate: '31 May 2021' },
         //     { bankName: 'Wells Fargo', cardNumber: '3456 **** **** 0987', dueAmount: '1,220.08', dueDate: '27 May 2021' },
