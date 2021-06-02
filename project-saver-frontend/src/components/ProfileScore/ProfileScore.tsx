@@ -2,23 +2,30 @@ import { useState, useEffect, useRef } from "react";
 import Button from "@material-ui/core/Button";
 import axios from "axios";
 import PerformanceMeter from "./PerformanceMeter";
-import { useHistory } from 'react-router-dom';
-
+import { useHistory, useParams } from 'react-router-dom';
+interface scoreTemplate {
+  totalScore: string
+}
 const ProfileMeter = (props: { score: number }) => {
   const url = `http://localhost:8080/userScore/`;
-  const [userName, setUserName] = useState("");
+  const [userName, setUserName] = useState("vaibhav");
   const [riskProfile, setRiskProfile] = useState("");
   const [overallScore, setOverallScore] = useState(0);
-
+  const scoreBox: scoreTemplate = useParams();
   const history = useHistory();
 
   useEffect(() => {
+    console.log('inside useffect: totalScore: ', scoreBox.totalScore);
     setRiskProfileValue();
-    setOverallScore(props.score);
+    setOverallScore(parseInt(scoreBox.totalScore));
   })
 
   const goToquestionnaire = () => {
     history.push('/questionnaire');
+  }
+
+  const goTodashBoard = () => {
+    history.push('/newDashboard');
   }
 
   const setRiskProfileValue = () => {
@@ -31,13 +38,39 @@ const ProfileMeter = (props: { score: number }) => {
     }
   }
 
+  const postScore = (url: string, data, token: string) => {
+    fetch(url, {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${token}`,
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+      .then(res => res.json()).
+      then(json => {
+        if ('error' in json) {
+          alert('network call failed');
+          console.log('network call failed', json);
+        } else {
+          goTodashBoard();
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
   async function saveScore() {
     const data = {
-      userName: {userName},
-      riskProfile: {riskProfile},
-      overallScore: {overallScore},
+      userName: userName,
+      riskProfile: riskProfile,
+      overallScore: overallScore,
+      isAssessmentTaken: true
     };
-    await axios.post(url, data);
+    const token = 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjIyNjM0NTc1LCJleHAiOjE2MjM0OTg1NzV9.o81ngiH3WK985Qaqqh_45b5yc9VFByua9ddCLipp1lDKb2W76gT5cfzGcM9uWqLH8EQxARGl0uUWhZ_IS4qpnQ';
+    postScore(url, data, token);
   }
 
 

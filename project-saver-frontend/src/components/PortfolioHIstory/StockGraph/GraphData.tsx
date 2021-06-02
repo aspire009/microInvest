@@ -61,6 +61,7 @@ export interface plottingData {
 export const amazonUrl = 'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=AMZN&outputsize=compact&apikey=CEGMSFBO6Z4U1N09';
 export const facebookUrl = 'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=FB&outputsize=compact&apikey=CEGMSFBO6Z4U1N09';
 export const microsoftUrl = 'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=MSFT&outputsize=compact&apikey=CEGMSFBO6Z4U1N09';
+export const ibmUrl = 'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=IBM&outputsize=compact&apikey=CEGMSFBO6Z4U1N09';
 
 
 export const options = {
