@@ -1,12 +1,13 @@
 import Chart from "react-apexcharts";
 import React, { useEffect } from 'react'
-import { dateTimeData, dataTimeXaxis, simpleData, simpleDataXaxis, facebookUrl, options, amazonUrl, microsoftUrl } from './GraphData'
+import { dateTimeData, dataTimeXaxis, simpleData, simpleDataXaxis, facebookUrl, options, amazonUrl, microsoftUrl, ibmUrl } from './GraphData'
 import '../PortfolioHistoryContainer.css'
 import ShowChartIcon from '@material-ui/icons/ShowChart';
 
 const StockGraph = () => {
     const [facebookDataStore, setFacebookDataStore] = React.useState([]);
     const [amazonDataStore, setAmazonDataStore] = React.useState([]);
+    const [ibmDataStore, setibmDataStore] = React.useState([]);
     const [microSoftDataStore, setMicrosoftDataStore] = React.useState([]);
     const [loading, setLoading] = React.useState(true);
 
@@ -22,8 +23,8 @@ const StockGraph = () => {
 
         if (dataStoreName === 'FB') {
             setFacebookDataStore(dataStore);
-        // } else if (dataStoreName === 'AMZN') {
-        //     setAmazonDataStore(dataStore);
+        } else if (dataStoreName === 'IBM') {
+            setibmDataStore(dataStore);
         } else {
             setMicrosoftDataStore(dataStore);
         }
@@ -35,9 +36,9 @@ const StockGraph = () => {
         if (facebookDataStore.length === 0) {
             populateData(facebookUrl, 'FB');
         }
-        // if (amazonDataStore.length === 0) {
-        //     populateData(amazonUrl, 'AMZN');
-        // }
+        if (ibmDataStore.length === 0) {
+            populateData(ibmUrl, 'IBM');
+        }
         if (microSoftDataStore.length === 0) {
             populateData(microsoftUrl, "MSFT");
         }
@@ -60,10 +61,10 @@ const StockGraph = () => {
                 name: 'Facebook',
                 data: facebookDataStore
             },
-            // {
-            //     name: 'Amazon',
-            //     data: amazonDataStore
-            // },
+            {
+                name: 'IBM',
+                data: ibmDataStore
+            },
             {
                 name: 'Microsoft',
                 data: microSoftDataStore
