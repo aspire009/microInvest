@@ -33,7 +33,7 @@ const SigninSignupPallette = (props: { mode: string }) => {
 
             <div className="signin-signup-sub-heading-wrapper">
                 <label className="signin-signup-sub-heading-static">{model.subHeading}</label>
-                <label className="signin-signup-sub-heading-log-in" style={{ color: COLORS.orange }} onClick={() => setIsModeSignup(!isModeSignup)}>{model.subHeadingAction}</label>
+                <label className="signin-signup-sub-heading-log-in" style={{ color: COLORS.textWarn }} onClick={() => setIsModeSignup(!isModeSignup)}>{model.subHeadingAction}</label>
             </div>
 
             <div className="signin-signup-field-wrapper">
@@ -65,7 +65,7 @@ const SigninSignupPallette = (props: { mode: string }) => {
                 </div>
             }
 
-            <label className="signin-signup-submit-button" style={{ backgroundColor: COLORS.textPrimary }}>{model.submitButtonText}</label>
+            <label className="signin-signup-submit-button" style={{ backgroundColor: COLORS.orange }}>{model.submitButtonText}</label>
 
             <div className="signin-signup-google-button">
                 <FontAwesomeIcon className="signin-signup-google-button-icon" icon={faGoogle} style={{ color: COLORS.orange }} />
