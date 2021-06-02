@@ -1,0 +1,18 @@
+.signin-signup-main {
+    display: flex;
+    flex-direction: row;
+}
+
+.signin-signup-left {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 55%;
+    height: 100vh;
+    background-color: #380E6F;
+    /* background-color: aqua; */
+}
+
+.signin-signup-left-image {
+    width: 100%;
+}

@@ -94,7 +94,7 @@ const AddCardForm = (props: { addCardPopup: boolean, closePopup: () => void, sav
                         <label className="add-card-form-heading-sub-title">Fill in the details below</label>
                     </div>
                     <div className="add-card-form-close">
-                        <FontAwesomeIcon icon={faTimes} style={{ color: COLORS.textSecondary }} />
+                        <FontAwesomeIcon icon={faTimes} style={{ color: COLORS.textSecondary }} onClick={props.closePopup} />
                     </div>
                 </div>
 

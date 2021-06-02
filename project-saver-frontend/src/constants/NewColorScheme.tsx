@@ -9,6 +9,7 @@ export const COLORS = {
     maroon: '#C55141',
     blueLight: '#B0B9DB',
     black: "#000",
+    orange: '#d15741',
 
     citiLogoColor: '#056dae',
     chaseLogoColor: '#0f5ba7',
