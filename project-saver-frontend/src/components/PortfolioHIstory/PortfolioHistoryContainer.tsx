@@ -1,49 +1,34 @@
 import PortfolioHistoryTable from './PortFolioHistoryTable'
-import StockGraph from './StockGraph/StockGraph2'
+import {useHistory} from 'react-router-dom'
+import StockGraph from './StockGraph/StockGraph'
 import IconInfoPallette from '../widgets/IconInfoPallete/IconInfoPallette'
 import Card from '@material-ui/core/Card'
 import './PortfolioHistoryContainer.css'
-import { IconInfoPalletteModel } from "../widgets/IconInfoPallete/IconInfoPalletteModel";
-import RewardPointsEarnedImage from '../../assets/images/rewardPoints/rewardPointsEarned.svg'
-import RewardPointsInvestedImage from '../../assets/images/rewardPoints/rewardPointsInvested.svg'
-import RewardPointsUpcomingImage from '../../assets/images/rewardPoints/rewardPointsUpcoming.svg'
-import { COLORS } from "../../constants/NewColorScheme";
+import EqualizerIcon from '@material-ui/icons/Equalizer';
+import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
+import Button from '@material-ui/core/Button';
+import { earnedIconInfoPalletteModel, investedIconInfoPalletteModel, upcomingIconInfoPalletteModel } from './StockGraph/GraphData'
+
+
 const PortfolioHistoryContainer = () => {
-
-    const earnedIconInfoPalletteModel: IconInfoPalletteModel = {
-        backgroundColor: '#f38162',
-        iconImage: RewardPointsEarnedImage,
-        iconPosition: 'left',
-        mainText: '24,700',
-        subText: 'Points Earned',
-        mainTextColor: '#85291c'
-    }
-
-    const investedIconInfoPalletteModel: IconInfoPalletteModel = {
-        backgroundColor: COLORS.blueLight,
-        iconImage: RewardPointsInvestedImage,
-        iconPosition: 'left',
-        mainText: '22,300',
-        subText: 'Points Invested',
-        mainTextColor: '#515B9E'
-    }
-
-    const upcomingIconInfoPalletteModel: IconInfoPalletteModel = {
-        backgroundColor: COLORS.blueLight,
-        iconImage: RewardPointsUpcomingImage,
-        iconPosition: 'left',
-        mainText: '5,000',
-        subText: 'Upcoming Milestone',
-        mainTextColor: '#515B9E'
+    const history = useHistory();
+    const dashBoardRouterHandler = () => {
+        history.push("/newDashboard")
     }
     return (
         <div className="portfolio-history-container">
-             <IconInfoPallette iconInfoPalletteModel={earnedIconInfoPalletteModel}></IconInfoPallette>
-                <IconInfoPallette iconInfoPalletteModel={investedIconInfoPalletteModel}></IconInfoPallette>
-                <IconInfoPallette iconInfoPalletteModel={upcomingIconInfoPalletteModel}></IconInfoPallette>
-                <p className="outset"></p>
-            <Card className="graph-card"><StockGraph/></Card>
-            <PortfolioHistoryTable/>
+            <Button startIcon={<KeyboardBackspaceIcon/>} color="primary" onClick={dashBoardRouterHandler}>Go Back</Button>
+            <div className="portfolio-page-header"><EqualizerIcon color="primary" className="portfolio-page-header-icon"/><p>Portfolio</p></div>
+            <p className="outset" id="border"></p>
+            <div className="info-pallette">
+                <div><IconInfoPallette iconInfoPalletteModel={earnedIconInfoPalletteModel}></IconInfoPallette></div>
+                <div><IconInfoPallette iconInfoPalletteModel={investedIconInfoPalletteModel}></IconInfoPallette></div>
+                <div><IconInfoPallette iconInfoPalletteModel={upcomingIconInfoPalletteModel}></IconInfoPallette></div>
+            </div>
+            <p className="outset" id="border"></p>
+            <div className="graph-comp"><Card className="graph-card"><StockGraph /></Card></div>
+            <p className="outset" id="border"></p>
+            <div><PortfolioHistoryTable /></div>
         </div>
     )
 }

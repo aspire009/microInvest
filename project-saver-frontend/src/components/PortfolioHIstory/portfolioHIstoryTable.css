@@ -11,14 +11,17 @@ body {
 }
 
 .container {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
+	display: flex;
+	flex-direction: column;
+	position: relative;
+	top: 10%;
+	left: 10%;
+	
 }
 
 table {
 	width: 800px;
+	height: 450px;
 	border-collapse: collapse;
     background: linear-gradient(45deg, #49a09d, #5f2c82);
 	overflow: hidden;
@@ -50,13 +53,13 @@ th {
 
 .pagination-layout {
     margin-top: 20px;
-    margin-left: 270px;
+    left:20%;
+	margin-bottom: 20px;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     margin-right: 5px;
 }
-
 
 
 /* td :hover {

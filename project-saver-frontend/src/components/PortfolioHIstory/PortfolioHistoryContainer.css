@@ -6,9 +6,7 @@
     width: 550px;
 }
 
-.portfolio-history-container {
-    align-items: center;
-}
+
 
 .outset{
     border-style: outset;
@@ -21,6 +19,7 @@
     margin-right: 30px;
 }
 
+
 .portfolio-performance-header{
     display: flex;
     flex-direction: row;
@@ -29,4 +28,32 @@
 .graph-icon{
     margin-right: 10;
     margin-top: 12
+   }
+
+   .graph-comp {
+       margin-top: 40px;
+       position: relative;
+       left:20%;
+       margin-bottom: 40px;
+   }
+
+   .info-pallette{
+       display: flex;
+       flex-direction: row;
+       width: 200px;
+   }
+   .info-pallette div {
+       margin-right: 10px;
+   }
+
+   .portfolio-page-header{
+       display: flex;
+       flex-direction: row;
+       font-size: large;
+       color: darkblue;
+   }
+
+   .portfolio-page-header-icon {
+    margin-right: 10px;
+    margin-top: 14px
    }

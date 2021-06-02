@@ -1,17 +1,10 @@
-import ApexCharts from 'apexcharts';
 import Chart from "react-apexcharts";
 import React, { useEffect } from 'react'
 import { dateTimeData, dataTimeXaxis, simpleData, simpleDataXaxis, facebookUrl, options, amazonUrl, microsoftUrl } from './GraphData'
-import { Facebook } from '@material-ui/icons';
-import Loader from "react-loader-spinner";
-import { makeStyles } from '@material-ui/core/styles';
-import axios from 'axios';
 import '../PortfolioHistoryContainer.css'
 import ShowChartIcon from '@material-ui/icons/ShowChart';
 
-const StockGraph2 = () => {
-    const [stockValues, setStockValues] = React.useState([]);
-    const [dateValues, setDateValues] = React.useState([]);
+const StockGraph = () => {
     const [facebookDataStore, setFacebookDataStore] = React.useState([]);
     const [amazonDataStore, setAmazonDataStore] = React.useState([]);
     const [microSoftDataStore, setMicrosoftDataStore] = React.useState([]);
@@ -22,15 +15,9 @@ const StockGraph2 = () => {
         await fetch(url)
             .then((response => response.json()))
             .then((data) => {
-                console.log("data", data)
-
                 for (var key in data['Time Series (Daily)']) {
                     dataStore.push({ x: new Date(key).getTime(), y: data['Time Series (Daily)'][key]['1. open'] })
-                    dateValues.push(key);
-                    stockValues.push(data['Time Series (Daily)'][key]['1. open']);
                 }
-                console.log('stock values: ', stockValues);
-                console.log('dateValues: ', dateValues);
             });
 
         if (dataStoreName === 'FB') {
@@ -102,4 +89,4 @@ const StockGraph2 = () => {
     /></div>);
 }
 
-export default StockGraph2;
+export default StockGraph;

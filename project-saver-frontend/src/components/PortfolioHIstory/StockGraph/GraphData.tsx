@@ -1,3 +1,10 @@
+import { IconInfoPalletteModel } from "../../widgets/IconInfoPallete/IconInfoPalletteModel";
+import RewardPointsEarnedImage from '../../../assets/images/rewardPoints/rewardPointsEarned.svg'
+import RewardPointsInvestedImage from '../../../assets/images/rewardPoints/rewardPointsInvested.svg'
+import RewardPointsUpcomingImage from '../../../assets/images/rewardPoints/rewardPointsUpcoming.svg'
+import { COLORS } from "../../../constants/NewColorScheme";
+
+
 export const dateTimeData = [{
     name:'facebook',
   data: [{
@@ -55,6 +62,7 @@ export const amazonUrl = 'https://www.alphavantage.co/query?function=TIME_SERIES
 export const facebookUrl = 'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=FB&outputsize=compact&apikey=CEGMSFBO6Z4U1N09';
 export const microsoftUrl = 'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=MSFT&outputsize=compact&apikey=CEGMSFBO6Z4U1N09';
 
+
 export const options = {
     chart : {
         height: 450,
@@ -91,4 +99,32 @@ export const options = {
     // xaxis: {
     //     categories:['22/04/2021', '23/04/2021', '24/04/2021','25/04/2021','26/04/2021','27/04/2021','28/04/2021','29/04/2021']
     // }
+}
+
+
+export const earnedIconInfoPalletteModel: IconInfoPalletteModel = {
+    backgroundColor: '#f38162',
+    iconImage: RewardPointsEarnedImage,
+    iconPosition: 'left',
+    mainText: '24,700',
+    subText: 'Points Earned',
+    mainTextColor: '#85291c'
+}
+
+export const investedIconInfoPalletteModel: IconInfoPalletteModel = {
+    backgroundColor: COLORS.blueLight,
+    iconImage: RewardPointsInvestedImage,
+    iconPosition: 'left',
+    mainText: '22,300',
+    subText: 'Points Invested',
+    mainTextColor: '#515B9E'
+}
+
+export const upcomingIconInfoPalletteModel: IconInfoPalletteModel = {
+    backgroundColor: COLORS.blueLight,
+    iconImage: RewardPointsUpcomingImage,
+    iconPosition: 'left',
+    mainText: '5,000',
+    subText: 'Upcoming Milestone',
+    mainTextColor: '#515B9E'
 }

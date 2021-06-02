@@ -69,7 +69,7 @@ const PortFolioHistoryTable = () => {
         },
     })();
     return (
-        <div className="portfolio-histroy-table" >
+        <div className="container" >
             <div className="portfolio-histroy-header"><ListIcon className={classes.headerIcon} /><p>Portfolio History</p></div>
             <table>
                 <thead>
