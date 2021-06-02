@@ -1,50 +1,61 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import CardDetailsRow from "../CardDetailsRow/CardDetailsRow";
 import { CardDetailsRowModel } from "../CardDetailsRow/CardDetailsRowModel";
 import CardPallette from "../CardPallette/CardPallette";
 import { CardDetailsContainerProps } from "./CardDetailsContainerModel";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlusCircle } from '@fortawesome/free-solid-svg-icons'
+import { faPlusCircle, faBolt, faMinus } from '@fortawesome/free-solid-svg-icons'
 import { COLORS } from "../../../../constants/NewColorScheme";
 import './CardDetailsContainer.css'
-import PayButton from '../../CreditCardDetails/PayButton'
-import AcceptPayment from "../../../Payment/acceptPayment";
-import {cardList, CITI, BOA, CB} from '../../../../constants/CreditCardData'
-import AddCardPopup from "../AddCardPopup";
-import Button from '@material-ui/core/Button'
-import PlaylistAddIcon from '@material-ui/icons/PlaylistAdd';
+import RoundIconButton from "../../RoundIconButton/RoundIconButton";
+import { CardModel } from "../../models/CardModel";
+import AddCardForm from '../AddCard/AddCardForm';
 
-const CardDetailsContainer = (props:{username:string}) => {
-   const [cards, setCards] = useState<CardDetailsRowModel[]>(cardList);
+
+const CardDetailsContainer: React.FC<CardDetailsContainerProps> = ({ cardDetailContainerModel }: CardDetailsContainerProps) => {
+    const [cardList, setCardList] = useState<CardDetailsRowModel[]>([
+        { id: 1, bankName: 'Citi Bank', cardNumber: '1234 **** **** 6789', dueAmount: '3,200.98', dueDate: '30 May 2021' },
+        { id: 1, bankName: 'Bank of America', cardNumber: '3456 **** **** 0987', dueAmount: '1,220.08', dueDate: '27 May 2021' },
+        // { bankName: 'Chase Bank', cardNumber: '8821 **** **** 3429', dueAmount: '2,510.21', dueDate: '31 May 2021' },
+        // { bankName: 'Wells Fargo', cardNumber: '3456 **** **** 0987', dueAmount: '1,220.08', dueDate: '27 May 2021' },
+    ]);
+
     const [cardIndex, setCardIndex] = useState(0);
-    const [addCardPopup, setAddCardPopup] = useState(false);
-    
-    
+    const [addCardPopup, setAddCardPopup] = React.useState(false);
+
     const showAddCardPopupHandler = () => {
         setAddCardPopup(true);
     }
 
     const closeAddCardPopupHandler = () => {
         setAddCardPopup(false);
+        console.log('reached here', addCardPopup)
     }
 
-    const deleteCardHandler = (id: number) => {
-        const updatedCards = cards.filter(card => card.id !== id);
-        setCards(updatedCards);
-    }
-
-    const addCardHandler = (card: CardDetailsRowModel) => {
+    console.log('reached here', addCardPopup)
+    const addCardHandler = (addedCard: CardModel) => {
         //call api on backedn
-        card.id = Math.floor(Math.random() * 10000);
-        card.bankName= CITI;
-        card.dueAmount = "1000";
-        card.dueDate = "27 June 2021"
-        const updatedCards = cards;
-        updatedCards.push(card);
-        setCards(updatedCards);
-    }
 
-    
+        const cardDisplay: CardDetailsRowModel = {
+            id: 1,
+            bankName: 'Citi Bank',
+            cardNumber: addedCard.cardNumber,
+            dueAmount: '1,000',// + addedCard.dueAmount,
+            dueDate: '28 Math 2021'//addedCard.dueDate
+        }
+
+        const updatedCardList = cardList;
+        updatedCardList.push(cardDisplay);
+        debugger;
+        console.log(updatedCardList)
+        setCardList(updatedCardList);
+        // setCardList([
+        //     { bankName: 'Chase Bank', cardNumber: '8821 **** **** 3429', dueAmount: '2,510.21', dueDate: '31 May 2021' },
+        //     { bankName: 'Wells Fargo', cardNumber: '3456 **** **** 0987', dueAmount: '1,220.08', dueDate: '27 May 2021' },
+        // ]);
+
+
+    }
 
     return (
         <div className="card-details-container-main">
@@ -52,28 +63,38 @@ const CardDetailsContainer = (props:{username:string}) => {
 
             <div className="card-details-container-content">
                 <div className="card-details-container-card">
-                    {cardIndex <= cards.length &&<CardPallette cardDetailsRowModel={cards[cardIndex]} />}
-                </div>
-                <div className="card-details-container-list">
-                    {
-                        cards.map((cardModel, index) => {
-                            return (
-                                <div onClick={() => setCardIndex(index)}>
-                                    <CardDetailsRow deleteCard={deleteCardHandler} cardDetailsRowModel={cardModel} />
-                                </div>
-                            )
-                        })
-                    }
+                    <CardPallette cardDetailsRowModel={cardList[cardIndex]} />
                 </div>
 
-                <div className="card-details-container-add-card">
-                    {/* <FontAwesomeIcon className="card-details-container-add-card-icon" icon={faPlusCircle} style={{ color: COLORS.textSecondary }} /> */}
-                    {/* <label className="card-details-container-add-card-text" style={{ color: COLORS.textSecondary }}>Add Card</label> */}
-                    <AcceptPayment/>
-                    {addCardPopup && <AddCardPopup addCardPopup={addCardPopup} closePopup={closeAddCardPopupHandler} saveCardHandler={addCardHandler} />}
+                <div className="card-details-row-1">
+                    <div className="card-details-pay-now-wrapper">
+                        <RoundIconButton icon={faBolt} text="Pay Now" iconBackground="#1924c2" backgroundColor="#334ee3" textColor="#FFF" iconColor="#ffbf00" />
+                    </div>
+
+                    <div className="card-details-remove-card-wrapper">
+                        <RoundIconButton icon={faMinus} text="Remove" iconBackground="#1924c2" backgroundColor="#334ee3" textColor="#FFF" iconColor="#FF8C00" />
+                    </div>
                 </div>
-                <div className="card-details-container-add-card"><Button onClick={showAddCardPopupHandler} startIcon={<PlaylistAddIcon />}>Add Card</Button></div>
-                
+                <div className="card-details-container-list-wrapper">
+                    <div className="card-details-container-list">
+                        {
+                            cardList.map((cardModel, index) => {
+                                return (
+                                    <div onClick={() => setCardIndex(index)}>
+                                        <CardDetailsRow cardDetailsRowModel={cardModel} deleteCard={undefined} />
+                                    </div>
+                                )
+                            })
+                        }
+                    </div>
+                </div>
+
+                <div className="card-details-container-add-card" onClick={showAddCardPopupHandler}>
+                    <FontAwesomeIcon className="card-details-container-add-card-icon" icon={faPlusCircle} style={{ color: COLORS.textSecondary }} />
+                    <label className="card-details-container-add-card-text" style={{ color: COLORS.textSecondary }}>Add Card</label>
+                    {addCardPopup && <AddCardForm addCardPopup={addCardPopup} closePopup={closeAddCardPopupHandler} saveCardHandler={addCardHandler} />}
+                </div>
+
             </div>
         </div>
     )

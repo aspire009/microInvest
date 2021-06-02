@@ -1,12 +1,9 @@
 export interface CardDetailsRowModel {
-    id:number,
+    id: number,
     bankName: string,
     cardNumber: string,
     dueDate: string,
-    dueAmount: string,
-    cardHolder:string,
-    cvv:number,
-    expiry:string
+    dueAmount: string
 }
 
 export interface CardDetailsRowProps {
