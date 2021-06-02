@@ -11,7 +11,8 @@ export const SBI = 'SBI';
 export const HDFC = 'HDFC'
 export const CITI = 'Citi Bank';
 export const BOA = 'Bank of America';
-export const CB = 'Chase Bank';
+export const CHASE = 'Chase Bank';
+export const WELLS = 'Wells Fargo'
 
 export const DUE_DATE = 'Due Date';
 export const DUE_AMOUNT = 'Due Amount';
