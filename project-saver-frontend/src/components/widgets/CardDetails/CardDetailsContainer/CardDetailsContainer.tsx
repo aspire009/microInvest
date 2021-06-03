@@ -21,7 +21,7 @@ const CardDetailsContainer: React.FC<CardDetailsContainerProps> = ({ cardDetailC
     ]);
 
     const [cardIndex, setCardIndex] = useState(0);
-    const [addCardPopup, setAddCardPopup] = React.useState(false);
+    const [addCardPopup, setAddCardPopup] = useState(false);
 
     const showAddCardPopupHandler = () => {
         console.log('before open popup flag:', addCardPopup)
@@ -96,8 +96,9 @@ const CardDetailsContainer: React.FC<CardDetailsContainerProps> = ({ cardDetailC
                 <div className="card-details-container-add-card" onClick={showAddCardPopupHandler}>
                     <FontAwesomeIcon className="card-details-container-add-card-icon" icon={faPlusCircle} style={{ color: COLORS.textSecondary }} />
                     <label className="card-details-container-add-card-text" style={{ color: COLORS.textSecondary }}>Add Card</label>
-                    {addCardPopup && <AddCardForm addCardPopup={addCardPopup} closePopup={closeAddCardPopupHandler} saveCardHandler={addCardHandler} />}
                 </div>
+
+                {addCardPopup && <AddCardForm addCardPopup={addCardPopup} closePopup={closeAddCardPopupHandler} saveCardHandler={addCardHandler} />}
 
             </div>
         </div>
