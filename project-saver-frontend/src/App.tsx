@@ -11,12 +11,16 @@ import { Dashboard } from '@material-ui/icons';
 import AcceptPayment from './components/Payment/acceptPayment';
 import Questionare from './components/Questionaire/Questionare';
 import ProfileMeter from './components/ProfileScore/ProfileScore';
-import ProfilePerformance from './components/ProfileScore/ProfilePerformance';
+import PortFolioHistoryTable from './components/PortfolioHIstory/PortFolioHistoryTable';
 import CardDetailsContainer from './components/widgets/CreditCardDetails/CreditCardsContainer'
 // import Login from './components/base/Login';
 // import SignUp from './components/base/SignUp';
 // import Home from './components/base/Home';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import StockGraph from './components/PortfolioHIstory/StockGraph/StockGraph';
+import PortfolioHistoryContainer from './components/PortfolioHIstory/PortfolioHistoryContainer';
+import MainDashboard from './components/landingPages/MainDashboard/MainDashboard';
+import PerformanceMeter from './components/ProfileScore/PerformanceMeter';
 // import LandingPage from './components/base/LandingPage';
 function App() {
 
@@ -56,8 +60,20 @@ function App() {
         <Route exact path="/questionnaire">
         <Questionare/>
         </Route>
-        <Route exact path="/performance/:totalScore" component={ProfilePerformance}>
-          <ProfilePerformance/>
+        <Route exact path="/portfolio/table">
+          <PortFolioHistoryTable/>
+        </Route>
+        {/* <Route exact path="/portfolio/graph">
+          <StockGraph/>
+        </Route> */}
+        <Route exact path="/portfolio">
+          <PortfolioHistoryContainer/>
+        </Route>
+        <Route exact path="/performance/:totalScore">
+          <ProfileMeter score={80}/>
+        </Route>
+        <Route exact path="/newDashBoard">
+          <MainDashboard mainDashboardModel={{}}/>
         </Route>
       </Switch>
     </Router>

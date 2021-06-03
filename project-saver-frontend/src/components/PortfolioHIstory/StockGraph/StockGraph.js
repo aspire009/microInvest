@@ -4,7 +4,9 @@ import { dateTimeData, dataTimeXaxis, simpleData, simpleDataXaxis, facebookUrl, 
 import '../PortfolioHistoryContainer.css'
 import ShowChartIcon from '@material-ui/icons/ShowChart';
 
-const StockGraph = () => {
+const StockGraph = ({graphWidth, graphHeight}) => {
+    console.log("graphWidth",graphWidth)
+    console.log("graphHeight", graphHeight)
     const [facebookDataStore, setFacebookDataStore] = React.useState([]);
     const [amazonDataStore, setAmazonDataStore] = React.useState([]);
     const [ibmDataStore, setibmDataStore] = React.useState([]);
@@ -44,11 +46,11 @@ const StockGraph = () => {
         }
         setLoading(false);
     }, [])
-
+    
     const options = {
         chart: {
             height: 650,
-            width: '200%',
+            width: '400',
             type: 'datetime',
             background: '#f4f4f4',
             foreColor: '#333'
@@ -85,8 +87,9 @@ const StockGraph = () => {
         options={options}
         series={options.series}
         type="line"
-        width="500"
+        width={graphWidth.toString()}
         stroke={options.chart.stroke}
+        height={graphHeight.toString()}
     /></div>);
 }
 

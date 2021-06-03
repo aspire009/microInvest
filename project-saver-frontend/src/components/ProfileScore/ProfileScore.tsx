@@ -69,7 +69,7 @@ const ProfileMeter = (props: { score: number }) => {
       overallScore: overallScore,
       isAssessmentTaken: true
     };
-    const token = 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjIyNjM0NTc1LCJleHAiOjE2MjM0OTg1NzV9.o81ngiH3WK985Qaqqh_45b5yc9VFByua9ddCLipp1lDKb2W76gT5cfzGcM9uWqLH8EQxARGl0uUWhZ_IS4qpnQ';
+    const token = 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjIyNzEyNzA2LCJleHAiOjE2MjM1NzY3MDZ9.f34fhqQBJoSvFYZjp-CUysxb_emg9hhkYM21oDHU0-LYIfA5ko00nELyl0sO6bQ5WYH0iIt-OLJcTJdXUXzs9Q';
     postScore(url, data, token);
   }
 

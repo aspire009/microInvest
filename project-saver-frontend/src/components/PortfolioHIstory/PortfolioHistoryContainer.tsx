@@ -11,6 +11,8 @@ import { earnedIconInfoPalletteModel, investedIconInfoPalletteModel, upcomingIco
 
 
 const PortfolioHistoryContainer = () => {
+    const graphHeight = 300;
+    const graphWidth = 700;
     const history = useHistory();
     const dashBoardRouterHandler = () => {
         history.push("/newDashboard")
@@ -25,8 +27,7 @@ const PortfolioHistoryContainer = () => {
                 <div><IconInfoPallette iconInfoPalletteModel={investedIconInfoPalletteModel}></IconInfoPallette></div>
                 <div><IconInfoPallette iconInfoPalletteModel={upcomingIconInfoPalletteModel}></IconInfoPallette></div>
             </div>
-            <p className="outset" id="border"></p>
-            <div className="graph-comp"><Card className="graph-card"><StockGraph /></Card></div>
+            <div className="graph-comp"><Card className="graph-card"><StockGraph graphWidth={graphWidth} graphHeight= {graphHeight}/></Card></div>
             <p className="outset" id="border"></p>
             <div><PortfolioHistoryTable /></div>
         </div>
