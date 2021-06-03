@@ -55,10 +55,9 @@ const AddCardForm = (props: { addCardPopup: boolean, closePopup: () => void, sav
     }
 
     const saveCard = (card: CardModel) => {
-        setCard({
-            ...card,
-            bank: getBankName(card.cardNumber)
-        })
+        //TODO: Form Validation
+        const bankName = getBankName(card.cardNumber)
+        card.bank = bankName
         props.saveCardHandler(card);
         props.closePopup();
     }

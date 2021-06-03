@@ -7,19 +7,7 @@ import './CardDetailsRow.css'
 import { getBankLogo, getCardLines, getCardBackground } from '../../../../utilities/BankUtilities'
 import DeletePopup from '../../CardDetails/DeletePopup/DeletePopup'
 
-const CardDetailsRow = (props: { cardDetailsRowModel: CardDetailsRowModel, deleteCard: (id: number) => void }) => {
-    const [deletePopup, setDeletePopup] = React.useState(false);
-    function showDeletePopupHandler() {
-        setDeletePopup(true);
-    }
-
-    function closeDeletePopupHandler() {
-        setDeletePopup(false);
-    }
-
-    const deleteCurrentCard = () => {
-        props.deleteCard(props.cardDetailsRowModel.id);
-    }
+const CardDetailsRow = (props: { cardDetailsRowModel: CardDetailsRowModel, showDeletePopupHandler: (id: number) => void }) => {
 
 
     return (
@@ -34,8 +22,8 @@ const CardDetailsRow = (props: { cardDetailsRowModel: CardDetailsRowModel, delet
                 </div>
             </div>
             <div className="card-details-row-remove">
-                <FontAwesomeIcon onClick={showDeletePopupHandler} icon={faMinusCircle} style={{ color: COLORS.textSecondary }} />
-                {deletePopup && <DeletePopup deleteCard={deleteCurrentCard} deletePopup={deletePopup} closeDeletePopup={closeDeletePopupHandler} />}
+                <FontAwesomeIcon onClick={() => props.showDeletePopupHandler(props.cardDetailsRowModel.id)} icon={faMinusCircle} style={{ color: COLORS.textSecondary }} />
+
             </div>
         </div>
     )
