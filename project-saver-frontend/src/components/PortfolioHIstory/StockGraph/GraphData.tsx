@@ -103,7 +103,7 @@ export const options = {
 }
 
 
-export const earnedIconInfoPalletteModel: IconInfoPalletteModel = {
+export let earnedIconInfoPalletteModel: IconInfoPalletteModel = {
     backgroundColor: '#f38162',
     iconImage: RewardPointsEarnedImage,
     iconPosition: 'left',
@@ -112,7 +112,7 @@ export const earnedIconInfoPalletteModel: IconInfoPalletteModel = {
     mainTextColor: '#85291c'
 }
 
-export const investedIconInfoPalletteModel: IconInfoPalletteModel = {
+export let investedIconInfoPalletteModel: IconInfoPalletteModel = {
     backgroundColor: COLORS.blueLight,
     iconImage: RewardPointsInvestedImage,
     iconPosition: 'left',
@@ -121,12 +121,20 @@ export const investedIconInfoPalletteModel: IconInfoPalletteModel = {
     mainTextColor: '#515B9E'
 }
 
-export const upcomingIconInfoPalletteModel: IconInfoPalletteModel = {
+export let upcomingIconInfoPalletteModel: IconInfoPalletteModel = {
     backgroundColor: COLORS.blueLight,
     iconImage: RewardPointsUpcomingImage,
     iconPosition: 'left',
     mainText: '5,000',
     subText: 'Upcoming Milestone',
     mainTextColor: '#515B9E'
+}
+
+export interface rewardModel {
+    id: number,
+    userName: string,
+    totalPointsInvested: number,
+    totalPointsEarned: number,
+    nextMilestone: number
 }
 
