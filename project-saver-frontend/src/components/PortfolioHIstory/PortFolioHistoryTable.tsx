@@ -6,20 +6,66 @@ import Button from '@material-ui/core/Button'
 import { makeStyles } from '@material-ui/core/styles';
 import ListIcon from '@material-ui/icons/List';
 import PageButton from './PaginationButton'
-import { investmentHistory, emptyPortfolioRow } from './PortfolioData'
+import Loader from "react-loader-spinner";
+
+import { investmentHistory, emptyPortfolioRow, InvestmentHistoryModel } from './PortfolioData'
 const PortFolioHistoryTable = () => {
     const windowSize = 5;
-    const [pages, setPages] = React.useState(Math.ceil(investmentHistory.length / windowSize));
+    const historyUrl = 'http://localhost:8080/investments/all';
+    const token = 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjIyNjU1NzgzLCJleHAiOjE2MjM1MTk3ODN9.T8tO4piKAffcyjWt6mhk2_wHYnfgIey_IW2hbem2Wwpe_YxM9GJQX8sR5PxXrlTgGxMgtJLpmfjKyny3HuKOGA'
+    const [investmentHistoryData,setInvestementHistoryData] = React.useState<InvestmentHistoryModel[]>([]);
+    const [pages, setPages] = React.useState(1);
     const [currentPage, setCurrentPage] = React.useState(1);
     const [windowShowing, setWindowShowing] = React.useState({
         startIndex: 0,
-        endIndex: Math.ceil(investmentHistory.length / pages)
+        endIndex: 5
     });
+    const  [loading, setLoading] = React.useState(true);
     const [currentWindowData, setCurrentWindowData] = React.useState(investmentHistory.slice(windowShowing.startIndex, windowShowing.endIndex));
 
     useEffect(() => {
+        setLoading(true);
+        populateHistory(historyUrl, token);
         addPaddingToData();
-    }, [pages]);
+        setWindowShowing({
+            startIndex: 0,
+        endIndex: 5
+        })
+        console.log("investmentHistoryData: ", investmentHistoryData);
+        console.log("pages : ", pages);
+        console.log("currentPage: ", currentPage);
+        setLoading(false);
+        
+        console.log("loading", loading);
+        console.log("investmentHistoryData", investmentHistoryData);
+    }, []);
+
+    const populateHistory = async (url:string, token:string) => {
+        let history:InvestmentHistoryModel[] = [];
+        await fetch(url, {
+            method: "GET",
+            headers: {
+              "Authorization": `Bearer ${token}`,
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            }
+          }).
+        then((resp) => resp.json()).
+        then((data) => {
+            for (var object in data) {
+                let historyRow:InvestmentHistoryModel = {
+                    id:data[object]['id'],
+                    dateTime: data[object]['dateTime'],
+                    moneyInvested:data[object]['moneyInvested'],
+                    portfolioName:data[object]['portfolioName'],
+                    unitsPurchased:data[object]['unitsPurchased']
+                }
+                history.push(historyRow);
+            }
+            setInvestementHistoryData(history);
+            setPages(Math.ceil(history.length / windowSize));
+        }); 
+    }
 
     const addPaddingToData = () => {
         const dataLength = investmentHistory.length;
@@ -43,8 +89,8 @@ const PortFolioHistoryTable = () => {
         }
     }
 
-    const getUnitsPurchased = (unit: string) => {
-        return unit !== "" ? `${unit} units` : "";
+    const getUnitsPurchased = (unit: number) => {
+        return unit !== 0 ? `${unit} units` : "";
     }
 
     const getIndex = (index: number) => {
@@ -68,8 +114,14 @@ const PortFolioHistoryTable = () => {
             marginTop: 12
         },
     })();
+    console.log(`pages: ${pages}  currentPage: ${currentPage}`)
     return (
-        <div className="container" >
+        investmentHistoryData.length === 0 ? <div className="container"><Loader
+        type='Watch'
+        color="#00BFFF"
+        height={100}
+        width={100} //3 secs
+      /></div> : <div className="container" >
             <div className="portfolio-histroy-header"><ListIcon className={classes.headerIcon} /><p>Portfolio History</p></div>
             <table>
                 <thead>
@@ -82,14 +134,14 @@ const PortFolioHistoryTable = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {investmentHistory.slice(windowShowing.startIndex, windowShowing.endIndex).map((investment) => {
+                    {investmentHistoryData.slice(windowShowing.startIndex, windowShowing.endIndex).map((investment) => {
                         return (
                             <tr>
-                                <td className={classes.tableRow}>{getIndex(investment.index)}</td>
-                                <td className={classes.tableRow}>{investment.DateTime}</td>
-                                <td className={classes.tableRow}>{investment.pName}</td>
+                                <td className={classes.tableRow}>{getIndex(investment.id)}</td>
+                                <td className={classes.tableRow}>{investment.dateTime}</td>
+                                <td className={classes.tableRow}>{investment.portfolioName}</td>
                                 <td>{investment.moneyInvested && <Button className={classes.MoneyText} startIcon={<AttachMoneyIcon className={classes.AttachMoneyIcon} />}>{investment.moneyInvested}</Button>}</td>
-                                <td className={classes.tableRow}>{getUnitsPurchased(investment.unitPurchased)}</td>
+                                <td className={classes.tableRow}>{getUnitsPurchased(investment.unitsPurchased)}</td>
 
                             </tr>
                         )

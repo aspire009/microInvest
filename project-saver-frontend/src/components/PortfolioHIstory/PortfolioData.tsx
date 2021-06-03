@@ -97,3 +97,11 @@ export const emptyPortfolioRow = {
     moneyInvested:"",
     unitPurchased:""
 }
+
+export interface InvestmentHistoryModel {
+    id:number,
+    dateTime:string,
+    portfolioName:string,
+    moneyInvested:number,
+    unitsPurchased:number
+}

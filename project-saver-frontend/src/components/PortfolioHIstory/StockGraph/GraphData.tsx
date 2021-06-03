@@ -129,3 +129,4 @@ export const upcomingIconInfoPalletteModel: IconInfoPalletteModel = {
     subText: 'Upcoming Milestone',
     mainTextColor: '#515B9E'
 }
+
