@@ -11,8 +11,8 @@ import Loader from "react-loader-spinner";
 import { investmentHistory, emptyPortfolioRow, InvestmentHistoryModel } from './PortfolioData'
 const PortFolioHistoryTable = () => {
     const windowSize = 5;
-    const historyUrl = 'http://localhost:8080/investments/all';
-    const token = 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjIyNjU1NzgzLCJleHAiOjE2MjM1MTk3ODN9.T8tO4piKAffcyjWt6mhk2_wHYnfgIey_IW2hbem2Wwpe_YxM9GJQX8sR5PxXrlTgGxMgtJLpmfjKyny3HuKOGA'
+    const historyUrl = 'http://localhost:8080/investment/all/vaibhav';
+    const token = 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjIyNzEyNzA2LCJleHAiOjE2MjM1NzY3MDZ9.f34fhqQBJoSvFYZjp-CUysxb_emg9hhkYM21oDHU0-LYIfA5ko00nELyl0sO6bQ5WYH0iIt-OLJcTJdXUXzs9Q'
     const [investmentHistoryData,setInvestementHistoryData] = React.useState<InvestmentHistoryModel[]>([]);
     const [pages, setPages] = React.useState(1);
     const [currentPage, setCurrentPage] = React.useState(1);
@@ -55,10 +55,11 @@ const PortFolioHistoryTable = () => {
             for (var object in data) {
                 let historyRow:InvestmentHistoryModel = {
                     id:data[object]['id'],
-                    dateTime: data[object]['dateTime'],
+                    investedDate:data[object]['investedDate'],
+                    pricePerUnit:data[object]['pricePerUnit'],
                     moneyInvested:data[object]['moneyInvested'],
-                    portfolioName:data[object]['portfolioName'],
-                    unitsPurchased:data[object]['unitsPurchased']
+                    fundName:data[object]['fundName'],
+                    units:data[object]['units']
                 }
                 history.push(historyRow);
             }
@@ -138,10 +139,10 @@ const PortFolioHistoryTable = () => {
                         return (
                             <tr>
                                 <td className={classes.tableRow}>{getIndex(investment.id)}</td>
-                                <td className={classes.tableRow}>{investment.dateTime}</td>
-                                <td className={classes.tableRow}>{investment.portfolioName}</td>
+                                <td className={classes.tableRow}>{investment.investedDate}</td>
+                                <td className={classes.tableRow}>{investment.fundName}</td>
                                 <td>{investment.moneyInvested && <Button className={classes.MoneyText} startIcon={<AttachMoneyIcon className={classes.AttachMoneyIcon} />}>{investment.moneyInvested}</Button>}</td>
-                                <td className={classes.tableRow}>{getUnitsPurchased(investment.unitsPurchased)}</td>
+                                <td className={classes.tableRow}>{getUnitsPurchased(investment.units)}</td>
 
                             </tr>
                         )

@@ -100,8 +100,9 @@ export const emptyPortfolioRow = {
 
 export interface InvestmentHistoryModel {
     id:number,
-    dateTime:string,
-    portfolioName:string,
+    investedDate:string,
+    fundName:string,
+    pricePerUnit:number,
     moneyInvested:number,
-    unitsPurchased:number
+    units:number
 }
