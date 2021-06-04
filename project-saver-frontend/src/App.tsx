@@ -21,6 +21,7 @@ import StockGraph from './components/PortfolioHIstory/StockGraph/StockGraph';
 import PortfolioHistoryContainer from './components/PortfolioHIstory/PortfolioHistoryContainer';
 import MainDashboard from './components/landingPages/MainDashboard/MainDashboard';
 import PerformanceMeter from './components/ProfileScore/PerformanceMeter';
+import SigninSignupPage from './components/landingPages/SigninSignupPage/SigninSignupPage';
 // import LandingPage from './components/base/LandingPage';
 function App() {
 
@@ -54,26 +55,33 @@ function App() {
         <Route path="/welcome">
           <LandingPage />
         </Route> */}
-      <Route exact path="/">
-        <CardDetailsContainer/>
+        <Route exact path="/signup">
+          < SigninSignupPage mode="signup" />
+        </Route>
+
+        <Route exact path="/login">
+          < SigninSignupPage mode="login" />
+        </Route>
+        <Route exact path="/">
+          <CardDetailsContainer />
         </Route>
         <Route exact path="/questionnaire">
-        <Questionare/>
+          <Questionare />
         </Route>
         <Route exact path="/portfolio/table">
-          <PortFolioHistoryTable/>
+          <PortFolioHistoryTable />
         </Route>
         {/* <Route exact path="/portfolio/graph">
           <StockGraph/>
         </Route> */}
         <Route exact path="/portfolio">
-          <PortfolioHistoryContainer/>
+          <PortfolioHistoryContainer />
         </Route>
         <Route exact path="/performance/:totalScore">
-          <ProfileMeter score={80}/>
+          <ProfileMeter score={80} />
         </Route>
         <Route exact path="/newDashBoard">
-          <MainDashboard mainDashboardModel={{}}/>
+          <MainDashboard mainDashboardModel={{}} />
         </Route>
       </Switch>
     </Router>

@@ -4,10 +4,84 @@ import { faAt, faUnlock } from '@fortawesome/free-solid-svg-icons'
 import { faGoogle } from '@fortawesome/free-brands-svg-icons'
 import { COLORS } from '../../../../constants/NewColorScheme'
 import { useState } from 'react'
+import { login, signup } from '../../../../utilities/AppUtil'
+import { useHistory } from 'react-router-dom'
+import { ACCESS_TOKEN } from '../../../../constants/app-config'
+import { on } from 'events'
 
 const SigninSignupPallette = (props: { mode: string }) => {
 
     const [isModeSignup, setIsModeSignup] = useState(props.mode == 'signup');
+    const [userName, setUserName] = useState("");
+    const [userEmail, setUserEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [details, setDetails] = useState({
+        name: '',
+        email: '',
+        password: '',
+    })
+    const history = useHistory();
+    const onNameChange = (event: any) => {
+        setUserName(event.target.value);
+    }
+
+    const onEmailChange = (event: any) => {
+        setUserEmail(event.target.value);
+    }
+
+    const onPasswordChange = (event: any) => {
+        setPassword(event.target.value);
+    }
+
+    const onSubmit = () => {
+
+        if (isModeSignup) {
+            details.name = userName;
+            details.email = userEmail;
+            details.password = password;
+
+            console.log(userName + " " + userEmail + " " + password);
+
+            const signUpRequest = Object.assign({}, details);
+
+
+
+            if (userName !== '' && userEmail !== '' && password !== '') {
+
+                signup(signUpRequest)
+                    .then(response => {
+                        history.push("/login");
+                    }).catch(error => {
+                        window.alert((error && error.message) || 'Oops! Something went wrong. Please try again!');
+                    });
+
+
+            }
+        }
+        else {
+            details.email = userEmail;
+            details.password = password;
+
+            console.log(userEmail + " " + password);
+
+            const loginRequest = Object.assign({}, details);
+
+
+
+            if (userEmail !== '' && password !== '') {
+
+                login(loginRequest)
+                    .then(response => {
+                        localStorage.setItem(ACCESS_TOKEN, response.accessToken);
+                        localStorage.setItem("userName", userName);
+                        console.log(userName);
+                        history.push("/questionnaire");
+                    }).catch(error => {
+                        window.alert((error && error.message) || 'Oops! Something went wrong. Please try again!');
+                    });
+            }
+        }
+    }
 
     const signupModel = {
         heading: 'Signup up to SaveEasy',
@@ -36,11 +110,21 @@ const SigninSignupPallette = (props: { mode: string }) => {
                 <label className="signin-signup-sub-heading-log-in" style={{ color: COLORS.textWarn }} onClick={() => setIsModeSignup(!isModeSignup)}>{model.subHeadingAction}</label>
             </div>
 
+            {isModeSignup &&
+                <div className="signin-signup-field-wrapper">
+                    <label className="signin-signup-field-title">UserName</label>
+
+                    <div className="signin-signup-field-input-wrapper">
+                        <input onChange={onNameChange} className="signin-signup-field-input" placeholder="5+ Characters, 1 number" type="text" />
+                    </div>
+                </div>
+            }
+
             <div className="signin-signup-field-wrapper">
                 <label className="signin-signup-field-title">E-mail</label>
 
                 <div className="signin-signup-field-input-wrapper">
-                    <input className="signin-signup-field-input" placeholder="name@mail.com" />
+                    <input onChange={onEmailChange} className="signin-signup-field-input" placeholder="name@mail.com" />
                     <FontAwesomeIcon className="signin-signup-field-icon" icon={faAt} style={{ color: COLORS.textSecondary }} />
                 </div>
             </div>
@@ -49,23 +133,14 @@ const SigninSignupPallette = (props: { mode: string }) => {
                 <label className="signin-signup-field-title">Password</label>
 
                 <div className="signin-signup-field-input-wrapper">
-                    <input className="signin-signup-field-input" placeholder="6+ Characters, 1 Captial letter" type="password" />
+                    <input onChange={onPasswordChange} className="signin-signup-field-input" placeholder="6+ Characters, 1 Captial letter" type="password" />
                     <FontAwesomeIcon className="signin-signup-field-icon" icon={faUnlock} style={{ color: COLORS.textSecondary }} />
                 </div>
             </div>
 
-            {isModeSignup &&
-                <div className="signin-signup-field-wrapper">
-                    <label className="signin-signup-field-title">Confirm Password</label>
 
-                    <div className="signin-signup-field-input-wrapper">
-                        <input className="signin-signup-field-input" placeholder="6+ Characters, 1 Captial letter" type="password" />
-                        <FontAwesomeIcon className="signin-signup-field-icon" icon={faUnlock} style={{ color: COLORS.textSecondary }} />
-                    </div>
-                </div>
-            }
 
-            <label className="signin-signup-submit-button" style={{ backgroundColor: COLORS.orange }}>{model.submitButtonText}</label>
+            <label onClick={onSubmit} className="signin-signup-submit-button" style={{ backgroundColor: COLORS.orange }}>{model.submitButtonText}</label>
 
             <div className="signin-signup-google-button">
                 <FontAwesomeIcon className="signin-signup-google-button-icon" icon={faGoogle} style={{ color: COLORS.orange }} />

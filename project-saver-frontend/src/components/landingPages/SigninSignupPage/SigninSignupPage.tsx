@@ -1,9 +1,12 @@
 import './SigninSignupPage.css'
 import SigninSignupLeftImage from '../../../assets/images/signinSignupPage/signinSignupLeftImage.png'
 import SigninSignupPallette from './SigninSignupPallette/SigninSignupPallette'
+import { useState } from 'react';
 
 
-const SigninSignupPage = () => {
+const SigninSignupPage = (props: { mode: string }) => {
+
+
     return (
         <div className="signin-signup-main">
             <div className="signin-signup-left">
@@ -12,7 +15,7 @@ const SigninSignupPage = () => {
             </div>
 
             <div className="signin-signup-right">
-                <SigninSignupPallette mode="signup" />
+                <SigninSignupPallette mode={props.mode} />
             </div>
         </div >
     )
