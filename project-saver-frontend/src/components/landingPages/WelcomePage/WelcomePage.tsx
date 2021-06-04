@@ -45,8 +45,10 @@ const WelcomePage = () => {
     }
 
     const onSubmit = () => {
-
-        history.push("/signup");
+        if (ssn.length === 15)
+            history.push("/signup");
+        else
+            alert('Please enter valid SSN');
 
     }
 

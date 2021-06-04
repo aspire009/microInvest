@@ -36,8 +36,14 @@ const SigninSignupPallette = (props: { mode: string }) => {
 
     const onSubmit = () => {
 
-        if (!emailRegex.test(userEmail) || password.length <= 6) {
-            alert("Please provide valid input");
+        if (!emailRegex.test(userEmail)) {
+            alert("Please provide valid email");
+        }
+        else if (password.length <= 6) {
+            alert("Please provide valid password");
+        }
+        else if (isModeSignup && userName.length <= 5) {
+            alert("Please provide valid username")
         }
         else {
             if (isModeSignup) {
