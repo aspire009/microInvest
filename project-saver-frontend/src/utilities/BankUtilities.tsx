@@ -45,6 +45,7 @@ export const getBankCode = (bankName: string) => {
 }
 
 export const formatCardNumberForCardRow = (cardNumber: string) => {
+    if (cardNumber === undefined) return cardNumber;
     if (cardNumber.length < 16) return cardNumber;
     return cardNumber.substr(0, 4) + ' **** **** ' + cardNumber.substr(12, 16);
 }

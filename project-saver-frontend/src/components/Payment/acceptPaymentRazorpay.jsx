@@ -23,6 +23,19 @@ export async function displayRazorpay(dueAmount, onSuccessCallback, cardNumber, 
         "https://checkout.razorpay.com/v1/checkout.js"
     );
 
+    const orderRequestOptions = {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            orderAmmount: dueAmount
+        })
+    }
+
+
+
     if (!res) {
         alert("Razorpay SDK failed to load. Are you online?");
         return;
@@ -30,7 +43,9 @@ export async function displayRazorpay(dueAmount, onSuccessCallback, cardNumber, 
     console.log('After loadScript method')
 
     // creating a new order in backend save order id is pending
-    const result = await axios.post(SERVER_URL + "/order/" + dueAmount);
+    const result = await axios.post(SERVER_URL + "/order", {
+        orderAmmount: dueAmount
+    });
     console.log('After api call method')
     if (!result) {
         alert("Server error. Are you online?");
