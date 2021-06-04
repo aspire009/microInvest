@@ -4,6 +4,7 @@
     align-items: center;
     padding: 10px;
     padding-bottom: 0px;
+    width:395px;
 }
 
 .trans-hist-rown-bank-image{
@@ -16,7 +17,12 @@
 .trans-hist-row-col-1 {
     display: flex;
     flex-direction: column;
-    margin-right: 130px;
+    flex:1
+}
+
+.trans-hist-row-col-2 {
+    display: flex;
+    flex-direction: column;
 }
 
 .trans-hist-row-card-number {
@@ -43,11 +49,6 @@
 .trans-hist-row-paid-date {
     font-size: 12px;
     font-weight: 600;
-}
-
-.trans-hist-row-col-2 {
-    display: flex;
-    flex-direction: column;
 }
 
 .trans-hist-row-amount-paid {

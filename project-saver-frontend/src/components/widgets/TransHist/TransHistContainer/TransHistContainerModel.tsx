@@ -1,5 +1,6 @@
 export interface TransHistContainerModel {
     username: String;
+    transactionHistoryList: any
 }
 
 export interface TransHistContainerProps {

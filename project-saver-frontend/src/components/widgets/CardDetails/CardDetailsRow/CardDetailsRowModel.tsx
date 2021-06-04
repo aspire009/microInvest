@@ -3,7 +3,8 @@ export interface CardDetailsRowModel {
     bankName: string,
     cardNumber: string,
     dueDate: string,
-    dueAmount: string
+    dueAmount: string,
+    cardNumberUnmasked: string
 }
 
 export interface CardDetailsRowProps {

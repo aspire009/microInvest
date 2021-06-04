@@ -11,12 +11,15 @@ import RoundIconButton from "../../RoundIconButton/RoundIconButton";
 import { CardModel } from "../../models/CardModel";
 import AddCardForm from '../AddCard/AddCardForm';
 import DeletePopup from "../DeletePopup/DeletePopup";
+import { getBankName, getBankCode, formatCardNumberForCardRow } from '../../../../utilities/BankUtilities'
+import AcceptPayment from "../../../Payment/acceptPayment";
+import { SERVER_URL } from "../../../../constants/NetworkData";
 
 
 const CardDetailsContainer: React.FC<CardDetailsContainerProps> = ({ cardDetailContainerModel }: CardDetailsContainerProps) => {
     const [cardList, setCardList] = useState<CardDetailsRowModel[]>([
-        { id: 1, bankName: 'Citi Bank', cardNumber: '1234 **** **** 6789', dueAmount: '3,200.98', dueDate: '30 May 2021' },
-        { id: 2, bankName: 'Bank of America', cardNumber: '3456 **** **** 0987', dueAmount: '1,220.08', dueDate: '27 May 2021' },
+        // { id: 1, bankName: 'Citi Bank', cardNumber: '1234 **** **** 6789', dueAmount: '3,200.98', dueDate: '30 May 2021' },
+        // { id: 2, bankName: 'Bank of America', cardNumber: '3456 **** **** 0987', dueAmount: '1,220.08', dueDate: '27 May 2021' },
         // { bankName: 'Chase Bank', cardNumber: '8821 **** **** 3429', dueAmount: '2,510.21', dueDate: '31 May 2021' },
         // { bankName: 'Wells Fargo', cardNumber: '3456 **** **** 0987', dueAmount: '1,220.08', dueDate: '27 May 2021' },
     ]);
@@ -28,6 +31,66 @@ const CardDetailsContainer: React.FC<CardDetailsContainerProps> = ({ cardDetailC
     const [deleteCardId, setDeleteCardId] = React.useState(0);
     const [paymentDueCount, setPaymentDueCount] = useState(0);
 
+    //TODO: username, token dynamic
+    const username = 'hardik'
+    const cardListUrl = SERVER_URL + '/card/' + username;
+    const addCardUrl = SERVER_URL + '/card';
+    const removeCardUrl = SERVER_URL + '/card/';
+    const token = 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiaWF0IjoxNjIyODAxMTA0LCJleHAiOjE2MjM2NjUxMDR9.jtuj6YRTFmj5rSGAiiSU2NZ-yrqLozwbt9-zHc1Jo_qOlAoT4IxO-R5dRXZ0-Ttf9wxirj-vbEdC8gYR0VEoyg'
+
+    const populateCardList = async (url: string, token: string) => {
+        let fetchedCardList: CardDetailsRowModel[] = [];
+        await fetch(url, {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        }).
+            then((resp) => resp.json()).
+            then((data) => {
+                for (var object in data) {
+                    let cardListItem: CardDetailsRowModel = {
+                        id: data[object]['id'],
+                        bankName: getBankName(data[object]['bank']),
+                        cardNumber: formatCardNumberForCardRow(data[object]['number']),
+                        dueDate: getCardDueDate(data[object]['number']),
+                        dueAmount: '' + getCardDueAmount(data[object]['number']),
+                        cardNumberUnmasked: data[object]['number']
+                    }
+                    fetchedCardList.push(cardListItem);
+                }
+                setCardList(fetchedCardList)
+            });
+    }
+
+    useEffect(() => {
+        populateCardList(cardListUrl, token);
+    }, []);
+
+
+    const addCardRequestOptions = {
+        method: 'POST',
+        headers: {
+            "Authorization": `Bearer ${token}`,
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: ''
+    };
+
+    const removeCardApi = async (url: string, token: string) => {
+        await fetch(url, {
+            method: "PUT",
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        })
+    }
+
     const showAddCardPopupHandler = () => {
         setAddCardPopup(true);
     }
@@ -36,14 +99,9 @@ const CardDetailsContainer: React.FC<CardDetailsContainerProps> = ({ cardDetailC
         setAddCardPopup(false);
     }
 
-    const formatCardNumberForCardRow = (cardNumber: string) => {
-        if (cardNumber.length < 16) return cardNumber;
-        return cardNumber.substr(0, 4) + ' **** **** ' + cardNumber.substr(12, 16);
-    }
-
     const getCardDueAmount = (cardNumber: string) => {
-        const amount = Math.ceil(Math.random() * (2000 - 1000) + 1000) + '.' + Math.ceil(Math.random() * (99 - 10) + 10)
-        return parseFloat(amount);
+        const amount = Math.ceil(Math.random() * (900 - 100) + 100)// + '.' + Math.ceil(Math.random() * (99 - 10) + 10)
+        return amount;
     }
 
     const getCardDueDate = (cardNumber: string) => {
@@ -69,6 +127,8 @@ const CardDetailsContainer: React.FC<CardDetailsContainerProps> = ({ cardDetailC
         const updatedCards = cardList.filter(card => card.id !== id);
         setCardList(updatedCards);
         setCardIndex(prevCardIndex);
+
+        removeCardApi(removeCardUrl + id, token);
     }
 
     const addCardHandler = (addedCard: CardModel) => {
@@ -78,14 +138,29 @@ const CardDetailsContainer: React.FC<CardDetailsContainerProps> = ({ cardDetailC
         addedCard.dueAmount = getCardDueAmount(addedCard.cardNumber)
         addedCard.dueDate = '' + getCardDueDate(addedCard.dueDate)
 
-        //TODO: call api on backedn
+        const expiryDate = '20' + addedCard.expiry.split('/')[1] + '-' + addedCard.expiry.split('/')[0] + '-01'
+
+        addCardRequestOptions.body = JSON.stringify({
+            "id": addedCard.id,
+            "userName": username,
+            "number": addedCard.cardNumber,
+            "holderName": username,
+            "bank": getBankCode(addedCard.bank),
+            "cvv": addedCard.cvv,
+            "expiry": expiryDate,
+            "isDisable": false
+        })
+
+        fetch(addCardUrl, addCardRequestOptions)
+            .then(response => response.json());
 
         const cardDisplay: CardDetailsRowModel = {
             id: addedCard.id,
             bankName: addedCard.bank,
             cardNumber: formatCardNumberForCardRow(addedCard.cardNumber),
             dueAmount: '' + addedCard.dueAmount,
-            dueDate: addedCard.dueDate
+            dueDate: addedCard.dueDate,
+            cardNumberUnmasked: addedCard.cardNumber
         }
 
         const updatedCardList = cardList;
@@ -108,6 +183,17 @@ const CardDetailsContainer: React.FC<CardDetailsContainerProps> = ({ cardDetailC
         updatePaymentDueCount()
     }, [cardList.length]);
 
+    const makePayment = () => {
+        cardDetailContainerModel.payNowFunction(parseInt(cardList[cardIndex].dueAmount) * 100,
+            cardDetailContainerModel.onPaymentSuccessFunction,
+            '' + cardList[cardIndex].cardNumberUnmasked,
+            '' + cardList[cardIndex].dueAmount,
+            '' + Math.ceil(parseInt(cardList[cardIndex].dueAmount) / 10),
+            '' + 'Full Payment',
+            '' + cardList[cardIndex].bankName
+        )
+    }
+
     return (
         <div className="card-details-container-main">
             <label className="card-details-container-heading" style={{ color: COLORS.textPrimary }}>Credit Cards</label>
@@ -118,7 +204,7 @@ const CardDetailsContainer: React.FC<CardDetailsContainerProps> = ({ cardDetailC
                 </div>
 
                 <div className="card-details-row-1">
-                    <div className="card-details-pay-now-wrapper">
+                    <div className="card-details-pay-now-wrapper" onClick={() => makePayment()}>
                         <RoundIconButton icon={faBolt} text="Pay Now" iconBackground="#1924c2" backgroundColor="#334ee3" textColor="#FFF" iconColor="#ffbf00" />
                     </div>
 
