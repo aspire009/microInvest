@@ -33,10 +33,11 @@ const CardDetailsContainer: React.FC<CardDetailsContainerProps> = ({ cardDetailC
 
     //TODO: username, token dynamic
     const username = 'hardik'
+    const token = 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiaWF0IjoxNjIyODAxMTA0LCJleHAiOjE2MjM2NjUxMDR9.jtuj6YRTFmj5rSGAiiSU2NZ-yrqLozwbt9-zHc1Jo_qOlAoT4IxO-R5dRXZ0-Ttf9wxirj-vbEdC8gYR0VEoyg'
     const cardListUrl = SERVER_URL + '/card/' + username;
     const addCardUrl = SERVER_URL + '/card';
     const removeCardUrl = SERVER_URL + '/card/';
-    const token = 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiaWF0IjoxNjIyODAxMTA0LCJleHAiOjE2MjM2NjUxMDR9.jtuj6YRTFmj5rSGAiiSU2NZ-yrqLozwbt9-zHc1Jo_qOlAoT4IxO-R5dRXZ0-Ttf9wxirj-vbEdC8gYR0VEoyg'
+
 
     const populateCardList = async (url: string, token: string) => {
         let fetchedCardList: CardDetailsRowModel[] = [];
@@ -56,7 +57,7 @@ const CardDetailsContainer: React.FC<CardDetailsContainerProps> = ({ cardDetailC
                         bankName: getBankName(data[object]['bank']),
                         cardNumber: formatCardNumberForCardRow(data[object]['number']),
                         dueDate: getCardDueDate(data[object]['number']),
-                        dueAmount: '' + getCardDueAmount(data[object]['number']),
+                        dueAmount: data[object]['ammountDue'],
                         cardNumberUnmasked: data[object]['number']
                     }
                     fetchedCardList.push(cardListItem);
@@ -69,9 +70,13 @@ const CardDetailsContainer: React.FC<CardDetailsContainerProps> = ({ cardDetailC
         populateCardList(cardListUrl, token);
     }, []);
 
+    useEffect(() => {
+        populateCardList(cardListUrl, token);
+    }, [cardDetailContainerModel.reload]);
+
 
     const addCardRequestOptions = {
-        method: 'POST',
+        method: 'PUT',
         headers: {
             "Authorization": `Bearer ${token}`,
             'Accept': 'application/json',
@@ -101,7 +106,7 @@ const CardDetailsContainer: React.FC<CardDetailsContainerProps> = ({ cardDetailC
 
     const getCardDueAmount = (cardNumber: string) => {
         const amount = Math.ceil(Math.random() * (900 - 100) + 100)// + '.' + Math.ceil(Math.random() * (99 - 10) + 10)
-        return amount;
+        return 600;//amount;
     }
 
     const getCardDueDate = (cardNumber: string) => {
@@ -148,7 +153,8 @@ const CardDetailsContainer: React.FC<CardDetailsContainerProps> = ({ cardDetailC
             "bank": getBankCode(addedCard.bank),
             "cvv": addedCard.cvv,
             "expiry": expiryDate,
-            "isDisable": false
+            "isDisable": false,
+            "ammountDue": addedCard.dueAmount
         })
 
         fetch(addCardUrl, addCardRequestOptions)

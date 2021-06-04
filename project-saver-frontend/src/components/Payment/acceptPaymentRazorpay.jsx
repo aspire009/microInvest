@@ -1,6 +1,7 @@
-import logo from "../../logo.svg";
+import logo from "../../assets/images/logos/logoPurple.png";
 import axios from "axios";
 import { SERVER_URL } from "../../constants/NetworkData";
+import { COLORS } from "../../constants/NewColorScheme";
 
 const loadScript = (src) => {
     console.log('calling loadscript method')
@@ -61,8 +62,8 @@ export async function displayRazorpay(dueAmount, onSuccessCallback, cardNumber, 
         key: "rzp_test_5BzocREST9Wvie", // Enter the Key ID generated from the Dashboard
         amount: dueAmount.toString(),
         currency: currency,
-        name: "Saveeasy Corp.",
-        description: "Test Transaction",
+        name: "SaveEasy Corp.",
+        description: "Credit Card Bill Payment",
         image: { logo },
         order_id: id,
         handler: async function (response) {
@@ -93,7 +94,7 @@ export async function displayRazorpay(dueAmount, onSuccessCallback, cardNumber, 
             address: "Kanpur",
         },
         theme: {
-            color: "#61dafb",
+            color: '#1e0d67',//COLORS.textPrimary,
         },
     };
 

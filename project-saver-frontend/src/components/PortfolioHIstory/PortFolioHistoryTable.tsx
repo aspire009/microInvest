@@ -12,16 +12,16 @@ import { investmentHistory, emptyPortfolioRow, InvestmentHistoryModel } from './
 
 const PortFolioHistoryTable = () => {
     const windowSize = 5;
-    const historyUrl = 'http://localhost:8080/investment/all/vaibhav';
-    const token = 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjIyNzEyNzA2LCJleHAiOjE2MjM1NzY3MDZ9.f34fhqQBJoSvFYZjp-CUysxb_emg9hhkYM21oDHU0-LYIfA5ko00nELyl0sO6bQ5WYH0iIt-OLJcTJdXUXzs9Q'
-    const [investmentHistoryData,setInvestementHistoryData] = React.useState<InvestmentHistoryModel[]>([]);
+    const historyUrl = 'http://localhost:8080/investment/all/hardik';
+    const token = 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiaWF0IjoxNjIyODE3MTk4LCJleHAiOjE2MjM2ODExOTh9.b1tTB4hVW4vE79ei2w6ue09E0pZdvDL01PYT7hp8ZPT5i5RCXX5R9J2SdMCC0CFiJa6FTwPsOtxmKFf46BHvug'
+    const [investmentHistoryData, setInvestementHistoryData] = React.useState<InvestmentHistoryModel[]>([]);
     const [pages, setPages] = React.useState(1);
     const [currentPage, setCurrentPage] = React.useState(1);
     const [windowShowing, setWindowShowing] = React.useState({
         startIndex: 0,
         endIndex: 5
     });
-    const  [loading, setLoading] = React.useState(true);
+    const [loading, setLoading] = React.useState(true);
     const [currentWindowData, setCurrentWindowData] = React.useState(investmentHistory.slice(windowShowing.startIndex, windowShowing.endIndex));
 
     useEffect(() => {
@@ -30,43 +30,43 @@ const PortFolioHistoryTable = () => {
         addPaddingToData();
         setWindowShowing({
             startIndex: 0,
-        endIndex: 5
+            endIndex: 5
         })
         console.log("investmentHistoryData: ", investmentHistoryData);
         console.log("pages : ", pages);
         console.log("currentPage: ", currentPage);
         setLoading(false);
-        
+
         console.log("loading", loading);
         console.log("investmentHistoryData", investmentHistoryData);
     }, []);
 
-    const populateHistory = async (url:string, token:string) => {
-        let history:InvestmentHistoryModel[] = [];
+    const populateHistory = async (url: string, token: string) => {
+        let history: InvestmentHistoryModel[] = [];
         await fetch(url, {
             method: "GET",
             headers: {
-              "Authorization": `Bearer ${token}`,
-              'Accept': 'application/json',
-              'Content-Type': 'application/json'
+                "Authorization": `Bearer ${token}`,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
             }
-          }).
-        then((resp) => resp.json()).
-        then((data) => {
-            for (var object in data) {
-                let historyRow:InvestmentHistoryModel = {
-                    id:data[object]['id'],
-                    investedDate:data[object]['investedDate'],
-                    pricePerUnit:data[object]['pricePerUnit'],
-                    moneyInvested:data[object]['moneyInvested'],
-                    fundName:data[object]['fundName'],
-                    units:data[object]['units']
+        }).
+            then((resp) => resp.json()).
+            then((data) => {
+                for (var object in data) {
+                    let historyRow: InvestmentHistoryModel = {
+                        id: data[object]['id'],
+                        investedDate: data[object]['investedDate'],
+                        pricePerUnit: data[object]['pricePerUnit'],
+                        moneyInvested: data[object]['moneyInvested'],
+                        fundName: data[object]['fundName'],
+                        units: data[object]['units']
+                    }
+                    history.push(historyRow);
                 }
-                history.push(historyRow);
-            }
-            setInvestementHistoryData(history);
-            setPages(Math.ceil(history.length / windowSize));
-        }); 
+                setInvestementHistoryData(history);
+                setPages(Math.ceil(history.length / windowSize));
+            });
     }
 
     const addPaddingToData = () => {
@@ -119,11 +119,11 @@ const PortFolioHistoryTable = () => {
     console.log(`pages: ${pages}  currentPage: ${currentPage}`)
     return (
         investmentHistoryData.length === 0 ? <div className="container"><Loader
-        type='Watch'
-        color="#00BFFF"
-        height={100}
-        width={100} //3 secs
-      /></div> : <div className="container" >
+            type='Watch'
+            color="#00BFFF"
+            height={100}
+            width={100} //3 secs
+        /></div> : <div className="container" >
             <div className="portfolio-histroy-header"><ListIcon className={classes.headerIcon} /><p>Portfolio History</p></div>
             <table>
                 <thead>

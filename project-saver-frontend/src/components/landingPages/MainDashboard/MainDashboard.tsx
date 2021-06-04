@@ -38,31 +38,76 @@ const MainDashboard: React.FC<MainDashboardProps> = ({ mainDashboardModel }: Mai
         transactionHistoryList: transactionHistoryList
     })
 
-    const earnedIconInfoPalletteModel: IconInfoPalletteModel = {
+    var [earnedIconInfoPalletteModel, setEarnedIconInfoPalletteModel] = useState<IconInfoPalletteModel>({
         backgroundColor: '#f38162',
         iconImage: RewardPointsEarnedImage,
         iconPosition: 'left',
         mainText: '24,700',
         subText: 'Points Earned',
         mainTextColor: '#85291c'
-    }
+    })
 
-    const investedIconInfoPalletteModel: IconInfoPalletteModel = {
+    var [investedIconInfoPalletteModel, setInvestedIconInfoPalletteModel] = useState<IconInfoPalletteModel>({
         backgroundColor: COLORS.blueLight,
         iconImage: RewardPointsInvestedImage,
         iconPosition: 'left',
         mainText: '22,300',
         subText: 'Points Invested',
         mainTextColor: '#515B9E'
-    }
+    })
 
-    const upcomingIconInfoPalletteModel: IconInfoPalletteModel = {
+    const [upcomingIconInfoPalletteModel, setUpcomingIconInfoPalletteModel] = useState<IconInfoPalletteModel>({
         backgroundColor: COLORS.blueLight,
         iconImage: RewardPointsUpcomingImage,
         iconPosition: 'left',
         mainText: '5,000',
         subText: 'Upcoming Milestone',
         mainTextColor: '#515B9E'
+    })
+
+    useEffect(() => {
+        populateRewardData(SERVER_URL + '/rewards/' + username, token);
+    }, [])
+
+    useEffect(() => {
+        console.log('updating sssssssssssssssssssss')
+        populateRewardData(SERVER_URL + '/rewards/' + username, token);
+    }, [transactionHistoryList.length])
+
+    const updateRewardValues = (earnedPoints, investedPoints, upcomingMilestone) => {
+        let updatedEarnedIconInfoPalletteModel = earnedIconInfoPalletteModel
+        updatedEarnedIconInfoPalletteModel.mainText = earnedPoints;
+        setEarnedIconInfoPalletteModel(updatedEarnedIconInfoPalletteModel)
+
+        let updatedinvestedIconInfoPalletteModel = investedIconInfoPalletteModel
+        updatedinvestedIconInfoPalletteModel.mainText = investedPoints;
+        setInvestedIconInfoPalletteModel(updatedinvestedIconInfoPalletteModel)
+
+        let updatedUpcomingIconInfoPalletteModel = { ...upcomingIconInfoPalletteModel }
+        updatedUpcomingIconInfoPalletteModel.mainText = upcomingMilestone;
+        setUpcomingIconInfoPalletteModel(updatedUpcomingIconInfoPalletteModel)
+    }
+
+    const populateRewardData = async (url: string, token: string) => {
+        await fetch(url, {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        }).
+            then((resp) => resp.json()).
+            then((data) => {
+                let rewardValue: any = {
+                    id: data['id'],
+                    nextMilestone: data['nextMilestone'],
+                    totalPointsEarned: data['totalPointsEarned'],
+                    userName: data['userName'],
+                    totalPointsInvested: data['totalPointsInvested']
+                }
+                updateRewardValues(rewardValue.totalPointsEarned.toString(), rewardValue.totalPointsInvested.toString(), (1000 - rewardValue.nextMilestone).toString());
+            });
     }
 
     const addTransactionRequestOptions = {
@@ -85,31 +130,47 @@ const MainDashboard: React.FC<MainDashboardProps> = ({ mainDashboardModel }: Mai
         })
 
         fetch(addTransactionUrl, addTransactionRequestOptions)
-            .then(response => response.json());
+            .then(response => response.json())
+            .then((data) => {
+                const transHistRowModelForList: TransHistRowModel = {
+                    cardCompany: transHistRowModel.cardCompany,
+                    amountPaid: data.amountPaid,
+                    cardNumber: data.cardNumber,
+                    paidDate: data.paymentDate,
+                    pointsEarned: data.rewardsEarned,
+                    transactionType: data.transactionType
+                }
+                transHistRowModelForList.cardNumber = formatCardNumberForCardRow(transHistRowModel.cardNumber)
+                addToTransactionHistoryList(transHistRowModel)
+                updateCardList();
+                populateRewardData(SERVER_URL + '/rewards/' + username, token);
+            });
     }
 
 
     const onPaymentSuccess = (cardNumber, amountPaid, pointsEarned, paymentType, cardCompany) => {
-        console.log('fffffffffffff')
+        console.log('fffffffffffff', cardNumber)
         const transHistRowModel: TransHistRowModel = {
             cardCompany: cardCompany,
             amountPaid: amountPaid,
             cardNumber: cardNumber,
-            paidDate: '2021-11-14',
+            paidDate: new Date().getFullYear() + '-' + new Date().getMonth() + '-' + new Date().getDay(),
             pointsEarned: pointsEarned,
             transactionType: paymentType
         }
-
-        var transHistRowModelForList = transHistRowModel;
-        transHistRowModelForList.cardNumber = formatCardNumberForCardRow(transHistRowModel.cardNumber)
-        addToTransactionHistoryList(transHistRowModel)
         makeTransactionHistoryPostRequest(transHistRowModel)
     }
 
-    const cardDetailsContainerModel: CardDetailsContainerModel = {
+    var [cardDetailsContainerModel, setCardDetailsContainerModel] = useState<CardDetailsContainerModel>({
         username: 'Micheal',
         payNowFunction: displayRazorpay,
-        onPaymentSuccessFunction: onPaymentSuccess
+        onPaymentSuccessFunction: onPaymentSuccess,
+        reload: 0
+    })
+
+    var updateCardList = () => {
+        var updatedCardDetailsContainerModel = { ...cardDetailsContainerModel, reload: new Date().getMilliseconds() }
+        setCardDetailsContainerModel(updatedCardDetailsContainerModel)
     }
 
     const getFormattedDate = (dateInput: string) => {
@@ -175,7 +236,7 @@ const MainDashboard: React.FC<MainDashboardProps> = ({ mainDashboardModel }: Mai
 
             <div className="main-dashboard-col-1">
                 <CardDetailsContainer cardDetailContainerModel={cardDetailsContainerModel} />
-                <div className="main-dashboard-credits">
+                <div className="main-dashboard-credits" onClick={() => updateCardList()}>
                     <label>Made with <FontAwesomeIcon className="trans-hist-container-expand" icon={faHeart} style={{ color: '#C51104' }} /> at HashedIn</label>
                 </div>
             </div>

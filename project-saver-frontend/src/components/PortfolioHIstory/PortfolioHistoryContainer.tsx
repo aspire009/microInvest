@@ -13,7 +13,7 @@ import { earnedIconInfoPalletteModel, investedIconInfoPalletteModel, upcomingIco
 
 
 const PortfolioHistoryContainer = () => {
-    const [token, setToekn] = React.useState('eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjIyNzEyNzA2LCJleHAiOjE2MjM1NzY3MDZ9.f34fhqQBJoSvFYZjp-CUysxb_emg9hhkYM21oDHU0-LYIfA5ko00nELyl0sO6bQ5WYH0iIt-OLJcTJdXUXzs9Q')
+    const [token, setToekn] = React.useState('eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiaWF0IjoxNjIyODE3MTk4LCJleHAiOjE2MjM2ODExOTh9.b1tTB4hVW4vE79ei2w6ue09E0pZdvDL01PYT7hp8ZPT5i5RCXX5R9J2SdMCC0CFiJa6FTwPsOtxmKFf46BHvug')
     const graphHeight = 300;
     const graphWidth = 700;
     const history = useHistory();
@@ -22,7 +22,7 @@ const PortfolioHistoryContainer = () => {
     }
 
     useEffect(() => {
-        populateRewardData('http://localhost:8080/rewards/vaibhav', token);
+        populateRewardData('http://localhost:8080/rewards/hardik', token);
     }, [])
 
     const populateRewardData = async (url: string, token: string) => {
