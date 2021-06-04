@@ -7,12 +7,14 @@ import { useState } from 'react'
 import { login, signup } from '../../../../utilities/AppUtil'
 import { useHistory } from 'react-router-dom'
 import { ACCESS_TOKEN } from '../../../../constants/app-config'
+
 import { on } from 'events'
 
 const SigninSignupPallette = (props: { mode: string }) => {
 
     const [isModeSignup, setIsModeSignup] = useState(props.mode === 'signup');
-    const [userName, setUserName] = useState("");
+    const [userName, setUserName] = useState('');
+    const [token, setToken] = useState('');
     const [userEmail, setUserEmail] = useState("");
     const [password, setPassword] = useState("");
     const [details, setDetails] = useState({
@@ -86,6 +88,8 @@ const SigninSignupPallette = (props: { mode: string }) => {
                         .then(response => {
                             localStorage.setItem(ACCESS_TOKEN, response.accessToken);
                             localStorage.setItem("userName", response.userName);
+                            setToken(response.accessToken);
+                            setUserName(response.userName);
                             console.log(userName);
                             history.push("/questionnaire");
                         }).catch(error => {

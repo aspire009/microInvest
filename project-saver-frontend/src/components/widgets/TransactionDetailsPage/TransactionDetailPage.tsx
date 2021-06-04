@@ -10,8 +10,11 @@ import Loader from "react-loader-spinner";
 import ListIcon from '@material-ui/icons/List';
 import { makeStyles } from '@material-ui/core/styles';
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
+
 const TransactionDetailPage = () => {
     const windowSize = 5;
+    const [username, setUsername] = React.useState(localStorage.getItem('userName'));
+    const [token, setToken] = React.useState(localStorage.getItem('accessToken'));
     const [pages, setPages] = React.useState(1);
     const [currentPage, setCurrentPage] = React.useState(1);
     const [windowShowing, setWindowShowing] = React.useState({
@@ -21,9 +24,7 @@ const TransactionDetailPage = () => {
     const [loading, setLoading] = React.useState(true);
 
     const [transactions, setTransactions] = React.useState<TransactionModel[]>([]);
-    const [token, setToken] = React.useState('eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjIyODAzMTYyLCJleHAiOjE2MjM2NjcxNjJ9.ZSEOkvDCVtYXjphVVUizIj-dDtBH4Xxx_BIlN3WCI7s_nn8d8qVumlCZPgR25bOQmtUpb0ChTfo9eODd76Rn9g')
-    const [username, setUsername] = React.useState('vaibhav');
-    const url = 'http://localhost:8080/transaction/vaibhav';
+    const url = 'http://localhost:8080/transaction/' + username;
 
     const history = useHistory();
     const dashBoardRouterHandler = () => {

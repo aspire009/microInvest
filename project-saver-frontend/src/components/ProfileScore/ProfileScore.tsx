@@ -3,12 +3,15 @@ import Button from "@material-ui/core/Button";
 import axios from "axios";
 import PerformanceMeter from "./PerformanceMeter";
 import { useHistory, useParams } from 'react-router-dom';
+
 interface scoreTemplate {
   totalScore: string
 }
 const ProfileMeter = (props: { score: number }) => {
   const url = `http://localhost:8080/userScore/`;
-  const [userName, setUserName] = useState("vaibhav");
+  
+  const [userName, setUserName] = useState(localStorage.getItem('userName'));
+  const [token ,setToken] = useState(localStorage.getItem('accessToken'));
   const [riskProfile, setRiskProfile] = useState("");
   const [overallScore, setOverallScore] = useState(0);
   const scoreBox: scoreTemplate = useParams();
@@ -69,7 +72,6 @@ const ProfileMeter = (props: { score: number }) => {
       overallScore: overallScore,
       isAssessmentTaken: true
     };
-    const token = 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjIyNzEyNzA2LCJleHAiOjE2MjM1NzY3MDZ9.f34fhqQBJoSvFYZjp-CUysxb_emg9hhkYM21oDHU0-LYIfA5ko00nELyl0sO6bQ5WYH0iIt-OLJcTJdXUXzs9Q';
     postScore(url, data, token);
   }
 

@@ -25,12 +25,12 @@ import { useEffect, useState } from "react";
 import { SERVER_URL } from "../../../constants/NetworkData";
 import { TransHistContainerModel } from "../../widgets/TransHist/TransHistContainer/TransHistContainerModel";
 
-
 const MainDashboard: React.FC<MainDashboardProps> = ({ mainDashboardModel }: MainDashboardProps) => {
-    const username = 'hardik'
+    const [username, setUsername] = useState(localStorage.getItem('userName'));
+    const [token, setToken] = useState(localStorage.getItem('accessToken'));
     const transactionHistoryListUrl = SERVER_URL + '/transaction/' + username;
     const addTransactionUrl = SERVER_URL + '/transaction';
-    const token = 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiaWF0IjoxNjIyODAxMTA0LCJleHAiOjE2MjM2NjUxMDR9.jtuj6YRTFmj5rSGAiiSU2NZ-yrqLozwbt9-zHc1Jo_qOlAoT4IxO-R5dRXZ0-Ttf9wxirj-vbEdC8gYR0VEoyg'
+
 
     const [transactionHistoryList, setTransactionHistoryList] = useState<TransHistRowModel[]>([]);
     const [transHistContainerModel, setTransHistContainerModel] = useState<TransHistContainerModel>({
@@ -114,7 +114,7 @@ const MainDashboard: React.FC<MainDashboardProps> = ({ mainDashboardModel }: Mai
 
     const getFormattedDate = (dateInput: string) => {
         const monthNames = ["January", "Feburary", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-        const dateString = monthNames[parseInt(dateInput.substr(5, 7)) - 1] + ' ' + dateInput.substr(8, 10) + ', ' + dateInput.substr(0, 4)
+        const dateString = dateInput === undefined ? "" : monthNames[parseInt(dateInput.substr(5, 7)) - 1] + ' ' + dateInput.substr(8, 10) + ', ' + dateInput.substr(0, 4)
         return dateString;
     }
 
