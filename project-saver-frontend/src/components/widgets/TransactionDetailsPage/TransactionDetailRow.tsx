@@ -1,11 +1,15 @@
-import { TransHistRowProps } from "./TransHistRowModel";
-import CitiBankLogo from '../../../../assets/images/bankLogos/citi.png'
-import { COLORS } from "../../../../constants/NewColorScheme";
-import './TransHistRow.css'
-import {TransactionModel} from '../TransHistContainer/TransHistContainerModel'
-const TransHistRow = (props: { transactionRowModel:TransactionModel }) => {
+
+
+
+import CitiBankLogo from '../../../assets/images/bankLogos/citi.png'
+import { COLORS } from "../../../constants/NewColorScheme";
+import './TransactionDetailRow.css'
+import {TransactionModel} from '../TransHist/TransHistContainer/TransHistContainerModel'
+
+const TransactionDetailRow = (props: { transactionRowModel:TransactionModel }) => {
     return (
         <div className="trans-hist-row-main">
+            <div className="trans-hist-row-id"><label style={{ color: COLORS.textPrimary }}>{props.transactionRowModel.id}.  </label></div>
             <img className="trans-hist-rown-bank-image" src={CitiBankLogo} />
 
             <div className="trans-hist-row-col-1">
@@ -27,4 +31,4 @@ const TransHistRow = (props: { transactionRowModel:TransactionModel }) => {
     )
 }
 
-export default TransHistRow;
+export default TransactionDetailRow;

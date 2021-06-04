@@ -82,7 +82,7 @@ const MainDashboard: React.FC<MainDashboardProps> = ({ mainDashboardModel }: Mai
                 <label className="trans-hist-container-title" style={{ color: COLORS.textPrimary }}>Portfolio Performance</label>
                 <img src={GraphStaticImage} />
                 <div className="main-dashboard-trans-hist-wrapper">
-                    <TransHistContainer transHistContainerModel={cardDetailsContainerModel} />
+                    <TransHistContainer />
                 </div>
             </div>
         </div>
