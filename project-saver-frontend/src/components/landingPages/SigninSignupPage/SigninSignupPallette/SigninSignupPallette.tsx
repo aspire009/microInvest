@@ -11,7 +11,7 @@ import { on } from 'events'
 
 const SigninSignupPallette = (props: { mode: string }) => {
 
-    const [isModeSignup, setIsModeSignup] = useState(props.mode == 'signup');
+    const [isModeSignup, setIsModeSignup] = useState(props.mode === 'signup');
     const [userName, setUserName] = useState("");
     const [userEmail, setUserEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -20,6 +20,7 @@ const SigninSignupPallette = (props: { mode: string }) => {
         email: '',
         password: '',
     })
+    const emailRegex = new RegExp("^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$");
     const history = useHistory();
     const onNameChange = (event: any) => {
         setUserName(event.target.value);
@@ -35,50 +36,56 @@ const SigninSignupPallette = (props: { mode: string }) => {
 
     const onSubmit = () => {
 
-        if (isModeSignup) {
-            details.name = userName;
-            details.email = userEmail;
-            details.password = password;
-
-            console.log(userName + " " + userEmail + " " + password);
-
-            const signUpRequest = Object.assign({}, details);
-
-
-
-            if (userName !== '' && userEmail !== '' && password !== '') {
-
-                signup(signUpRequest)
-                    .then(response => {
-                        history.push("/login");
-                    }).catch(error => {
-                        window.alert((error && error.message) || 'Oops! Something went wrong. Please try again!');
-                    });
-
-
-            }
+        if (!emailRegex.test(userEmail) || password.length <= 6) {
+            alert("Please provide valid input");
         }
         else {
-            details.email = userEmail;
-            details.password = password;
+            if (isModeSignup) {
+                details.name = userName;
+                details.email = userEmail;
+                details.password = password;
 
-            console.log(userEmail + " " + password);
+                console.log(userName + " " + userEmail + " " + password);
 
-            const loginRequest = Object.assign({}, details);
+                const signUpRequest = Object.assign({}, details);
 
 
 
-            if (userEmail !== '' && password !== '') {
+                if (userName !== '' && userEmail !== '' && password !== '') {
 
-                login(loginRequest)
-                    .then(response => {
-                        localStorage.setItem(ACCESS_TOKEN, response.accessToken);
-                        localStorage.setItem("userName", userName);
-                        console.log(userName);
-                        history.push("/questionnaire");
-                    }).catch(error => {
-                        window.alert((error && error.message) || 'Oops! Something went wrong. Please try again!');
-                    });
+                    signup(signUpRequest)
+                        .then(response => {
+                            history.push("/login");
+                            setIsModeSignup(false);
+                        }).catch(error => {
+                            window.alert((error && error.message) || 'Oops! Something went wrong. Please try again!');
+                        });
+
+
+                }
+            }
+            else {
+                details.email = userEmail;
+                details.password = password;
+
+                console.log(userEmail + " " + password);
+
+                const loginRequest = Object.assign({}, details);
+
+
+
+                if (userEmail !== '' && password !== '') {
+
+                    login(loginRequest)
+                        .then(response => {
+                            localStorage.setItem(ACCESS_TOKEN, response.accessToken);
+                            localStorage.setItem("userName", response.userName);
+                            console.log(userName);
+                            history.push("/questionnaire");
+                        }).catch(error => {
+                            window.alert((error && error.message) || 'Oops! Something went wrong. Please try again!');
+                        });
+                }
             }
         }
     }
@@ -115,7 +122,7 @@ const SigninSignupPallette = (props: { mode: string }) => {
                     <label className="signin-signup-field-title">UserName</label>
 
                     <div className="signin-signup-field-input-wrapper">
-                        <input onChange={onNameChange} className="signin-signup-field-input" placeholder="5+ Characters, 1 number" type="text" />
+                        <input onChange={onNameChange} className="signin-signup-field-input" placeholder="5+ Characters, 1 number" type="text" required />
                     </div>
                 </div>
             }
@@ -124,7 +131,7 @@ const SigninSignupPallette = (props: { mode: string }) => {
                 <label className="signin-signup-field-title">E-mail</label>
 
                 <div className="signin-signup-field-input-wrapper">
-                    <input onChange={onEmailChange} className="signin-signup-field-input" placeholder="name@mail.com" />
+                    <input onChange={onEmailChange} className="signin-signup-field-input" placeholder="name@mail.com" required />
                     <FontAwesomeIcon className="signin-signup-field-icon" icon={faAt} style={{ color: COLORS.textSecondary }} />
                 </div>
             </div>

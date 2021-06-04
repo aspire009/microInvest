@@ -22,6 +22,7 @@ import PortfolioHistoryContainer from './components/PortfolioHIstory/PortfolioHi
 import MainDashboard from './components/landingPages/MainDashboard/MainDashboard';
 import PerformanceMeter from './components/ProfileScore/PerformanceMeter';
 import SigninSignupPage from './components/landingPages/SigninSignupPage/SigninSignupPage';
+import WelcomePage from './components/landingPages/WelcomePage/WelcomePage';
 // import LandingPage from './components/base/LandingPage';
 function App() {
 
@@ -55,11 +56,15 @@ function App() {
         <Route path="/welcome">
           <LandingPage />
         </Route> */}
+
+        <Route exact path="/home">
+          < WelcomePage />
+        </Route>
         <Route exact path="/signup">
           < SigninSignupPage mode="signup" />
         </Route>
 
-        <Route exact path="/login">
+        <Route path="/login">
           < SigninSignupPage mode="login" />
         </Route>
         <Route exact path="/">

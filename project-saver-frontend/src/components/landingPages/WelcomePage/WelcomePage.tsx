@@ -2,9 +2,14 @@ import './WelcomePage.css'
 import WelcomePageBackgroundImage from '../../../assets/images/welcomePage/welcomePageBackgroundImage.png'
 import Logo from '../../../assets/images/logos/logoPurple.png'
 import { COLORS } from '../../../constants/NewColorScheme'
+import { useHistory } from 'react-router'
+import { useState } from 'react'
 
 const WelcomePage = () => {
 
+    const history = useHistory();
+
+    const [ssn, setSSN] = useState("");
 
     const ssnChangeHandler = (event) => {
         //event.target.value = event.target.value.replace(/[^0-9]/, '')
@@ -31,6 +36,22 @@ const WelcomePage = () => {
         }
         newVal += val;
         event.target.value = newVal.substring(0, 15);
+        setSSN(event.target.value);
+    }
+
+    const validateSSN = (ssn: string) => {
+        const isValid = ssn && /^(?!(000|666|9))(\d{3}-?(?!(00))\d{2}-?(?!(0000))\d{4})$/.test(ssn);
+        return isValid;
+    }
+
+    const onSubmit = () => {
+
+        history.push("/signup");
+
+    }
+
+    const onLogin = () => {
+        history.push("/login");
     }
 
     return (
@@ -49,12 +70,12 @@ const WelcomePage = () => {
 
             <div className="welcome-ssn-wrapper">
                 <input className="welcome-content-input-ssn" placeholder="Your SSN Number" style={{ borderBottomColor: COLORS.textPrimary }} onChange={ssnChangeHandler} />
-                <label className="welcome-content-sign-up" style={{ backgroundColor: COLORS.textPrimary }}>Get Started</label>
+                <label onClick={onSubmit} className="welcome-content-sign-up" style={{ backgroundColor: COLORS.textPrimary }}>Get Started</label>
             </div>
 
             <div className="welcome-signin-wrapper">
                 <label className="welcome-content-sign-in-heading">Already a part of the club?</label>
-                <label className="welcome-content-sign-in" style={{ color: COLORS.orange }}>Sign in</label>
+                <label className="welcome-content-sign-in" style={{ color: COLORS.orange }} onClick={onLogin}>Sign in</label>
             </div>
 
         </div>
