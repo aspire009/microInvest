@@ -17,8 +17,8 @@ const CardDetailsRow = (props: { cardDetailsRowModel: CardDetailsRowModel, showD
             <div className="card-details-row-col-1">
                 <label className="card-details-row-card-number" style={{ color: COLORS.textPrimary }}>{props.cardDetailsRowModel.cardNumber}</label>
                 <div className="card-details-row-due">
-                    <label className="card-details-row-due-amount" style={{ color: COLORS.textWarn }}>{'$' + props.cardDetailsRowModel.dueAmount}</label>
-                    <label className="card-details-row-due-date" style={{ color: COLORS.black }}>{' due on ' + props.cardDetailsRowModel.dueDate}</label>
+                    <label className="card-details-row-due-amount" style={{ color: props.cardDetailsRowModel.dueAmount == "0" ? COLORS.textSuccess : COLORS.textWarn }}>{props.cardDetailsRowModel.dueAmount == "0" ? 'No Payment Due' : '$' + props.cardDetailsRowModel.dueAmount}</label>
+                    <label className="card-details-row-due-date" style={{ color: COLORS.black }}>{props.cardDetailsRowModel.dueAmount == "0" ? '' : ' due on ' + props.cardDetailsRowModel.dueDate}</label>
                 </div>
             </div>
             <div className="card-details-row-remove">

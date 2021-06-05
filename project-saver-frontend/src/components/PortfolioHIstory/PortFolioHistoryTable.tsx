@@ -114,7 +114,7 @@ const PortFolioHistoryTable = () => {
     })();
     console.log(`pages: ${pages}  currentPage: ${currentPage}`)
     return (
-        loading ? <div className="container"><Loader
+        loading ? <div className="container portfolio-history-table-main"><Loader
             type='Watch'
             color="#00BFFF"
             height={100}

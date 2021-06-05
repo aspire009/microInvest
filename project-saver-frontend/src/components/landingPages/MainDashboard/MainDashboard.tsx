@@ -132,6 +132,7 @@ const MainDashboard: React.FC<MainDashboardProps> = ({ mainDashboardModel }: Mai
         fetch(addTransactionUrl, addTransactionRequestOptions)
             .then(response => response.json())
             .then((data) => {
+                debugger;
                 const transHistRowModelForList: TransHistRowModel = {
                     cardCompany: transHistRowModel.cardCompany,
                     amountPaid: data.amountPaid,
@@ -141,7 +142,8 @@ const MainDashboard: React.FC<MainDashboardProps> = ({ mainDashboardModel }: Mai
                     transactionType: data.transactionType
                 }
                 transHistRowModelForList.cardNumber = formatCardNumberForCardRow(transHistRowModel.cardNumber)
-                addToTransactionHistoryList(transHistRowModel)
+                transHistRowModelForList.paidDate = getFormattedDate(transHistRowModel.paidDate)
+                addToTransactionHistoryList(transHistRowModelForList)
                 updateCardList();
                 populateRewardData(SERVER_URL + '/rewards/' + username, token);
             });
@@ -198,7 +200,7 @@ const MainDashboard: React.FC<MainDashboardProps> = ({ mainDashboardModel }: Mai
                         cardNumber: formatCardNumberForCardRow(data[object]['cardNumber']),
                         paidDate: getFormattedDate(data[object]['paymentDate']),
                         pointsEarned: data[object]['rewardsEarned'],
-                        transactionType: 'Full Amount'
+                        transactionType: data[object]['transactionType']
                     }
                     fetchedTransactionHistoryList.push(transactionHistoryListItem);
                 }
@@ -211,6 +213,12 @@ const MainDashboard: React.FC<MainDashboardProps> = ({ mainDashboardModel }: Mai
         console.log('aaa', transactionHistoryList)
     }, []);
 
+    const [listTrigger, setListTrigger] = useState(0);
+
+    useEffect(() => {
+        populatetransactionHistoryList(transactionHistoryListUrl, token);
+    }, [listTrigger]);
+
     useEffect(() => {
         setTransHistContainerModel({
             username: username,
@@ -219,13 +227,13 @@ const MainDashboard: React.FC<MainDashboardProps> = ({ mainDashboardModel }: Mai
     }, [transactionHistoryList]);
 
     const addToTransactionHistoryList = (transHistRowItem: TransHistRowModel) => {
-        const updatedTransactionHistoryList = transactionHistoryList;
-        updatedTransactionHistoryList.unshift(transHistRowItem);
-        setTransactionHistoryList(updatedTransactionHistoryList);
-        setTransHistContainerModel({
-            username: username,
-            transactionHistoryList: transactionHistoryList
-        })
+        // const updatedTransactionHistoryList = transHistContainerModel.transactionHistoryList;
+        // updatedTransactionHistoryList.unshift(transHistRowItem);
+        setListTrigger(new Date().getMilliseconds())
+        // setTransHistContainerModel({
+        //     username: username,
+        //     transactionHistoryList: updatedTransactionHistoryList
+        // })
     }
 
 
@@ -236,7 +244,7 @@ const MainDashboard: React.FC<MainDashboardProps> = ({ mainDashboardModel }: Mai
 
             <div className="main-dashboard-col-1">
                 <CardDetailsContainer cardDetailContainerModel={cardDetailsContainerModel} />
-                <div className="main-dashboard-credits" onClick={() => updateCardList()}>
+                <div className="main-dashboard-credits" onClick={() => addToTransactionHistoryList(undefined)}>
                     <label>Made with <FontAwesomeIcon className="trans-hist-container-expand" icon={faHeart} style={{ color: '#C51104' }} /> at HashedIn</label>
                 </div>
             </div>

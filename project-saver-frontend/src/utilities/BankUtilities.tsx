@@ -2,11 +2,13 @@ import CitiBankLogo from '../assets/images/bankLogos/citi.png'
 import ChaseBankLogo from '../assets/images/bankLogos/chase.jpg'
 import BoaBankLogo from '../assets/images/bankLogos/boa.png'
 import WellsBankLogo from '../assets/images/bankLogos/wells.jpg'
+import SaveEasyPurpleLogo from '../assets/images/bankLogos/logoPurplewhite.png'
 
 import CitiCardLines from '../assets/images/cardLines/citi.png'
 import ChaseCardLines from '../assets/images/cardLines/chase.png'
 import BoaCardLines from '../assets/images/cardLines/boa.png'
 import WellsCardLines from '../assets/images/cardLines/wells.png'
+import SaveEasyLines from '../assets/images/cardLines/save.png'
 import { COLORS } from '../constants/NewColorScheme'
 
 export const getBankLogo = (bankName: string) => {
@@ -14,6 +16,7 @@ export const getBankLogo = (bankName: string) => {
     if (bankName == 'Chase Bank') return ChaseBankLogo;
     if (bankName == 'Wells Fargo') return WellsBankLogo;
     if (bankName == 'Bank of America') return BoaBankLogo;
+    if (bankName == 'Save Easy Bank') return SaveEasyPurpleLogo;
 }
 
 export const getCardLines = (bankName: string) => {
@@ -21,6 +24,7 @@ export const getCardLines = (bankName: string) => {
     if (bankName == 'Chase Bank') return ChaseCardLines;
     if (bankName == 'Wells Fargo') return WellsCardLines;
     if (bankName == 'Bank of America') return BoaCardLines;
+    if (bankName == 'Save Easy Bank') return SaveEasyLines;
 }
 
 export const getCardBackground = (bankName: string) => {
@@ -28,6 +32,7 @@ export const getCardBackground = (bankName: string) => {
     if (bankName == 'Chase Bank') return COLORS.chaseLogoColor;
     if (bankName == 'Wells Fargo') return COLORS.wellsLogoColor;
     if (bankName == 'Bank of America') return COLORS.boaLogoColor;
+    if (bankName == 'Save Easy Bank') return '#380E6F';
 }
 
 export const getBankName = (bankName: string) => {

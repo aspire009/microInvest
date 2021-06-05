@@ -24,6 +24,10 @@
     flex: 1;
 }
 
+.icon-info-pallette-main-text-line {
+    align-self: flex-end;
+}
+
 .icon-info-pallette-main-text {
     font-size: 32px;
     font-weight: 700;

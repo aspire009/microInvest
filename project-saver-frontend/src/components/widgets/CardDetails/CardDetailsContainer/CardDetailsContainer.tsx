@@ -14,21 +14,24 @@ import DeletePopup from "../DeletePopup/DeletePopup";
 import { getBankName, getBankCode, formatCardNumberForCardRow } from '../../../../utilities/BankUtilities'
 import AcceptPayment from "../../../Payment/acceptPayment";
 import { SERVER_URL } from "../../../../constants/NetworkData";
+import PaymentTypeForm from "../PaymentTypeForm/PaymentTypeForm";
 
 
 const CardDetailsContainer: React.FC<CardDetailsContainerProps> = ({ cardDetailContainerModel }: CardDetailsContainerProps) => {
+    const [username, setUsername] = useState(localStorage.getItem('userName'));
+    const [token, setToken] = useState(localStorage.getItem('accessToken'));
+
     const [cardList, setCardList] = useState<CardDetailsRowModel[]>([
-        // { id: 1, bankName: 'Citi Bank', cardNumber: '1234 **** **** 6789', dueAmount: '3,200.98', dueDate: '30 May 2021' },
+
         // { id: 2, bankName: 'Bank of America', cardNumber: '3456 **** **** 0987', dueAmount: '1,220.08', dueDate: '27 May 2021' },
         // { bankName: 'Chase Bank', cardNumber: '8821 **** **** 3429', dueAmount: '2,510.21', dueDate: '31 May 2021' },
         // { bankName: 'Wells Fargo', cardNumber: '3456 **** **** 0987', dueAmount: '1,220.08', dueDate: '27 May 2021' },
     ]);
 
-    const [username, serUsername] = useState(localStorage.getItem('userName'));
-    const [token, setToken] = useState(localStorage.getItem('accessToken'));
     const [prevCardIndex, setPrevCardIndex] = useState(0);
     const [cardIndex, setCardIndex] = useState(0);
     const [addCardPopup, setAddCardPopup] = useState(false);
+    const [paymentTypePopup, setPaymentTypePopup] = useState(false);
     const [deletePopup, setDeletePopup] = React.useState(false);
     const [deleteCardId, setDeleteCardId] = React.useState(0);
     const [paymentDueCount, setPaymentDueCount] = useState(0);
@@ -103,6 +106,15 @@ const CardDetailsContainer: React.FC<CardDetailsContainerProps> = ({ cardDetailC
         setAddCardPopup(false);
     }
 
+    const showPaymentTypePopupHandler = () => {
+        console.log('cccc')
+        setPaymentTypePopup(true);
+    }
+
+    const closePaymentTypePopupHandler = () => {
+        setPaymentTypePopup(false);
+    }
+
     const getCardDueAmount = (cardNumber: string) => {
         const amount = Math.ceil(Math.random() * (900 - 100) + 100)// + '.' + Math.ceil(Math.random() * (99 - 10) + 10)
         return 600;//amount;
@@ -133,6 +145,22 @@ const CardDetailsContainer: React.FC<CardDetailsContainerProps> = ({ cardDetailC
         setCardIndex(prevCardIndex);
 
         removeCardApi(removeCardUrl + id, token);
+    }
+
+    const paymentChosenHandler = (amount, paymentType) => {
+        console.log(amount, paymentType)
+        makePayment(amount, paymentType)
+    }
+
+    const makePayment = (amount, paymentType) => {
+        cardDetailContainerModel.payNowFunction(parseInt(amount) * 100,
+            cardDetailContainerModel.onPaymentSuccessFunction,
+            '' + cardList[cardIndex].cardNumberUnmasked,
+            '' + amount,//cardList[cardIndex].dueAmount,
+            '' + Math.ceil(parseInt(cardList[cardIndex].dueAmount) / 10),
+            '' + paymentType,//'Full Payment',
+            '' + cardList[cardIndex].bankName
+        )
     }
 
     const addCardHandler = (addedCard: CardModel) => {
@@ -171,8 +199,10 @@ const CardDetailsContainer: React.FC<CardDetailsContainerProps> = ({ cardDetailC
         const updatedCardList = cardList;
         updatedCardList.unshift(cardDisplay);
 
-        setCardList(updatedCardList);
+        //setCardList(updatedCardList);
     }
+
+    const defaultCardPalletteModel: CardDetailsRowModel = { id: 1, bankName: 'Save Easy Bank', cardNumber: '1234 **** **** 6789', dueAmount: '3,200.98', dueDate: username, cardNumberUnmasked: '' }
 
     const updatePaymentDueCount = () => {
         var count = 0;
@@ -188,32 +218,21 @@ const CardDetailsContainer: React.FC<CardDetailsContainerProps> = ({ cardDetailC
         updatePaymentDueCount()
     }, [cardList.length]);
 
-    const makePayment = () => {
-        cardDetailContainerModel.payNowFunction(parseInt(cardList[cardIndex].dueAmount) * 100,
-            cardDetailContainerModel.onPaymentSuccessFunction,
-            '' + cardList[cardIndex].cardNumberUnmasked,
-            '' + cardList[cardIndex].dueAmount,
-            '' + Math.ceil(parseInt(cardList[cardIndex].dueAmount) / 10),
-            '' + 'Full Payment',
-            '' + cardList[cardIndex].bankName
-        )
-    }
-
     return (
         <div className="card-details-container-main">
             <label className="card-details-container-heading" style={{ color: COLORS.textPrimary }}>Credit Cards</label>
 
             <div className="card-details-container-content">
                 <div className="card-details-container-card">
-                    <CardPallette cardDetailsRowModel={cardList[cardIndex]} />
+                    <CardPallette cardDetailsRowModel={cardList.length === 0 ? defaultCardPalletteModel : cardList[cardIndex]} />
                 </div>
 
                 <div className="card-details-row-1">
-                    <div className="card-details-pay-now-wrapper" onClick={() => makePayment()}>
-                        <RoundIconButton icon={faBolt} text="Pay Now" iconBackground="#1924c2" backgroundColor="#334ee3" textColor="#FFF" iconColor="#ffbf00" />
+                    <div className="card-details-pay-now-wrapper" onClick={() => (cardList.length === 0 || cardList[cardIndex].dueAmount == "0") ? {} : showPaymentTypePopupHandler()}>
+                        <RoundIconButton icon={faBolt} text={(cardList == undefined || cardList[cardIndex] == undefined || cardList.length === 0 || cardList[cardIndex].dueAmount == "0") ? "No Dues" : "Pay Now"} iconBackground="#1924c2" backgroundColor={(cardList.length === 0 || cardList[cardIndex].dueAmount == "0") ? "#838383" : "#334ee3"} textColor="#FFF" iconColor="#ffbf00" />
                     </div>
 
-                    <div className="card-details-remove-card-wrapper" onClick={() => showDeletePopupHandler(cardList[cardIndex].id)}>
+                    <div className="card-details-remove-card-wrapper" onClick={() => (cardList.length === 0) ? {} : showDeletePopupHandler(cardList[cardIndex].id)}>
                         <RoundIconButton icon={faMinus} text="Remove" iconBackground="#1924c2" backgroundColor="#334ee3" textColor="#FFF" iconColor="#FF8C00" />
                     </div>
                 </div>
@@ -240,6 +259,7 @@ const CardDetailsContainer: React.FC<CardDetailsContainerProps> = ({ cardDetailC
                 </div>
 
                 {addCardPopup && <AddCardForm addCardPopup={addCardPopup} closePopup={closeAddCardPopupHandler} saveCardHandler={addCardHandler} />}
+                {paymentTypePopup && <PaymentTypeForm paymentTypePopup={paymentTypePopup} closePopup={closePaymentTypePopupHandler} paymentChosenHandler={paymentChosenHandler} amountDue={cardList[cardIndex].dueAmount} />}
                 {deletePopup && <DeletePopup deleteCard={deleteCardHandler} deletePopup={deletePopup} closeDeletePopup={closeDeletePopupHandler} deleteCardId={deleteCardId} />}
             </div>
         </div >

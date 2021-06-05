@@ -2,7 +2,7 @@ export interface TransHistRowModel {
     cardCompany: String;
     cardNumber: string;
     amountPaid: String;
-    paidDate: String;
+    paidDate: string;
     transactionType: String;
     pointsEarned: String;
 }
