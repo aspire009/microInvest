@@ -1,5 +1,5 @@
 import NavbarItem from "./NavbarItem/NavbarItem"
-import { faChartLine, faTachometerAlt, faArrowCircleRight, faTools, faList, faSignOutAlt, faShapes } from '@fortawesome/free-solid-svg-icons'
+import { faChartLine, faTachometerAlt, faArrowCircleRight, faTools, faList, faSignOutAlt, faChartPie } from '@fortawesome/free-solid-svg-icons'
 import { COLORS } from "../../../constants/NewColorScheme"
 import './Navbar.css'
 import LogoPurple from '../../../assets/images/logos/logoNavbar.png'
@@ -16,7 +16,7 @@ const Navbar = (props: { page: string }) => {
                     <label className="navbar-logo-label">SaveEasy</label>
 
                 </div>
-                <NavbarItem selected={props.page == 'dashboard'} label="Dashboard" icon={faShapes}></NavbarItem>
+                <NavbarItem selected={props.page == 'dashboard'} label="Dashboard" icon={faChartPie}></NavbarItem>
                 <NavbarItem selected={props.page == 'payments'} label="Payments" icon={faList}></NavbarItem>
                 <NavbarItem selected={props.page == 'portfolio'} label="Portfolio" icon={faChartLine}></NavbarItem>
                 <NavbarItem selected={props.page == 'risk'} label="Risk Profile" icon={faTachometerAlt}></NavbarItem>
