@@ -21,7 +21,7 @@ body {
 
 table {
 	width: 800px;
-	height: 450px;
+	height: auto;
 	border-collapse: collapse;
     background: linear-gradient(45deg, #49a09d, #5f2c82);
 	overflow: hidden;

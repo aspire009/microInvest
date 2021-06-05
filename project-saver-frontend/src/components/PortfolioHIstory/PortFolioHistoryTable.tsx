@@ -131,7 +131,7 @@ const PortFolioHistoryTable = () => {
                         <th>Units Purchased</th>
                     </tr>
                 </thead>
-                {!loading && investmentHistoryData.length ===0 && <div>No Investements yet </div>}
+                {!loading && investmentHistoryData.length ===0 && <div><br/><h3>No Investements yet </h3><br/></div>}
                 <tbody>
                     {investmentHistoryData.slice(windowShowing.startIndex, windowShowing.endIndex).map((investment) => {
                         return (
