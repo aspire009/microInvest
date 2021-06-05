@@ -24,6 +24,8 @@ const CardDetailsContainer: React.FC<CardDetailsContainerProps> = ({ cardDetailC
         // { bankName: 'Wells Fargo', cardNumber: '3456 **** **** 0987', dueAmount: '1,220.08', dueDate: '27 May 2021' },
     ]);
 
+    const [username, serUsername] = useState(localStorage.getItem('userName'));
+    const [token, setToken] = useState(localStorage.getItem('accessToken'));
     const [prevCardIndex, setPrevCardIndex] = useState(0);
     const [cardIndex, setCardIndex] = useState(0);
     const [addCardPopup, setAddCardPopup] = useState(false);
@@ -31,9 +33,6 @@ const CardDetailsContainer: React.FC<CardDetailsContainerProps> = ({ cardDetailC
     const [deleteCardId, setDeleteCardId] = React.useState(0);
     const [paymentDueCount, setPaymentDueCount] = useState(0);
 
-    //TODO: username, token dynamic
-    const username = 'hardik'
-    const token = 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiaWF0IjoxNjIyODAxMTA0LCJleHAiOjE2MjM2NjUxMDR9.jtuj6YRTFmj5rSGAiiSU2NZ-yrqLozwbt9-zHc1Jo_qOlAoT4IxO-R5dRXZ0-Ttf9wxirj-vbEdC8gYR0VEoyg'
     const cardListUrl = SERVER_URL + '/card/' + username;
     const addCardUrl = SERVER_URL + '/card';
     const removeCardUrl = SERVER_URL + '/card/';

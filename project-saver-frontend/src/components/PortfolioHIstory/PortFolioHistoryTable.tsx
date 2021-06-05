@@ -8,12 +8,14 @@ import ListIcon from '@material-ui/icons/List';
 import PageButton from './PaginationButton'
 import Loader from "react-loader-spinner";
 import { investmentHistory, emptyPortfolioRow, InvestmentHistoryModel } from './PortfolioData'
-
+import {useState} from 'react'
+import {SERVER_URL, FORWARD_SLASH, INVESTEMENT, ALL} from '../../constants/NetworkData'
 
 const PortFolioHistoryTable = () => {
     const windowSize = 5;
-    const historyUrl = 'http://localhost:8080/investment/all/hardik';
-    const token = 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiaWF0IjoxNjIyODE3MTk4LCJleHAiOjE2MjM2ODExOTh9.b1tTB4hVW4vE79ei2w6ue09E0pZdvDL01PYT7hp8ZPT5i5RCXX5R9J2SdMCC0CFiJa6FTwPsOtxmKFf46BHvug'
+    const [username, serUsername] = useState(localStorage.getItem('userName'));
+    const [token, setToken] = useState(localStorage.getItem('accessToken'));
+    const investmentHistoryUrl = SERVER_URL + FORWARD_SLASH + INVESTEMENT + FORWARD_SLASH + ALL + FORWARD_SLASH + username;
     const [investmentHistoryData, setInvestementHistoryData] = React.useState<InvestmentHistoryModel[]>([]);
     const [pages, setPages] = React.useState(1);
     const [currentPage, setCurrentPage] = React.useState(1);
@@ -26,19 +28,13 @@ const PortFolioHistoryTable = () => {
 
     useEffect(() => {
         setLoading(true);
-        populateHistory(historyUrl, token);
+        populateHistory(investmentHistoryUrl, token);
         addPaddingToData();
         setWindowShowing({
             startIndex: 0,
             endIndex: 5
         })
-        console.log("investmentHistoryData: ", investmentHistoryData);
-        console.log("pages : ", pages);
-        console.log("currentPage: ", currentPage);
         setLoading(false);
-
-        console.log("loading", loading);
-        console.log("investmentHistoryData", investmentHistoryData);
     }, []);
 
     const populateHistory = async (url: string, token: string) => {
@@ -118,12 +114,12 @@ const PortFolioHistoryTable = () => {
     })();
     console.log(`pages: ${pages}  currentPage: ${currentPage}`)
     return (
-        investmentHistoryData.length === 0 ? <div className="container"><Loader
+        loading ? <div className="container"><Loader
             type='Watch'
             color="#00BFFF"
             height={100}
             width={100} //3 secs
-        /></div> : <div className="container" >
+        /><h2>loading....</h2></div> : <div className="container" >
             <div className="portfolio-histroy-header"><ListIcon className={classes.headerIcon} /><p>Portfolio History</p></div>
             <table>
                 <thead>
@@ -135,6 +131,7 @@ const PortFolioHistoryTable = () => {
                         <th>Units Purchased</th>
                     </tr>
                 </thead>
+                {!loading && investmentHistoryData.length ===0 && <div>No Investements yet </div>}
                 <tbody>
                     {investmentHistoryData.slice(windowShowing.startIndex, windowShowing.endIndex).map((investment) => {
                         return (

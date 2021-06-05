@@ -10,10 +10,12 @@ import EqualizerIcon from '@material-ui/icons/Equalizer';
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 import Button from '@material-ui/core/Button';
 import { earnedIconInfoPalletteModel, investedIconInfoPalletteModel, upcomingIconInfoPalletteModel, rewardModel } from './StockGraph/GraphData'
-
+import {useState} from 'react'
+import {SERVER_URL, FORWARD_SLASH, REWARDS} from '../../constants/NetworkData'
 
 const PortfolioHistoryContainer = () => {
-    const [token, setToekn] = React.useState('eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiaWF0IjoxNjIyODE3MTk4LCJleHAiOjE2MjM2ODExOTh9.b1tTB4hVW4vE79ei2w6ue09E0pZdvDL01PYT7hp8ZPT5i5RCXX5R9J2SdMCC0CFiJa6FTwPsOtxmKFf46BHvug')
+    const [username, serUsername] = useState(localStorage.getItem('userName'));
+    const [token, setToken] = useState(localStorage.getItem('accessToken'));
     const graphHeight = 300;
     const graphWidth = 700;
     const history = useHistory();
@@ -22,7 +24,7 @@ const PortfolioHistoryContainer = () => {
     }
 
     useEffect(() => {
-        populateRewardData('http://localhost:8080/rewards/hardik', token);
+        populateRewardData(SERVER_URL + FORWARD_SLASH + REWARDS + FORWARD_SLASH + username, token);
     }, [])
 
     const populateRewardData = async (url: string, token: string) => {
@@ -43,9 +45,13 @@ const PortfolioHistoryContainer = () => {
                     userName: data['userName'],
                     totalPointsInvested: data['totalPointsInvested']
                 }
-                earnedIconInfoPalletteModel.mainText = rewardValue.totalPointsEarned.toString();
-                investedIconInfoPalletteModel.mainText = rewardValue.totalPointsInvested.toString();
-                upcomingIconInfoPalletteModel.mainText = (1000 - rewardValue.nextMilestone).toString();
+                console.log("rewardValue : ", rewardValue)
+                earnedIconInfoPalletteModel.mainText = rewardValue.totalPointsEarned === undefined ? "0" : rewardValue.totalPointsEarned.toString();
+                investedIconInfoPalletteModel.mainText = rewardValue.totalPointsInvested === undefined ? "0" : rewardValue.totalPointsInvested.toString();
+                upcomingIconInfoPalletteModel.mainText = rewardValue.nextMilestone === undefined ? "0" : (1000 - rewardValue.nextMilestone).toString();
+                console.log("earnedIconInfoPalletteModel : ", earnedIconInfoPalletteModel.mainText);
+                console.log(" investedIconInfoPalletteModel : ",  investedIconInfoPalletteModel.mainText);
+                console.log("upcomingIconInfoPalletteModel : ", upcomingIconInfoPalletteModel.mainText);
             });
     }
     return (

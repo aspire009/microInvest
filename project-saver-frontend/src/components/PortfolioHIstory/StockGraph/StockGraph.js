@@ -76,9 +76,6 @@ const StockGraph = ({graphWidth, graphHeight}) => {
         
     }
 
-    console.log('graphDataValue: ', facebookDataStore);
-    console.log('component is going to be rendered now....')
-
     populateData();
     return(
         <div className="graph">
