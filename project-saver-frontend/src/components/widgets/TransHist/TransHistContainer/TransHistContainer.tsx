@@ -8,6 +8,7 @@ import './TransHistContainer.css'
 import { useEffect, useState } from "react";
 import { SERVER_URL } from "../../../../constants/NetworkData";
 import { formatCardNumberForCardRow } from "../../../../utilities/BankUtilities";
+import { BorderColor } from "@material-ui/icons";
 
 const TransHistContainer: React.FC<TransHistContainerProps> = ({ transHistContainerModel }: TransHistContainerProps) => {
     const transHistRowModel: TransHistRowModel = {
@@ -40,13 +41,14 @@ const TransHistContainer: React.FC<TransHistContainerProps> = ({ transHistContai
                 {
                     transHistContainerModel.transactionHistoryList.length === 0 ?
                         <div className="trans-hist-container-no-payment" style={{ color: COLORS.textPrimary }}>No card bill payments made yet.</div> :
-                        transHistContainerModel.transactionHistoryList.map((transactionHistoryListModel, index) => {
+                        transHistContainerModel.transactionHistoryList.slice(0, 3).map((transactionHistoryListModel, index) => {
                             return (
                                 <TransHistRow transHistRowModel={transactionHistoryListModel}></TransHistRow>
                             )
                         })
                 }
                 {/* <TransHistRow transHistRowModel={transHistRowModel}></TransHistRow> */}
+                {transHistContainerModel.transactionHistoryList.length > 4 && <div className="trans-hist-view-more" style={{ color: COLORS.textPrimary, borderColor: COLORS.textPrimary }}>View More</div>}
             </div>
         </div>
     )

@@ -32,7 +32,7 @@
   margin-right: -50px;
   margin-top: -50px;
   font-size: 22px;
-
+  cursor: pointer;
 
 }
 
@@ -80,13 +80,14 @@
   border-radius: 8px;
   padding: 8px;
   padding-left: 15px;
-  
+  cursor: pointer;
 }
 
 .payment-type-form-field-heading{
   font-weight: 600;
   font-size: 11px;
   color: #00000085;
+  cursor: pointer;
 }
 
 .payment-type-form-field-input {
@@ -95,6 +96,7 @@
   color: #000;
   font-weight: 500;
   text-align: left;
+  cursor: pointer;
 }
 
 .payment-type-form-field-input:focus, input:focus{
@@ -102,7 +104,7 @@
 }
 
 .payment-type-form-date {
-  width: 170px;
+  width: 150px;
 }
 
 .payment-type-date-input {
@@ -111,7 +113,7 @@
 
 
 .payment-type-form-cvv-input{
-  width: 140px;
+  width: 150px;
 }
 
 .payment-type-form-bank-logo {
@@ -129,6 +131,7 @@
   font-size: 44px;
   margin-right: -100px;
   margin-top: -10px;
+  cursor: pointer;
 }
 
 .payment-type-form-custom-amount{

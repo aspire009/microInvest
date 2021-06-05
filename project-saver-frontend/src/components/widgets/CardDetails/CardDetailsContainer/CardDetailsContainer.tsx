@@ -157,7 +157,7 @@ const CardDetailsContainer: React.FC<CardDetailsContainerProps> = ({ cardDetailC
             cardDetailContainerModel.onPaymentSuccessFunction,
             '' + cardList[cardIndex].cardNumberUnmasked,
             '' + amount,//cardList[cardIndex].dueAmount,
-            '' + Math.ceil(parseInt(cardList[cardIndex].dueAmount) / 10),
+            '' + amount,
             '' + paymentType,//'Full Payment',
             '' + cardList[cardIndex].bankName
         )

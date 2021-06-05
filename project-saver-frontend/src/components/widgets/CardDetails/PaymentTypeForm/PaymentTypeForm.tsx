@@ -61,7 +61,7 @@ const PaymentTypeForm = (props: { paymentTypePopup: boolean, closePopup: () => v
         var finalPaymentType = "";
 
         if (amountIndex == 0) {
-            finalAmount = ('' + parseInt(props.amountDue) / 10).split('/.')[0];
+            finalAmount = ('' + parseInt(props.amountDue) / 10).split('.')[0];
             finalPaymentType = "Partial Amount"
         }
 

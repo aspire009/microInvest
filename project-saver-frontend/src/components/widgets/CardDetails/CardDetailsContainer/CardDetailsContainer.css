@@ -25,12 +25,14 @@
 
 .card-details-pay-now-wrapper {
     margin-left: 10px;
+    cursor: pointer;
 
 }
 
 .card-details-remove-card-wrapper {
     margin-right: 10px;
     font-weight: 900;
+    cursor: pointer;
 }
 
 .card-details-container-content {
@@ -78,7 +80,7 @@
     background-color: white;
     border-radius: 10px;
     align-self: flex-start;
-
+    cursor: pointer;
 }
 
 .card-details-container-add-card-icon {
@@ -89,4 +91,5 @@
 .card-details-container-add-card-text {
     font-size: 14px;
     font-weight: 500;
+    cursor: pointer;
 }
