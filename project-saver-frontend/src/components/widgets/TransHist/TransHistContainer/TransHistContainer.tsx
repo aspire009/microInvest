@@ -30,12 +30,12 @@ const TransHistContainer: React.FC<TransHistContainerProps> = ({ transHistContai
         <div className="trans-hist-container-main">
             <div className="trans-hist-container-heading">
                 <label className="trans-hist-container-title" style={{ color: COLORS.textPrimary }}>Transaction History</label>
-                <FontAwesomeIcon className="trans-hist-container-expand" icon={faExternalLinkAlt} style={{ color: COLORS.textPrimary }} />
+                {/* <FontAwesomeIcon className="trans-hist-container-expand" icon={faExternalLinkAlt} style={{ color: COLORS.textPrimary }} /> */}
             </div>
 
-            <div className="trans-hist-container-sub-heading">
+            {/* <div className="trans-hist-container-sub-heading">
                 <label className="trans-hist-container-date" style={{ color: COLORS.textSecondary }}>27 May 2021</label>
-            </div>
+            </div> */}
 
             <div className="trans-hist-container-content">
                 {

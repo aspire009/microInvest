@@ -69,7 +69,7 @@ const PortfolioHistoryContainer = () => {
                 <div><IconInfoPallette iconInfoPalletteModel={investedModel}></IconInfoPallette></div>
                 <div><IconInfoPallette iconInfoPalletteModel={upcomingModel}></IconInfoPallette></div>
             </div>
-            <div className="graph-comp"><Card className="graph-card"><StockGraph graphWidth={graphWidth} graphHeight={graphHeight} /></Card></div>
+            <div className="graph-comp"><Card className="graph-card"><StockGraph graphWidth={graphWidth} graphHeight={graphHeight} calledFrom="portfolioContainer" /></Card></div>
             <p className="outset" id="border"></p>
             <div><PortfolioHistoryTable /></div>
         </div>

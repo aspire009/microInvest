@@ -10,6 +10,7 @@ import Loader from "react-loader-spinner";
 import { investmentHistory, emptyPortfolioRow, InvestmentHistoryModel } from './PortfolioData'
 import {useState} from 'react'
 import {SERVER_URL, FORWARD_SLASH, INVESTEMENT, ALL} from '../../constants/NetworkData'
+import Navbar from '../widgets/Navbar/Navbar';
 
 const PortFolioHistoryTable = () => {
     const windowSize = 5;
@@ -114,7 +115,9 @@ const PortFolioHistoryTable = () => {
     })();
     console.log(`pages: ${pages}  currentPage: ${currentPage}`)
     return (
-        loading ? <div className="container portfolio-history-table-main"><Loader
+        <div className="portfolio-wrapper">
+            <Navbar page="portfolio"></Navbar>
+            loading ? <div className="container portfolio-history-table-main"><Loader
             type='Watch'
             color="#00BFFF"
             height={100}
@@ -150,6 +153,7 @@ const PortFolioHistoryTable = () => {
             </table>
             <div className="pagination-layout">
                 {[...Array(pages)].map((e, i) => <PageButton setCurrentPage={setCurrentPageHandler} pageNumber={i + 1} currentPage={currentPage}></PageButton>)}
+                </div>
             </div>
         </div>
     )

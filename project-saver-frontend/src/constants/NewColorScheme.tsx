@@ -14,5 +14,10 @@ export const COLORS = {
     citiLogoColor: '#056dae',
     chaseLogoColor: '#0f5ba7',
     boaLogoColor: '#dc1432',
-    wellsLogoColor: '#b31e2f'
+    wellsLogoColor: '#b31e2f',
+
+    navbar: '#31167a',
+    navbarItemSelected: '#515B9E'
+
+
 }

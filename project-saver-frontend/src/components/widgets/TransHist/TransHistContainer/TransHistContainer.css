@@ -21,6 +21,7 @@
 
 .trans-hist-container-content {
     margin-left: 0px;
+    margin-top: -10px;
 }
 
 .trans-hist-container-sub-heading {
@@ -45,7 +46,8 @@
     padding-right:12px;
     border-radius: 10px;
     font-weight: 700;
-    margin-left: 150px;
-    margin-top: 20px;
+    margin-left: 170px;
+    margin-top: 15px;
+    font-size: 14px;
     cursor: pointer;
 }

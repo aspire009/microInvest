@@ -4,7 +4,7 @@ import { dateTimeData, dataTimeXaxis, simpleData, simpleDataXaxis, facebookUrl, 
 import '../PortfolioHistoryContainer.css'
 import ShowChartIcon from '@material-ui/icons/ShowChart';
 
-const StockGraph = ({graphWidth, graphHeight}) => {
+const StockGraph = ({ graphWidth, graphHeight, calledFrom }) => {
     console.log("graphWidth",graphWidth)
     console.log("graphHeight", graphHeight)
     const [facebookDataStore, setFacebookDataStore] = React.useState([]);
@@ -79,7 +79,7 @@ const StockGraph = ({graphWidth, graphHeight}) => {
     populateData();
     return(
         <div className="graph">
-            <div className="portfolio-performance-header"><ShowChartIcon className="graph-icon" color="primary"/><p>Portfolio Performance</p></div>
+            {calledFrom != 'dashboard' && <div className="portfolio-performance-header"><ShowChartIcon className="graph-icon" color="primary" /><p>Portfolio Performance</p></div>}
             <Chart
         options={options}
         series={options.series}

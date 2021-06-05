@@ -2,7 +2,9 @@ html,
 body {
 	height: 100%;
 }
-
+.portfolio-wrapper {
+	display: flex;
+}
 .portfolio-history-table-main {
 	margin-left: 10px;
 	margin-bottom: 10px;

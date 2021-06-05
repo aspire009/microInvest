@@ -11,7 +11,7 @@
 }
 
 .main-dashboard-col-1 {
-    padding-top: 15px;
+    padding-top: 45px;
 }
 
 .main-dashboard-credits {
@@ -21,7 +21,7 @@
 }
 
 .main-dashboard-col-2 {
-    padding-top: 15px;
+    padding-top: 45px;
 }
 
 .main-dashboard-user-welcome-wrapper {
@@ -42,9 +42,14 @@
     flex-direction: column;
     width: 415px;
     padding-right: 50px;
-    padding-top: 25px;
+    padding-top: 57px;
+}
+
+.main-dashboard-graph {
+    margin-top: -30px;
+    margin-left: -20px;
 }
 
 .main-dashboard-trans-hist-wrapper {
-    padding-top: 6px;
+    margin-top: -25px;
 }

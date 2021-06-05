@@ -24,6 +24,8 @@ import { formatCardNumberForCardRow } from "../../../utilities/BankUtilities";
 import { useEffect, useState } from "react";
 import { SERVER_URL } from "../../../constants/NetworkData";
 import { TransHistContainerModel } from "../../widgets/TransHist/TransHistContainer/TransHistContainerModel";
+import Navbar from "../../widgets/Navbar/Navbar";
+import StockGraph from "../../PortfolioHIstory/StockGraph/StockGraph";
 
 const MainDashboard: React.FC<MainDashboardProps> = ({ mainDashboardModel }: MainDashboardProps) => {
     const [username, setUsername] = useState(localStorage.getItem('userName'));
@@ -240,13 +242,11 @@ const MainDashboard: React.FC<MainDashboardProps> = ({ mainDashboardModel }: Mai
 
     return (
         <div className="main-dashboard">
-            <div className="side-bar"></div>
+            <Navbar page='dashboard'></Navbar>
 
             <div className="main-dashboard-col-1">
                 <CardDetailsContainer cardDetailContainerModel={cardDetailsContainerModel} />
-                <div className="main-dashboard-credits" onClick={() => addToTransactionHistoryList(undefined)}>
-                    <label>Made with <FontAwesomeIcon className="trans-hist-container-expand" icon={faHeart} style={{ color: '#C51104' }} /> at HashedIn</label>
-                </div>
+
             </div>
 
             <div className="main-dashboard-col-2">
@@ -255,7 +255,7 @@ const MainDashboard: React.FC<MainDashboardProps> = ({ mainDashboardModel }: Mai
                 </div>
 
                 <div className="main-dashboard-col-2-row-2">
-                    <NumberInfoPallette number="02" text="Card's Payment Due" backgroundColor={COLORS.textPrimaryVeryLight} />
+                    <NumberInfoPallette number="03" text="Card's Payment Due" backgroundColor={COLORS.textPrimaryVeryLight} />
                     <NumberInfoPallette number="32%" text="Investment Profit" backgroundColor={COLORS.textPrimaryVeryLight} />
                 </div>
                 <IconInfoPallette iconInfoPalletteModel={earnedIconInfoPalletteModel}></IconInfoPallette>
@@ -265,7 +265,10 @@ const MainDashboard: React.FC<MainDashboardProps> = ({ mainDashboardModel }: Mai
 
             <div className="main-dashboard-col-3">
                 <label className="trans-hist-container-title" style={{ color: COLORS.textPrimary }}>Portfolio Performance</label>
-                <img src={GraphStaticImage} />
+                {/* <img src={GraphStaticImage} /> */}
+                <div className="main-dashboard-graph">
+                    <StockGraph graphWidth={'400px'} graphHeight={'230px'} calledFrom="dashboard" />
+                </div>
                 <div className="main-dashboard-trans-hist-wrapper">
                     <TransHistContainer transHistContainerModel={transHistContainerModel} />
                 </div>
