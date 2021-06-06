@@ -85,7 +85,6 @@ const ProfileMeter = (props: { score: number }) => {
 
 
   return (
-
     <div className="profile-score-main-outer">
 
       <Navbar page="risk"></Navbar>
@@ -99,7 +98,7 @@ const ProfileMeter = (props: { score: number }) => {
 
         <div className="profile-score-content">
           <div className="profile-score-performance">
-            <PerformanceMeter score={overallScore} />
+            <PerformanceMeter score={overallScore} ringWidth={30} height = {200} width ={500}/>
           </div>
 
           <div className="profile-score-content-right">
@@ -140,6 +139,7 @@ const ProfileMeter = (props: { score: number }) => {
 
 
     // </div>
+
   );
 };
 
