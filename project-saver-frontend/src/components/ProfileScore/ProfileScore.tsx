@@ -98,7 +98,7 @@ const ProfileMeter = (props: { score: number }) => {
 
         <div className="profile-score-content">
           <div className="profile-score-performance">
-            <PerformanceMeter score={overallScore} ringWidth={30} height = {200} width ={500}/>
+            <PerformanceMeter score={overallScore} />
           </div>
 
           <div className="profile-score-content-right">

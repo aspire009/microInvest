@@ -6,7 +6,7 @@
   .profile-score-main {
     display: flex;
     flex-direction: column;
-    
+    padding-left: 130px;
   }
   
   .profile-score-header{
