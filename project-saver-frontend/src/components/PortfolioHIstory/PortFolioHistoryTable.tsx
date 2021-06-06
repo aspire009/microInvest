@@ -8,8 +8,8 @@ import ListIcon from '@material-ui/icons/List';
 import PageButton from './PaginationButton'
 import Loader from "react-loader-spinner";
 import { investmentHistory, emptyPortfolioRow, InvestmentHistoryModel } from './PortfolioData'
-import {useState} from 'react'
-import {SERVER_URL, FORWARD_SLASH, INVESTEMENT, ALL} from '../../constants/NetworkData'
+import { useState } from 'react'
+import { SERVER_URL, FORWARD_SLASH, INVESTEMENT, ALL } from '../../constants/NetworkData'
 import Navbar from '../widgets/Navbar/Navbar';
 
 const PortFolioHistoryTable = () => {
@@ -115,46 +115,45 @@ const PortFolioHistoryTable = () => {
     })();
     console.log(`pages: ${pages}  currentPage: ${currentPage}`)
     return (
-        <div className="portfolio-wrapper">
-            <Navbar page="portfolio"></Navbar>
-            loading ? <div className="container portfolio-history-table-main"><Loader
-            type='Watch'
-            color="#00BFFF"
-            height={100}
-            width={100} //3 secs
-        /><h2>loading....</h2></div> : <div className="container" >
-            <div className="portfolio-histroy-header"><ListIcon className={classes.headerIcon} /><p>Portfolio History</p></div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>S.no</th>
-                        <th>Date and Time</th>
-                        <th>Portfolio Name</th>
-                        <th>Money Invested</th>
-                        <th>Units Purchased</th>
-                    </tr>
-                </thead>
-                {!loading && investmentHistoryData.length ===0 && <div><br/><h3>No Investements yet </h3><br/></div>}
-                <tbody>
-                    {investmentHistoryData.slice(windowShowing.startIndex, windowShowing.endIndex).map((investment) => {
-                        return (
-                            <tr>
-                                <td className={classes.tableRow}>{getIndex(investment.id)}</td>
-                                <td className={classes.tableRow}>{investment.investedDate}</td>
-                                <td className={classes.tableRow}>{investment.fundName}</td>
-                                <td>{investment.moneyInvested && <Button className={classes.MoneyText} startIcon={<AttachMoneyIcon className={classes.AttachMoneyIcon} />}>{investment.moneyInvested}</Button>}</td>
-                                <td className={classes.tableRow}>{getUnitsPurchased(investment.units)}</td>
+        <div>
+            {loading ? <div className="container portfolio-history-table-main"><Loader
+                type='Watch'
+                color="#00BFFF"
+                height={100}
+                width={100} //3 secs
+            /><h2>loading....</h2></div> : <div className="container" >
+                <div className="portfolio-histroy-header"><ListIcon className={classes.headerIcon} /><p>Portfolio History</p></div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>S.no</th>
+                            <th>Date and Time</th>
+                            <th>Portfolio Name</th>
+                            <th>Money Invested</th>
+                            <th>Units Purchased</th>
+                        </tr>
+                    </thead>
+                    {!loading && investmentHistoryData.length === 0 && <div><br /><h3>No Investements yet </h3><br /></div>}
+                    <tbody>
+                        {investmentHistoryData.slice(windowShowing.startIndex, windowShowing.endIndex).map((investment) => {
+                            return (
+                                <tr>
+                                    <td className={classes.tableRow}>{getIndex(investment.id)}</td>
+                                    <td className={classes.tableRow}>{investment.investedDate}</td>
+                                    <td className={classes.tableRow}>{investment.fundName}</td>
+                                    <td>{investment.moneyInvested && <Button className={classes.MoneyText} startIcon={<AttachMoneyIcon className={classes.AttachMoneyIcon} />}>{investment.moneyInvested}</Button>}</td>
+                                    <td className={classes.tableRow}>{getUnitsPurchased(investment.units)}</td>
 
-                            </tr>
-                        )
-                    })}
-                </tbody>
+                                </tr>
+                            )
+                        })}
+                    </tbody>
 
-            </table>
-            <div className="pagination-layout">
-                {[...Array(pages)].map((e, i) => <PageButton setCurrentPage={setCurrentPageHandler} pageNumber={i + 1} currentPage={currentPage}></PageButton>)}
+                </table>
+                <div className="pagination-layout">
+                    {[...Array(pages)].map((e, i) => <PageButton setCurrentPage={setCurrentPageHandler} pageNumber={i + 1} currentPage={currentPage}></PageButton>)}
                 </div>
-            </div>
+            </div>}
         </div>
     )
 }

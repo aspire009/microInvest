@@ -108,7 +108,7 @@ const MainDashboard: React.FC<MainDashboardProps> = ({ mainDashboardModel }: Mai
                     userName: data['userName'],
                     totalPointsInvested: data['totalPointsInvested']
                 }
-                updateRewardValues(rewardValue.totalPointsEarned.toString(), rewardValue.totalPointsInvested.toString(), (1000 - rewardValue.nextMilestone).toString());
+                updateRewardValues(rewardValue.totalPointsEarned?.toString(), rewardValue.totalPointsInvested?.toString(), (1000 - rewardValue?.nextMilestone).toString());
             });
     }
 
