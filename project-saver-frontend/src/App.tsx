@@ -23,6 +23,7 @@ import MainDashboard from './components/landingPages/MainDashboard/MainDashboard
 import PerformanceMeter from './components/ProfileScore/PerformanceMeter';
 import SigninSignupPage from './components/landingPages/SigninSignupPage/SigninSignupPage';
 import WelcomePage from './components/landingPages/WelcomePage/WelcomePage';
+import TransactionDetailPage from './components/widgets/TransactionDetailsPage/TransactionDetailPage';
 // import LandingPage from './components/base/LandingPage';
 function App() {
 
@@ -75,6 +76,9 @@ function App() {
         </Route>
         <Route exact path="/portfolio/table">
           <PortFolioHistoryTable />
+        </Route>
+        <Route exact path="/payments">
+          <TransactionDetailPage />
         </Route>
         {/* <Route exact path="/portfolio/graph">
           <StockGraph/>

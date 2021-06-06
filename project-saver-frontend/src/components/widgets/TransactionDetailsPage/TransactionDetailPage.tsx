@@ -10,6 +10,7 @@ import Loader from "react-loader-spinner";
 import ListIcon from '@material-ui/icons/List';
 import { makeStyles } from '@material-ui/core/styles';
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
+import Navbar from '../Navbar/Navbar'
 
 const TransactionDetailPage = () => {
     const windowSize = 5;
@@ -94,17 +95,21 @@ const TransactionDetailPage = () => {
             height={100}
             width={100} //3 secs
         /></div> :
-            <Card className="transaction-history-detail-card">
-                <Button startIcon={<KeyboardBackspaceIcon />} color="primary" onClick={dashBoardRouterHandler}>DashBoard</Button>
-                <div className="transaction-histroy-header"><ListIcon className={classes.headerIcon} /><p>Transactions Detailed History</p></div>
-                <div>{transactions.slice(windowShowing.startIndex, windowShowing.endIndex).map((transaction) => {
-                    return <TransactionDetailRow transactionRowModel={transaction} />
-                })}
-                    <div className="pagination-layout">
-                        {[...Array(pages)].map((e, i) => <PageButton setCurrentPage={setCurrentPageHandler} pageNumber={i + 1} currentPage={currentPage}></PageButton>)}
+
+            <div className="transaction-history-detail-card-outer">
+                <Navbar page='payments'></Navbar>
+                <Card className="transaction-history-detail-card">
+                    {/* <Button startIcon={<KeyboardBackspaceIcon />} color="primary" onClick={dashBoardRouterHandler}>DashBoard</Button> */}
+                    <div className="transaction-histroy-header"><ListIcon className={classes.headerIcon} /><p>Transactions Detailed History</p></div>
+                    <div>{transactions.slice(windowShowing.startIndex, windowShowing.endIndex).map((transaction) => {
+                        return <TransactionDetailRow transactionRowModel={transaction} />
+                    })}
+                        <div className="pagination-layout">
+                            {[...Array(pages)].map((e, i) => <PageButton setCurrentPage={setCurrentPageHandler} pageNumber={i + 1} currentPage={currentPage}></PageButton>)}
+                        </div>
                     </div>
-                </div>
-            </Card>
+                </Card>
+            </div>
     )
 }
 
