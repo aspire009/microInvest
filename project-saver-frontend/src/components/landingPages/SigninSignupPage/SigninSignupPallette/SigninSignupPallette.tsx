@@ -11,7 +11,7 @@ import { ACCESS_TOKEN } from '../../../../constants/app-config'
 import { ScoreModel } from '../../../../constants/Interfaces'
 import { USER_SCORE, SERVER_URL, FORWARD_SLASH } from '../../../../constants/NetworkData'
 import { on } from 'events'
-
+import { GoogleLogin, GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
 const SigninSignupPallette = (props: { mode: string }) => {
 
     const [isModeSignup, setIsModeSignup] = useState(props.mode === 'signup');
@@ -26,7 +26,8 @@ const SigninSignupPallette = (props: { mode: string }) => {
     })
     const emailRegex = new RegExp("^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$");
     const history = useHistory();
-
+    const REACT_APP_GOOGLE_AUTH_CLIENT_ID = '618076409153-v4oo7n9g977m1gc4m41hibq78u3dgpr7.apps.googleusercontent.com';
+    const REACT_APP_CLIENT_SECRET = 'QkwnExaYlPu8E5uLL9zitLm4';
     const onNameChange = (event: any) => {
         setUserName(event.target.value);
     }
@@ -139,6 +140,11 @@ const SigninSignupPallette = (props: { mode: string }) => {
         googleButtonText: 'Sign in with Google'
     }
 
+    
+    const loginSuccess = () => {
+        history.push('/questionnaire')
+    }
+
     const model = isModeSignup ? signupModel : signinModel
 
     return (
@@ -182,10 +188,17 @@ const SigninSignupPallette = (props: { mode: string }) => {
 
             <label onClick={onSubmit} className="signin-signup-submit-button" style={{ backgroundColor: COLORS.orange }}>{model.submitButtonText}</label>
 
-            <div className="signin-signup-google-button">
-                <FontAwesomeIcon className="signin-signup-google-button-icon" icon={faGoogle} style={{ color: COLORS.orange }} />
-                <label>{model.googleButtonText}</label>
-            </div>
+            <GoogleLogin
+                        theme='dark'
+                        clientId={REACT_APP_GOOGLE_AUTH_CLIENT_ID}
+                        buttonText='Sign in with Google'
+                        onSuccess={loginSuccess}
+                        onFailure={(response: any) => {
+                            
+                        }}
+                        cookiePolicy={'single_host_origin'}
+                        responseType='code,token'
+                    />
 
         </div>
     )

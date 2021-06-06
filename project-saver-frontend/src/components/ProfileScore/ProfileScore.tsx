@@ -80,7 +80,7 @@ const ProfileMeter = (props: { score: number }) => {
     <div className="profileMeter">
       <h3>BRAVO!</h3>
       <h5>You Have completed the risk profiling.</h5>
-      <PerformanceMeter score={overallScore} />
+      <PerformanceMeter score={overallScore} ringWidth={30} height = {200} width ={500}/>
       <p>Based on your responses your financial exposure is {riskProfile}.</p>
       <Button variant="contained" color="secondary" onClick={saveScore}>
         CONTINUE

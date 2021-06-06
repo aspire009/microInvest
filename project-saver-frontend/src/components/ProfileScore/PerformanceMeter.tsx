@@ -1,13 +1,15 @@
 import ReactSpeedometer from "react-d3-speedometer";
 
-const PerformanceMeter = (props:{score:number}) => {
+const PerformanceMeter = (props:{score:number, width:number, height:number, ringWidth:number}) => {
     return (
         <div>
         <ReactSpeedometer
           minValue={0}
           maxValue={100}
           needleHeightRatio={0.8}
-          ringWidth={30}
+          ringWidth= {50}
+          height = {300}
+          width={700}
           segments={5}
           value={props.score}
           segmentColors={[
