@@ -28,7 +28,7 @@ const ProfileMeter = (props: { score: number }) => {
   })
 
   const goToquestionnaire = () => {
-    history.push('/questionnaire');
+    history.push('/questionnaire/retake');
   }
 
   const goTodashBoard = () => {

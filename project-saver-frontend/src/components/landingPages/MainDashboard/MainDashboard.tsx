@@ -291,7 +291,8 @@ const MainDashboard: React.FC<MainDashboardProps> = ({ mainDashboardModel }: Mai
                 {/* <img src={GraphStaticImage} /> */}
                 <div className="main-dashboard-graph">
                     <StockGraph graphWidth={'400px'} graphHeight={'230px'} calledFrom="dashboard" />
-                    <h4>Invested In : {currentFunds.map((fund) => fund)}</h4>
+                    {currentFunds != undefined && console.log('aaaaaaaaaaaaaaaaaaaaa', currentFunds)}
+                    {/* <h4>Invested In : {currentFunds.map((fund) => fund)}</h4> */}
                 </div>
                 
                 <div className="main-dashboard-trans-hist-wrapper">

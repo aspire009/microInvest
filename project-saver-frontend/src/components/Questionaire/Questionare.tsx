@@ -16,7 +16,7 @@ import { COLORS } from "../../constants/NewColorScheme";
 import { SERVER_URL } from "../../constants/NetworkData";
 import { useHistory } from 'react-router'
 
-const Questionare = () => {
+const Questionare = (props: { retake }) => {
   const [selectedQuestionCount, setSelectedQuestionCount] = useState<number>(0);
   const [score, setScore] = useState<number[]>(intialScore);
   const [questions, setQuestion] = useState(QUESTIONS);
@@ -75,8 +75,10 @@ const Questionare = () => {
   }
 
   useEffect(() => {
-    setLoading(true)
-    fetchUserScore(SERVER_URL + '/userScore/' + username, token);
+    if (!props.retake) {
+      setLoading(true)
+      fetchUserScore(SERVER_URL + '/userScore/' + username, token);
+    }
   }, [])
 
   return (

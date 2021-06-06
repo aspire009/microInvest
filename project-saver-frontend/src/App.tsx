@@ -72,7 +72,10 @@ function App() {
           <CardDetailsContainer />
         </Route>
         <Route exact path="/questionnaire">
-          <Questionare />
+          <Questionare retake={false} />
+        </Route>
+        <Route exact path="/questionnaire/retake">
+          <Questionare retake={true} />
         </Route>
         <Route exact path="/portfolio/table">
           <PortFolioHistoryTable />
