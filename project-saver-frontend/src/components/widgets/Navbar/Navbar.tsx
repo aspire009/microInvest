@@ -16,7 +16,11 @@ const Navbar = (props: { page: string }) => {
                     <label className="navbar-logo-label">SaveEasy</label>
 
                 </div>
+<<<<<<< HEAD
                 <NavbarItem selected={props.page == 'risk'} label="Risk Profile" icon={faTachometerAlt} goTo="/riskProfile"></NavbarItem>
+=======
+                <NavbarItem selected={props.page == 'risk'} label="Risk Profile" icon={faTachometerAlt} goTo="/questionnaire"></NavbarItem>
+>>>>>>> 74584027b8dc20ff06ba3e849b7669e22b23dc88
                 <NavbarItem selected={props.page == 'dashboard'} label="Dashboard" icon={faChartPie} goTo="/newDashboard"></NavbarItem>
                 <NavbarItem selected={props.page == 'payments'} label="Payments" icon={faList} goTo="/payments"></NavbarItem>
                 <NavbarItem selected={props.page == 'portfolio'} label="Portfolio" icon={faChartLine} goTo="/portfolio"></NavbarItem>
