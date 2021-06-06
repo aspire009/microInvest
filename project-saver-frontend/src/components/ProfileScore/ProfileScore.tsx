@@ -81,24 +81,6 @@ const ProfileMeter = (props: { score: number }) => {
 
 
   return (
-<<<<<<< HEAD
-    <div className="profileMeter">
-      <h3>BRAVO!</h3>
-      <h5>You Have completed the risk profiling.</h5>
-      <PerformanceMeter score={overallScore} ringWidth={30} height = {200} width ={500}/>
-      <p>Based on your responses your financial exposure is {riskProfile}.</p>
-      <Button variant="contained" color="secondary" onClick={saveScore}>
-        CONTINUE
-      </Button>
-      <br />
-      <Button onClick={goToquestionnaire} variant="outlined" color="secondary" size="large">
-        RETAKE ASSESSMENT
-      </Button>
-
-
-    </div>
-=======
-
     <div className="profile-score-main-outer">
 
       <Navbar page="risk"></Navbar>
@@ -112,7 +94,7 @@ const ProfileMeter = (props: { score: number }) => {
 
         <div className="profile-score-content">
           <div className="profile-score-performance">
-            <PerformanceMeter score={overallScore} />
+            <PerformanceMeter score={overallScore} ringWidth={30} height = {200} width ={500}/>
           </div>
 
           <div className="profile-score-content-right">
@@ -153,7 +135,7 @@ const ProfileMeter = (props: { score: number }) => {
 
 
     // </div>
->>>>>>> 74584027b8dc20ff06ba3e849b7669e22b23dc88
+
   );
 };
 

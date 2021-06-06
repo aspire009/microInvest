@@ -4,9 +4,13 @@ import { COLORS } from "../../../constants/NewColorScheme"
 import './Navbar.css'
 import LogoPurple from '../../../assets/images/logos/logoNavbar.png'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import {useHistory} from 'react-router-dom';
 
 const Navbar = (props: { page: string }) => {
 
+    const logOutHandler = () => {
+        localStorage.clear();
+    }
 
     return (
         <div className="navbar-main" style={{ backgroundColor: COLORS.navbar }}>
@@ -16,17 +20,13 @@ const Navbar = (props: { page: string }) => {
                     <label className="navbar-logo-label">SaveEasy</label>
 
                 </div>
-<<<<<<< HEAD
                 <NavbarItem selected={props.page == 'risk'} label="Risk Profile" icon={faTachometerAlt} goTo="/riskProfile"></NavbarItem>
-=======
-                <NavbarItem selected={props.page == 'risk'} label="Risk Profile" icon={faTachometerAlt} goTo="/questionnaire"></NavbarItem>
->>>>>>> 74584027b8dc20ff06ba3e849b7669e22b23dc88
                 <NavbarItem selected={props.page == 'dashboard'} label="Dashboard" icon={faChartPie} goTo="/newDashboard"></NavbarItem>
                 <NavbarItem selected={props.page == 'payments'} label="Payments" icon={faList} goTo="/payments"></NavbarItem>
                 <NavbarItem selected={props.page == 'portfolio'} label="Portfolio" icon={faChartLine} goTo="/portfolio"></NavbarItem>
 
-                <div className="navbar-logout">
-                    <NavbarItem selected={true} label="Log Out" icon={faSignOutAlt} goTo="/home"></NavbarItem>
+                <div className="navbar-logout" onClick = {logOutHandler}>
+                    <NavbarItem selected={true} label="Log Out" icon={faSignOutAlt} goTo="/login"></NavbarItem>
                 </div>
                 <div>
                     <div className="navbar-credits"><FontAwesomeIcon className="trans-hist-container-expand" icon={faTools} style={{ color: 'orange', fontSize: '17px', padding: '8px' }} /> at HUEx</div>
