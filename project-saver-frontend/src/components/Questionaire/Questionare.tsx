@@ -13,6 +13,8 @@ import "./Questionare.css";
 import Button from '@material-ui/core/Button';
 import Navbar from "../widgets/Navbar/Navbar";
 import { COLORS } from "../../constants/NewColorScheme";
+import { SERVER_URL } from "../../constants/NetworkData";
+import { useHistory } from 'react-router'
 
 const Questionare = () => {
   const [selectedQuestionCount, setSelectedQuestionCount] = useState<number>(0);
@@ -20,6 +22,10 @@ const Questionare = () => {
   const [questions, setQuestion] = useState(QUESTIONS);
   const [disable, setDisable] = useState(true);
   const [totalScore, setToalScore] = React.useState<number>(0);
+  const [username, setUsername] = useState(localStorage.getItem('userName'));
+  const [token, setToken] = useState(localStorage.getItem('accessToken'));
+  const [loading, setLoading] = useState(false);
+
 
   useEffect(() => {
     console.log(selectedQuestionCount)
@@ -43,11 +49,41 @@ const Questionare = () => {
     setSelectedQuestionCount(selectedQuestionCount + 1);
   };
 
+  const history = useHistory();
+
+  const goToPage = (goTo) => {
+    history.push(goTo);
+  }
+
+  const fetchUserScore = async (url: string, token: string) => {
+    await fetch(url, {
+      method: "GET",
+      headers: {
+        "Authorization": `Bearer ${token}`,
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    }).
+      then((resp) => resp.json()).
+      then((data) => {
+
+        if (data != undefined && data['overallScore'] != undefined) {
+          goToPage('/performance/' + data['overallScore'])
+        }
+        setLoading(false);
+      });
+  }
+
+  useEffect(() => {
+    setLoading(true)
+    fetchUserScore(SERVER_URL + '/userScore/' + username, token);
+  }, [])
+
   return (
     <div className="questionnaire-main-outer">
 
       <Navbar page="risk"></Navbar>
-      <div className="questionnaire-main">
+      {!loading && <div className="questionnaire-main">
 
         <div className="questionnaire-header">
           <div className="questionnaire-heading-wrapper">
@@ -81,7 +117,7 @@ const Questionare = () => {
           <Link to={{ pathname: `/performance/${totalScore}` }}>
             <Button className="questionanire-submit-button" disabled={disable} variant="contained" color="secondary">
               NEXT
-    </Button>
+            </Button>
           </Link>
         </div>
 
@@ -90,7 +126,7 @@ const Questionare = () => {
         </div>
 
 
-      </div>
+      </div>}
     </div>
 
     // <div>
