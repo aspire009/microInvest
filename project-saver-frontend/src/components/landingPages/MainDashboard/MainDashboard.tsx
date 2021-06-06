@@ -26,6 +26,7 @@ import { SERVER_URL, INVESTEMENT, FUNDS, FORWARD_SLASH } from "../../../constant
 import { TransHistContainerModel } from "../../widgets/TransHist/TransHistContainer/TransHistContainerModel";
 import Navbar from "../../widgets/Navbar/Navbar";
 import StockGraph from "../../PortfolioHIstory/StockGraph/StockGraph";
+import { useHistory } from "react-router";
 
 const MainDashboard: React.FC<MainDashboardProps> = ({ mainDashboardModel }: MainDashboardProps) => {
     const [username, setUsername] = useState(localStorage.getItem('userName'));
@@ -34,7 +35,10 @@ const MainDashboard: React.FC<MainDashboardProps> = ({ mainDashboardModel }: Mai
     const transactionHistoryListUrl = SERVER_URL + '/transaction/' + username;
     const addTransactionUrl = SERVER_URL + '/transaction';
 
-
+    const history = useHistory()
+    if (username == undefined || username == '') {
+        history.push('/home')
+    }
 
     const [transactionHistoryList, setTransactionHistoryList] = useState<TransHistRowModel[]>([]);
     const [transHistContainerModel, setTransHistContainerModel] = useState<TransHistContainerModel>({
@@ -294,7 +298,7 @@ const MainDashboard: React.FC<MainDashboardProps> = ({ mainDashboardModel }: Mai
                     {currentFunds != undefined && console.log('aaaaaaaaaaaaaaaaaaaaa', currentFunds)}
                     {/* <h4>Invested In : {currentFunds.map((fund) => fund)}</h4> */}
                 </div>
-                
+
                 <div className="main-dashboard-trans-hist-wrapper">
                     <TransHistContainer transHistContainerModel={transHistContainerModel} />
                 </div>

@@ -28,6 +28,10 @@ const TransactionDetailPage = () => {
     const url = 'http://localhost:8080/transaction/' + username;
 
     const history = useHistory();
+    if (username == undefined || username == '') {
+        history.push('/home')
+    }
+
     const dashBoardRouterHandler = () => {
         history.push("/newDashboard")
     }

@@ -10,7 +10,7 @@ const NavbarItem = (props: { selected: boolean, icon, label, goTo }) => {
     const history = useHistory();
 
     const goToPage = () => {
-        if (props.goTo == 'home') {
+        if (props.goTo == '/home') {
             localStorage.setItem(ACCESS_TOKEN, '');
             localStorage.setItem("userName", '');
         }

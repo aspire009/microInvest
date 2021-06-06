@@ -21,6 +21,10 @@ const ProfileMeter = (props: { score: number }) => {
   const scoreBox: scoreTemplate = useParams();
   const history = useHistory();
 
+  if (userName == undefined || userName == '') {
+    history.push('/home')
+  }
+
   useEffect(() => {
     console.log('inside useffect: totalScore: ', scoreBox.totalScore);
     setRiskProfileValue();

@@ -28,6 +28,10 @@ const PortfolioHistoryContainer = () => {
         history.push("/newDashboard")
     }
 
+    if (username == undefined || username == '') {
+        history.push('/home')
+    }
+
     useEffect(() => {
         populateRewardData(SERVER_URL + FORWARD_SLASH + REWARDS + FORWARD_SLASH + username, token);
     }, [])

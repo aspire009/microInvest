@@ -26,6 +26,10 @@ const Questionare = (props: { retake }) => {
   const [token, setToken] = useState(localStorage.getItem('accessToken'));
   const [loading, setLoading] = useState(false);
 
+  const history = useHistory()
+  if (username == undefined || username == '') {
+    history.push('/home')
+  }
 
   useEffect(() => {
     console.log(selectedQuestionCount)
@@ -49,7 +53,6 @@ const Questionare = (props: { retake }) => {
     setSelectedQuestionCount(selectedQuestionCount + 1);
   };
 
-  const history = useHistory();
 
   const goToPage = (goTo) => {
     history.push(goTo);
@@ -116,7 +119,7 @@ const Questionare = (props: { retake }) => {
           </div>
         </div>
         <div className="questionanire-submit-button-wrapper" >
-          <Link to={{ pathname: `/performance/${totalScore}` }}>
+          <Link to={{ pathname: `/performance/${totalScore}` }} style={{ textDecoration: 'none' }}>
             <Button className="questionanire-submit-button" disabled={disable} variant="contained" color="secondary">
               NEXT
             </Button>
