@@ -11,6 +11,8 @@ import {
 import InvestingBro from "../Util/InvestingBroImage";
 import "./Questionare.css";
 import Button from '@material-ui/core/Button';
+import Navbar from "../widgets/Navbar/Navbar";
+import { COLORS } from "../../constants/NewColorScheme";
 
 const Questionare = () => {
   const [selectedQuestionCount, setSelectedQuestionCount] = useState<number>(0);
@@ -42,42 +44,91 @@ const Questionare = () => {
   };
 
   return (
-    <div>
-      <div className="container">
-        <div className="imageCount">
-          <h3>How do you want to fund your portfolio?</h3>
-          <div className="image">
-            <InvestingBro />
+    <div className="questionnaire-main-outer">
+
+      <Navbar page="risk"></Navbar>
+      <div className="questionnaire-main">
+
+        <div className="questionnaire-header">
+          <div className="questionnaire-heading-wrapper">
+            <label className="questionnaire-heading">Risk Profile Questionnaire</label>
+            <label className="questionnaire-sub-heading">The questions will accurately determine your risk appetite.</label>
           </div>
-          <div className="countdiv">
-            <h1 className="count">{selectedQuestionCount}/13</h1>
-            <h3>Question Answered</h3>
+          <div className="questionnaire-count-wrapper">
+            <label className="questionnaire-count">{selectedQuestionCount}/13</label>
+            <label className="questionnaire-count-static">Question Answered</label>
           </div>
+
+        </div>
+        <div className="questionnaire-questions-outer">
+          <div className="questionnaire-questions">
+            {questions.questions.map((ques: qaTemplate, index) => {
+              return (
+                <div>
+                  <QuestionRadio
+                    question={ques}
+                    index={ques.sl_no}
+                    setCountHandler={updateCount}
+                    setScoreHandler={updateScore}
+                  />
+                </div>
+              )
+            })}
+
+          </div>
+        </div>
+        <div className="questionanire-submit-button-wrapper" >
+          <Link to={{ pathname: `/performance/${totalScore}` }}>
+            <Button className="questionanire-submit-button" disabled={disable} variant="contained" color="secondary">
+              NEXT
+    </Button>
+          </Link>
         </div>
 
-        <div className="questions">
-          {questions.questions.map((ques: qaTemplate, index) => {
-            return (
-              <div>
-                <QuestionRadio
-                  question={ques}
-                  index={ques.sl_no}
-                  setCountHandler={updateCount}
-                  setScoreHandler={updateScore}
-                />
-              </div>
-            )
-          })}
+        <div className="questionnaire-image">
+
         </div>
-      </div>
-      <div className="profie-score-btn">
-        <Link to={{ pathname: `/performance/${totalScore}` }}>
-          <Button disabled={disable} variant="contained" color="secondary">
-            NEXT
-    </Button>
-        </Link>
+
+
       </div>
     </div>
+
+    // <div>
+    //   <div className="container">
+    //     <div className="imageCount">
+    //       <h3>How do you want to fund your portfolio?</h3>
+    //       <div className="image">
+    //         <InvestingBro />
+    //       </div>
+    //       <div className="countdiv">
+    //         <h1 className="count">{selectedQuestionCount}/13</h1>
+    //         <h3>Question Answered</h3>
+    //       </div>
+    //     </div>
+
+    //     <div className="questions">
+    //       {questions.questions.map((ques: qaTemplate, index) => {
+    //         return (
+    //           <div>
+    //             <QuestionRadio
+    //               question={ques}
+    //               index={ques.sl_no}
+    //               setCountHandler={updateCount}
+    //               setScoreHandler={updateScore}
+    //             />
+    //           </div>
+    //         )
+    //       })}
+    //     </div>
+    //   </div>
+    //   <div className="profie-score-btn">
+    //     <Link to={{ pathname: `/performance/${totalScore}` }}>
+    //       <Button disabled={disable} variant="contained" color="secondary">
+    //         NEXT
+    // </Button>
+    //     </Link>
+    //   </div>
+    // </div>
   );
 };
 

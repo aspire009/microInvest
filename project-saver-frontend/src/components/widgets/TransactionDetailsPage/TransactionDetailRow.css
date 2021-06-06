@@ -1,3 +1,9 @@
+.transaction-history-detail-card-outer {
+   display: flex;
+   flex-direction: row; 
+   align-items: center;
+}
+
 .trans-hist-row-main {
     display: flex;
     direction: row;
@@ -33,6 +39,7 @@
     margin-top: 20px;
     width: 500px;
     height: 450px;
+    margin-left: 200px;
 }
 
 .trans-hist-row-id {

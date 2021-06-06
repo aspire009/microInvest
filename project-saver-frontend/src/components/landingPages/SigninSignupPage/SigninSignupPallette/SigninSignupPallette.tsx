@@ -152,7 +152,7 @@ const SigninSignupPallette = (props: { mode: string }) => {
 
             {isModeSignup &&
                 <div className="signin-signup-field-wrapper">
-                    <label className="signin-signup-field-title">UserName</label>
+                    <label className="signin-signup-field-title">Username</label>
 
                     <div className="signin-signup-field-input-wrapper">
                         <input onChange={onNameChange} className="signin-signup-field-input" placeholder="5+ Characters, 1 number" type="text" required />

@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { SERVER_URL } from "../../../../constants/NetworkData";
 import { formatCardNumberForCardRow } from "../../../../utilities/BankUtilities";
 import { BorderColor } from "@material-ui/icons";
+import { useHistory } from 'react-router'
 
 const TransHistContainer: React.FC<TransHistContainerProps> = ({ transHistContainerModel }: TransHistContainerProps) => {
     const transHistRowModel: TransHistRowModel = {
@@ -18,6 +19,12 @@ const TransHistContainer: React.FC<TransHistContainerProps> = ({ transHistContai
         paidDate: 'May 24, 2021',
         pointsEarned: '1000',
         transactionType: 'Full Amount'
+    }
+
+    const history = useHistory();
+
+    const goToPayments = () => {
+        history.push('/payments');
     }
 
 
@@ -48,7 +55,7 @@ const TransHistContainer: React.FC<TransHistContainerProps> = ({ transHistContai
                         })
                 }
                 {/* <TransHistRow transHistRowModel={transHistRowModel}></TransHistRow> */}
-                {transHistContainerModel.transactionHistoryList.length > 4 && <div className="trans-hist-view-more" style={{ color: COLORS.textPrimary, borderColor: COLORS.textPrimary }}>View More</div>}
+                {transHistContainerModel.transactionHistoryList.length > 3 && <div className="trans-hist-view-more" style={{ color: COLORS.textPrimary, borderColor: COLORS.textPrimary }} onClick={goToPayments}>View More</div>}
             </div>
         </div>
     )
