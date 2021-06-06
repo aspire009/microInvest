@@ -1,4 +1,5 @@
 import './SigninSignupPallette.css'
+import { useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAt, faUnlock } from '@fortawesome/free-solid-svg-icons'
 import { faGoogle } from '@fortawesome/free-brands-svg-icons'
@@ -7,7 +8,8 @@ import { useState } from 'react'
 import { login, signup } from '../../../../utilities/AppUtil'
 import { useHistory } from 'react-router-dom'
 import { ACCESS_TOKEN } from '../../../../constants/app-config'
-
+import { ScoreModel } from '../../../../constants/Interfaces'
+import { USER_SCORE, SERVER_URL, FORWARD_SLASH } from '../../../../constants/NetworkData'
 import { on } from 'events'
 
 const SigninSignupPallette = (props: { mode: string }) => {
@@ -24,6 +26,7 @@ const SigninSignupPallette = (props: { mode: string }) => {
     })
     const emailRegex = new RegExp("^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$");
     const history = useHistory();
+
     const onNameChange = (event: any) => {
         setUserName(event.target.value);
     }
@@ -53,8 +56,6 @@ const SigninSignupPallette = (props: { mode: string }) => {
                 details.email = userEmail;
                 details.password = password;
 
-                console.log(userName + " " + userEmail + " " + password);
-
                 const signUpRequest = Object.assign({}, details);
 
 
@@ -68,19 +69,12 @@ const SigninSignupPallette = (props: { mode: string }) => {
                         }).catch(error => {
                             window.alert((error && error.message) || 'Oops! Something went wrong. Please try again!');
                         });
-
-
                 }
             }
             else {
                 details.email = userEmail;
                 details.password = password;
-
-                console.log(userEmail + " " + password);
-
                 const loginRequest = Object.assign({}, details);
-
-
 
                 if (userEmail !== '' && password !== '') {
 
@@ -90,8 +84,13 @@ const SigninSignupPallette = (props: { mode: string }) => {
                             localStorage.setItem("userName", response.userName);
                             setToken(response.accessToken);
                             setUserName(response.userName);
-                            console.log(userName);
-                            history.push("/questionnaire");
+                            hasUserTakenAssessment().then((isOldUser) => {
+                                if (isOldUser) {
+                                    history.push("/newDashboard");
+                                } else {
+                                    history.push("/questionnaire");
+                                }
+                            });
                         }).catch(error => {
                             window.alert((error && error.message) || 'Oops! Something went wrong. Please try again!');
                         });
@@ -99,6 +98,30 @@ const SigninSignupPallette = (props: { mode: string }) => {
             }
         }
     }
+
+    const hasUserTakenAssessment = () => {
+        const result = fetch(SERVER_URL + FORWARD_SLASH + USER_SCORE + FORWARD_SLASH + localStorage.getItem("userName"), {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${localStorage.getItem(ACCESS_TOKEN)}`,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        }).
+            then((resp) => resp.json()).
+            then((data) => {
+                let scoreValue: ScoreModel = {
+                    id: data['id'],
+                    overallScore: data['overallScore'],
+                    riskProfile: data['riskProfile'],
+                    userName: data['userName'],
+                    assessmentTaken: data['assessmentTaken']
+                }
+                return scoreValue === undefined ? false : scoreValue.assessmentTaken;
+            });
+        return result;
+    }
+
 
     const signupModel = {
         heading: 'Signup up to SaveEasy',

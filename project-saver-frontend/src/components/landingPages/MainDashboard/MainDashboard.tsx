@@ -22,7 +22,7 @@ import { displayRazorpay } from '../../Payment/acceptPaymentRazorpay'
 import { TransHistRowModel } from "../../widgets/TransHist/TransHistRow/TransHistRowModel";
 import { formatCardNumberForCardRow } from "../../../utilities/BankUtilities";
 import { useEffect, useState } from "react";
-import { SERVER_URL } from "../../../constants/NetworkData";
+import { SERVER_URL, INVESTEMENT, FUNDS, FORWARD_SLASH } from "../../../constants/NetworkData";
 import { TransHistContainerModel } from "../../widgets/TransHist/TransHistContainer/TransHistContainerModel";
 import Navbar from "../../widgets/Navbar/Navbar";
 import StockGraph from "../../PortfolioHIstory/StockGraph/StockGraph";
@@ -30,8 +30,10 @@ import StockGraph from "../../PortfolioHIstory/StockGraph/StockGraph";
 const MainDashboard: React.FC<MainDashboardProps> = ({ mainDashboardModel }: MainDashboardProps) => {
     const [username, setUsername] = useState(localStorage.getItem('userName'));
     const [token, setToken] = useState(localStorage.getItem('accessToken'));
+    const [currentFunds, setCurrentFunds] = useState([]);
     const transactionHistoryListUrl = SERVER_URL + '/transaction/' + username;
     const addTransactionUrl = SERVER_URL + '/transaction';
+
 
 
     const [transactionHistoryList, setTransactionHistoryList] = useState<TransHistRowModel[]>([]);
@@ -69,6 +71,10 @@ const MainDashboard: React.FC<MainDashboardProps> = ({ mainDashboardModel }: Mai
 
     useEffect(() => {
         populateRewardData(SERVER_URL + '/rewards/' + username, token);
+    }, []);
+
+    useEffect(() => {
+        populateCurrentFunds(SERVER_URL + FORWARD_SLASH + INVESTEMENT + FORWARD_SLASH + FUNDS + FORWARD_SLASH + username, token);
     }, [])
 
     useEffect(() => {
@@ -88,6 +94,23 @@ const MainDashboard: React.FC<MainDashboardProps> = ({ mainDashboardModel }: Mai
         let updatedUpcomingIconInfoPalletteModel = { ...upcomingIconInfoPalletteModel }
         updatedUpcomingIconInfoPalletteModel.mainText = upcomingMilestone;
         setUpcomingIconInfoPalletteModel(updatedUpcomingIconInfoPalletteModel)
+    }
+
+    const populateCurrentFunds = async (url: string, token: string) => {
+        await fetch(url, {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        }).
+            then((resp) => resp.json()).
+            then((data) => {
+                let funds = data;
+                setCurrentFunds(funds);
+                console.log("funds : ", funds);
+            });
     }
 
     const populateRewardData = async (url: string, token: string) => {
@@ -268,7 +291,9 @@ const MainDashboard: React.FC<MainDashboardProps> = ({ mainDashboardModel }: Mai
                 {/* <img src={GraphStaticImage} /> */}
                 <div className="main-dashboard-graph">
                     <StockGraph graphWidth={'400px'} graphHeight={'230px'} calledFrom="dashboard" />
+                    <h4>Invested In : {currentFunds.map((fund) => fund)}</h4>
                 </div>
+                
                 <div className="main-dashboard-trans-hist-wrapper">
                     <TransHistContainer transHistContainerModel={transHistContainerModel} />
                 </div>
