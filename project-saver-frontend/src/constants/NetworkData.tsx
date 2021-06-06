@@ -9,4 +9,5 @@ export const TRANSACTION = 'transaction';
 export const USER_SCORE = 'userScore';
 export const REWARDS = 'rewards';
 export const INVESTEMENT = 'investment';
+export const FUNDS = 'funds';
 export const ALL = 'all'
