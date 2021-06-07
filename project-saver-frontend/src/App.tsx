@@ -69,7 +69,7 @@ function App() {
           < SigninSignupPage mode="login" />
         </Route>
         <Route exact path="/">
-          <CardDetailsContainer />
+          <WelcomePage />
         </Route>
         <Route exact path="/questionnaire">
           <Questionare retake={false} />

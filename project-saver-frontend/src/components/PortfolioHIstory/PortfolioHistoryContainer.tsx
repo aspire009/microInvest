@@ -57,7 +57,7 @@ const PortfolioHistoryContainer = () => {
                 console.log("rewardValue : ", rewardValue)
                 setEarnedModel({ ...earnedModel, mainText: rewardValue.totalPointsEarned === undefined ? "0" : rewardValue.totalPointsEarned.toString() });
                 setInvestedModel({ ...investedModel, mainText: rewardValue.totalPointsInvested === undefined ? "0" : rewardValue.totalPointsInvested.toString() });
-                setUpcomingModel({ ...upcomingModel, mainText: rewardValue.nextMilestone === undefined ? "0" : (1000 - rewardValue.nextMilestone).toString() });
+                setUpcomingModel({ ...upcomingModel, mainText: rewardValue.nextMilestone === undefined ? "0" : (200 - rewardValue.nextMilestone).toString() });
 
                 console.log("earnedModel : ", earnedModel);
                 console.log(" investedModel : ", investedModel);

@@ -36,6 +36,29 @@
     margin-bottom: 16px;
 }
 
+.main-dashboard-invested-in {   
+    margin-top: -40px;
+    margin-left: 30px;
+    margin-bottom: 37px;
+
+}
+
+.main-dashboard-no-investment {
+    display: flex;
+    flex-direction: column;
+    font-size: 16px;
+    font-weight: 600;
+    text-align: center;
+    margin-top: 20px;
+    margin-right: 20px;
+    margin-left: 35px;
+    background-color: #FAEBD730;
+    width:345px;
+    height: 220px;
+    justify-content: center;
+    border-radius: 14px;
+    margin-bottom: 50px;
+}
 
 .main-dashboard-col-3 {
     display: flex;

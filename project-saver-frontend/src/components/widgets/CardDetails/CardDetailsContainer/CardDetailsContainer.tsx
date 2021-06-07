@@ -116,7 +116,7 @@ const CardDetailsContainer: React.FC<CardDetailsContainerProps> = ({ cardDetailC
     }
 
     const getCardDueAmount = (cardNumber: string) => {
-        const amount = Math.ceil(Math.random() * (600 - 100) + 100)// + '.' + Math.ceil(Math.random() * (99 - 10) + 10)
+        const amount = Math.ceil(Math.random() * (600 - 300) + 300)// + '.' + Math.ceil(Math.random() * (99 - 10) + 10)
         return amount;
     }
 

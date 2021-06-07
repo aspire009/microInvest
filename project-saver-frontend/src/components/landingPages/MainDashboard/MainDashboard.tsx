@@ -84,6 +84,7 @@ const MainDashboard: React.FC<MainDashboardProps> = ({ mainDashboardModel }: Mai
     useEffect(() => {
         console.log('updating sssssssssssssssssssss')
         populateRewardData(SERVER_URL + '/rewards/' + username, token);
+        populateCurrentFunds(SERVER_URL + FORWARD_SLASH + INVESTEMENT + FORWARD_SLASH + FUNDS + FORWARD_SLASH + username, token);
     }, [transactionHistoryList.length])
 
     const updateRewardValues = (earnedPoints, investedPoints, upcomingMilestone) => {
@@ -282,8 +283,8 @@ const MainDashboard: React.FC<MainDashboardProps> = ({ mainDashboardModel }: Mai
                 </div>
 
                 <div className="main-dashboard-col-2-row-2">
-                    <NumberInfoPallette number="03" text="Card's Payment Due" backgroundColor={COLORS.textPrimaryVeryLight} />
-                    <NumberInfoPallette number="32%" text="Investment Profit" backgroundColor={COLORS.textPrimaryVeryLight} />
+                    <NumberInfoPallette number={currentFunds.length > 0 ? "0" + currentFunds.length : "0"} text="Stocks Invested" backgroundColor={COLORS.textPrimaryVeryLight} />
+                    <NumberInfoPallette number={currentFunds.length > 0 ? "16%" : "0"} text="Investment Profit" backgroundColor={COLORS.textPrimaryVeryLight} />
                 </div>
                 <IconInfoPallette iconInfoPalletteModel={earnedIconInfoPalletteModel}></IconInfoPallette>
                 <IconInfoPallette iconInfoPalletteModel={investedIconInfoPalletteModel}></IconInfoPallette>
@@ -293,11 +294,15 @@ const MainDashboard: React.FC<MainDashboardProps> = ({ mainDashboardModel }: Mai
             <div className="main-dashboard-col-3">
                 <label className="trans-hist-container-title" style={{ color: COLORS.textPrimary }}>Portfolio Performance</label>
                 {/* <img src={GraphStaticImage} /> */}
-                <div className="main-dashboard-graph">
-                    <StockGraph graphWidth={'400px'} graphHeight={'230px'} calledFrom="dashboard" />
-                    {currentFunds != undefined && console.log('aaaaaaaaaaaaaaaaaaaaa', currentFunds)}
-                    {/* <h4>Invested In : {currentFunds.map((fund) => fund)}</h4> */}
-                </div>
+                {currentFunds.length > 0 &&
+                    <div className="main-dashboard-graph">
+                        <StockGraph graphWidth={'400px'} graphHeight={'225px'} calledFrom="dashboard" />
+                        {currentFunds != undefined && console.log('aaaaaaaaaaaaaaaaaaaaa', currentFunds)}
+                        <h4 className="main-dashboard-invested-in">Invested In : {currentFunds.map((fund) => fund)}</h4>
+                    </div>
+                }
+
+                {currentFunds.length == 0 && <div className="main-dashboard-no-investment" style={{ color: COLORS.textPrimary }}>No investment made yet.</div>}
 
                 <div className="main-dashboard-trans-hist-wrapper">
                     <TransHistContainer transHistContainerModel={transHistContainerModel} />
