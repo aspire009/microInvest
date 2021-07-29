@@ -1,1 +1,1 @@
-HUEx project 
+Zeta Hacks project
